@@ -1,0 +1,10 @@
+<!-- !-->
+<html>
+<h2>Your Sheets</h2>
+
+{{#each sheets}}
+    <A HREF={{this.slug}}>{{this.name}}, Level {{this.level}} {{this.class}}</A>
+{{/each}}
+
+<A HREF="/sheets/newSheet">Make a new Character Sheet!</A>
+</html>

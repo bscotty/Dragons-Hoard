@@ -1,0 +1,19 @@
+<!-- The layout handlebar, which I'll be using to have as a header. !--->
+<html>
+<head><link type="text/css" rel="stylesheet" href="/css/base.css"></head>
+<h1>
+<A>The Dragon's Hoard</A> |
+
+<A HREF="/">Home</A> |
+{{#if user}}
+    <A HREF="/sheets">My Sheets</A>
+{{else}}
+    <A HREF="/login">Login</A>
+{{/if}}</h1>
+<br><br>
+
+{{{body}}}
+<comment>The Dragon's Hoard is a free to use non-profit D&D character sheet storage application and is not affiliated in
+    any way with Dungeons and Dragons, or Wizards of the Coast. Dungeons and Dragons is a registered trademark of
+    Wizards Of The Coast, Inc. Please support the official release. </comment>
+</html>

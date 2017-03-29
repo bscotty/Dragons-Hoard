@@ -1,0 +1,19 @@
+A {
+    font-size: larger;
+}
+
+comment {
+    text-align: center;
+    font-size: xx-small;
+    position: fixed;
+    bottom: 5px;
+    right: 10px;
+}
+
+h1 {
+    text-align: center;
+}
+
+html {
+    background-color: beige;
+}
