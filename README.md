@@ -1,4 +1,4 @@
-# Hoard of Heroes
+# Dragon's Hoard
 A web app for storing character sheet information for Dungeons and
 Dragons.
 

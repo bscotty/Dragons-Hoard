@@ -1,5 +1,14 @@
-A {
-    font-size: larger;
+div#header {
+    font-size:smaller;
+    text-align: center;
+    position: fixed;
+    right: 15px;
+    top: 0px;
+    padding: 5px;
+    border-bottom: 1px black solid;
+    border-right: 1px black solid;
+    border-left: 1px black solid;
+    background-color: whitesmoke;
 }
 
 comment {

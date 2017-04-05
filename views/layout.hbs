@@ -1,15 +1,72 @@
-<!-- The layout handlebar, which I'll be using to have as a header. !--->
 <html>
-<head><link type="text/css" rel="stylesheet" href="/css/base.css"></head>
-<h1>
-<A>The Dragon's Hoard</A> |
+<head>
+    <link type="text/css" rel="stylesheet" href="/css/base.css">
+    <script src="https://www.gstatic.com/firebasejs/3.7.5/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        const config = {
+            apiKey: "AIzaSyA14Rj6hDSZ0PxJeFhTK_ZR5fo-NVKvCQ4",
+            authDomain: "dragons-hoard.firebaseapp.com",
+            databaseURL: "https://dragons-hoard.firebaseio.com",
+            projectId: "dragons-hoard",
+            storageBucket: "dragons-hoard.appspot.com",
+            messagingSenderId: "685172894729"
+        };
+        firebase.initializeApp(config);
+    </script>
+    <script type="text/javascript">
+        initApp = function() {
+            firebase.auth().onAuthStateChanged(function(user) {
+                if (user) {
+                    // User is signed in.
+                    const displayName = user.displayName;
+                    const email = user.email;
+//                    const emailVerified = user.emailVerified;
+//                    const photoURL = user.photoURL;
+//                    const uid = user.uid;
+//                    const providerData = user.providerData;
+                    user.getToken().then(function(accessToken) {
+                        //document.getElementById('sign-in-status').textContent = 'Signed in';
+                        const signIn = document.querySelector('#sign-in');
+                        signIn.textContent = 'Sign out';
+                        signIn.setAttribute('href', '/signout');
+                        document.querySelector('#username').textContent = 'You are signed in as ' + displayName + ' ('
+                        + email + "). ";
+//                        document.getElementById('account-details').textContent = JSON.stringify({
+//                            displayName: displayName,
+//                            email: email,
+//                            emailVerified: emailVerified,
+//                            photoURL: photoURL,
+//                            uid: uid,
+//                            accessToken: accessToken,
+//                            providerData: providerData
+//                        }, null, '  ');
+                    });
+                } else {
+                    // User is signed out.
+                    //document.getElementById('sign-in-status').textContent = 'Signed out';
+                    const signIn = document.querySelector('#sign-in');
+                    signIn.textContent = 'Sign in';
+                    signIn.setAttribute('href', '/signin');
+                    document.querySelector('#username').textContent = '';
+                    //document.getElementById('account-details').textContent = 'null';
+                }
+            }, function(error) {
+                console.log(error);
+            });
+        };
 
-<A HREF="/">Home</A> |
-{{#if user}}
-    <A HREF="/sheets">My Sheets</A>
-{{else}}
-    <A HREF="/login">Login</A>
-{{/if}}</h1>
+        window.addEventListener('load', function() {
+            initApp()
+        });
+    </script>
+
+</head>
+<div id="header">
+    <A>The Dragon's Hoard</A>
+    | <A HREF="/">Home</A>
+    | <span id="username"></span><A id="sign-in" href=""></A>
+</div>
 <br><br>
 
 {{{body}}}
@@ -17,3 +74,9 @@
     any way with Dungeons and Dragons, or Wizards of the Coast. Dungeons and Dragons is a registered trademark of
     Wizards Of The Coast, Inc. Please support the official release. </comment>
 </html>
+
+<!--
+<script src="https://www.gstatic.com/firebasejs/3.7.4/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.7.4/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.7.4/firebase-database.js"></script>
+<!-- <script src="https://www.gstatic.com/firebasejs/3.7.4/firebase-storage.js"></script> -->

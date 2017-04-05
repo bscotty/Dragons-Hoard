@@ -4,8 +4,10 @@
   "dependencies": {
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
+    "firebase": "^3.7.5",
+    "firebaseui": "^1.0.0",
+    "hbs": "latest",
     "mongoose": "^4.9.2",
-    "mongoose-url-slugs": "latest",
-    "hbs": "latest"
+    "mongoose-url-slugs": "latest"
   }
 }
