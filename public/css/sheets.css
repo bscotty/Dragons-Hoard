@@ -1,0 +1,16 @@
+A.sheet {
+    margin:15px;
+}
+
+div#sheets {
+    font-size: large;
+}
+
+form#new-sheet-form {
+    visibility: hidden;
+    margin: 15px;
+}
+
+h1#not-signed-in {
+    visibility: hidden;
+}

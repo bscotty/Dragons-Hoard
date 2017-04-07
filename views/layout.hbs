@@ -15,44 +15,54 @@
         firebase.initializeApp(config);
     </script>
     <script type="text/javascript">
-        let currentUser = true;
+        const firebaseUser = {
+            hasCurrentUser: false,
+            currentUser : null,
+            //accessToken: null,
+        };
         initApp = function() {
             firebase.auth().onAuthStateChanged(function(user) {
                 if (user) {
-                    currentUser = true;
+                    firebaseUser.hasCurrentUser = true;
+                    firebaseUser.currentUser = user;
                     // User is signed in.
                     const displayName = user.displayName;
                     const email = user.email;
-//                    const emailVerified = user.emailVerified;
-//                    const photoURL = user.photoURL;
+                    //const emailVerified = user.emailVerified;
+                    //const photoURL = user.photoURL;
                     const uid = user.uid;
-//                    const providerData = user.providerData;
+                    //const providerData = user.providerData;
                     user.getToken().then(function(accessToken) {
-                        //document.getElementById('sign-in-status').textContent = 'Signed in';
+                        //firebaseUser.accessToken = accessToken;
                         const signIn = document.querySelector('#sign-in');
                         signIn.textContent = 'Sign out';
                         signIn.setAttribute('href', '/signout');
                         document.querySelector('#username').textContent = 'You are signed in as ' + displayName + ' ('
-                        + email + "). ";
+                            + email + "). ";
+                        document.querySelector('#sheet-break').textContent = '| ';
+                        document.querySelector('#my-sheets').textContent = 'My Sheets';
                         document.querySelector('#account').textContent = JSON.stringify({
                             displayName: displayName,
                             email: email,
-//                            emailVerified: emailVerified,
-//                            photoURL: photoURL,
+                            //emailVerified: emailVerified,
+                            //photoURL: photoURL,
                             uid: uid,
-//                            accessToken: accessToken,
-//                            providerData: providerData
+                            //accessToken: accessToken,
+                            //providerData: providerData
                         }, null, '  ');
                     });
                 } else {
                     // User is signed out.
-                    //document.getElementById('sign-in-status').textContent = 'Signed out';
-                    currentUser = false;
+                    firebaseUser.hasCurrentUser = false;
+                    firebaseUser.currentUser = null;
+                    //firebaseUser.accessToken = null;
                     const signIn = document.querySelector('#sign-in');
                     signIn.textContent = 'Sign in';
                     signIn.setAttribute('href', '/signin');
                     document.querySelector('#username').textContent = '';
-                    //document.getElementById('account-details').textContent = 'null';
+                    document.querySelector('#account').textContent = 'null';
+                    document.querySelector('#sheet-break').textContent = '';
+                    document.querySelector('#my-sheets').textContent = '';
                 }
             }, function(error) {
                 console.log(error);
@@ -60,7 +70,7 @@
         };
 
         window.addEventListener('load', function() {
-            initApp()
+            initApp();
         });
     </script>
 
@@ -68,6 +78,7 @@
 <div id="header">
     <A>The Dragon's Hoard</A>
     | <A HREF="/">Home</A>
+    <span id="sheet-break">| </span><A id="my-sheets" href="/sheets"></A>
     | <span id="username"></span><A id="sign-in" href=""></A>
 </div>
 <div id="account"></div>

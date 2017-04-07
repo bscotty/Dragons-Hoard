@@ -1,10 +1,70 @@
 <!-- !-->
 <html>
-<h2>Your Sheets</h2>
+<head>
+    <link type="text/css" rel="stylesheet" href="/css/sheets.css">
+    <script type="text/javascript">
+        window.addEventListener('load', function() {
+            firebase.auth().onAuthStateChanged(function(user) {
+                const newSheetForm = document.querySelector('#new-sheet-form');
+                const notSignedIn = document.querySelector('#not-signed-in');
+                //const hact = document.querySelector('#hact');
+                const huid = document.querySelector('#huid');
+                if (user) {
+                    newSheetForm.style.visibility = "visible";
+                    notSignedIn.style.visibility = "hidden";
+                    //user.getToken().then(function (accessToken) {
+                        //hact.value = accessToken;
+                    //});
+                    huid.value = firebaseUser.currentUser.uid;
 
-{{#each sheets}}
-    <A HREF={{this.slug}}>{{this.name}}, Level {{this.level}} {{this.class}}</A>
-{{/each}}
+                    // Display the sheets for this user.
+                    firebase.database().ref('/users/' + user.uid).once('value', function(snapshot) {
+                        const envelope = document.querySelector('#sheets');
+                        snapshot.forEach((ele) => {
+                            firebase.database().ref('/sheets/' + ele.val()).once('value', function(snapshot) {
+                                const a = document.createElement('a');
+                                a.classList.add('sheet');
+                                a.textContent = a.title =
+                                        snapshot.val().name + ' level ' + snapshot.val().level + ' ' + snapshot.val().class;
+                                a.href = '/sheet/' + snapshot.val().slug;
+                                envelope.appendChild(a);
+                                envelope.appendChild(document.createElement('br'));
+                            });
+                        });
+                    });
 
-<A HREF="/sheets/newSheet">Make a new Character Sheet!</A>
+                } else {
+                    newSheetForm.style.visibility = "hidden";
+                    notSignedIn.style.visibility = "visible";
+                    //hact.value = '';
+                    huid.value = '';
+                }
+            });
+        });
+    </script>
+</head>
+
+<!--<A HREF="/sheets/newSheet">Make a new Character Sheet!</A>!-->
+<form action="/sheet/newSheet" method="post" id="new-sheet-form">
+    <h2>Your Sheets</h2>
+
+    <div id="sheets">
+        <!--{{#each sheets}}
+            <A HREF={{this.slug}}>{{this.name}}, Level {{this.level}} {{this.class}}</A>
+            <br>
+        {{/each}}!-->
+    </div>
+    <br>
+
+    <input type="hidden" id="huid" name="huid">
+    <!--<input type="hidden" id="hact" name="hact">!-->
+    <label>Sheet Name: <input type="text" name="sheetName"></label><br><br>
+    <input type="submit" value="Create a New Sheet">
+</form>
+
+{{#if error}}
+    <comment class="error">{{error}}</comment>
+{{/if}}
+
+<h1 id="not-signed-in">In order to create a sheet, you must first sign in. Please sign in <A href="/signin">here</A>.</h1>
 </html>

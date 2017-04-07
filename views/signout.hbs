@@ -2,7 +2,7 @@
 <head>
     <script type="text/javascript">
         firebase.auth().signOut().then(function() {
-            window.location = '/signin'
+            window.location = '/signin';
         }, function(err) {
             console.log('There was an error signing out. Sorry about that.');
         });

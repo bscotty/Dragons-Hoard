@@ -14,6 +14,10 @@ comment#disclaimer {
 
 }
 
+comment.error{
+    color: red;
+}
+
 div#header {
     font-size:smaller;
     text-align: center;
