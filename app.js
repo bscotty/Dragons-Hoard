@@ -98,7 +98,24 @@ app.get('/sheet/:slug', function(req, res) {
     }).then(function() {
         res.render('slug', {sheet: sheet});
     });
+});
 
+app.post('/delete/:slug', function(req, res) {
+    const slug = req.params.slug;
+    // Delete the sheet reference from the user's listing in the database.
+    firebase.database().ref('/users/' + req.body.uid + '/' + slug).remove(function(err) {
+        if(err) {
+            console.log('Error deleting sheet reference ' + slug + ' for user', req.body.uid);
+        }
+    });
+    // Also delete the sheet data itself.
+    firebase.database().ref('/sheets' + slug).remove(function(err) {
+        if(err) {
+            console.log('Error deleting sheet ' + slug, err);
+        } else {
+            res.redirect('/sheets')
+        }
+    });
 });
 
 app.listen(process.env.PORT || 3000);

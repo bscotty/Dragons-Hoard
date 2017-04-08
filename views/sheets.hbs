@@ -22,12 +22,32 @@
                         const envelope = document.querySelector('#sheets');
                         snapshot.forEach((ele) => {
                             firebase.database().ref('/sheets/' + ele.val()).once('value', function(snapshot) {
+                                const sheet = document.createElement('p');
+
+                                // Include a way to get to the sheet.
                                 const a = document.createElement('a');
                                 a.classList.add('sheet');
                                 a.textContent = a.title =
                                         snapshot.val().name + ' level ' + snapshot.val().level + ' ' + snapshot.val().class;
                                 a.href = '/sheet/' + snapshot.val().slug;
-                                envelope.appendChild(a);
+                                sheet.appendChild(a);
+                                // And a way to delete the sheet.
+                                const formDelete = document.createElement('form');
+                                formDelete.setAttribute('action', '/delete/' + snapshot.val().slug);
+                                formDelete.setAttribute('method', 'post');
+                                formDelete.classList.add('delete');
+                                const hiddenUser = document.createElement('input');
+                                hiddenUser.type = 'hidden';
+                                hiddenUser.name = 'uid';
+                                hiddenUser.value = firebaseUser.currentUser.uid + '';
+                                formDelete.appendChild(hiddenUser);
+                                const submit = document.createElement('input');
+                                submit.type = 'submit';
+                                submit.value = 'Delete';
+                                formDelete.appendChild(submit);
+                                sheet.appendChild(formDelete);
+
+                                envelope.appendChild(sheet);
                                 envelope.appendChild(document.createElement('br'));
                             });
                         });

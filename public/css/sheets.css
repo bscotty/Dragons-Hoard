@@ -6,11 +6,20 @@ div#sheets {
     font-size: large;
 }
 
+form.delete {
+    display: inline-block;
+    margin-bottom: 0;
+}
+
 form#new-sheet-form {
     visibility: hidden;
-    margin: 15px;
+    margin: 10px;
 }
 
 h1#not-signed-in {
     visibility: hidden;
+}
+
+p {
+    margin: 0;
 }
