@@ -41,15 +41,15 @@
                             + email + "). ";
                         document.querySelector('#sheet-break').textContent = '| ';
                         document.querySelector('#my-sheets').textContent = 'My Sheets';
-                        document.querySelector('#account').textContent = JSON.stringify({
-                            displayName: displayName,
-                            email: email,
+                        document.querySelector('#account').textContent = user.uid;//JSON.stringify({
+                            //displayName: displayName,
+                            //email: email,
                             //emailVerified: emailVerified,
                             //photoURL: photoURL,
-                            uid: uid,
+                            //uid: uid,
                             //accessToken: accessToken,
                             //providerData: providerData
-                        }, null, '  ');
+                        //}, null, '  ');
                     });
                 } else {
                     // User is signed out.
@@ -60,7 +60,7 @@
                     signIn.textContent = 'Sign in';
                     signIn.setAttribute('href', '/signin');
                     document.querySelector('#username').textContent = '';
-                    document.querySelector('#account').textContent = 'null';
+                    document.querySelector('#account').textContent = '';
                     document.querySelector('#sheet-break').textContent = '';
                     document.querySelector('#my-sheets').textContent = '';
                 }

@@ -1,4 +1,89 @@
-form{
-    margin: auto;
+div {
+    display: block;
+}
+
+div.page {
+    font-size: 9px;
+    color: black;
+    background-color: white;
+
+    padding: 40px;
+
+    height: 1200px;
+    width: 940px;
+
+    border: 1px solid black;
+    margin-bottom: 20px;
+    margin-left: -40px;
+
+    line-height: normal;
+    overflow: hidden;
+}
+
+div#sheet-container {
+    position: relative;
+    margin: 0 auto;
+    width: 940px;
     text-align: center;
+}
+
+form.sheet {
+    margin: 0 0 18px;
+    display: block;
+}
+
+html {
+    //color: rgb(90, 90, 90);
+    background: repeating-linear-gradient(
+            135deg,
+            rgb(65, 65, 65),
+            rgb(65, 65, 65) 3px,
+            rgb(90, 90, 90) 3px,
+            rgb(90, 90, 90) 9px
+    );
+}
+
+input[type=number] {
+    font-size: 13px;
+}
+
+input[type=submit] {
+    position: fixed;
+    right: 7%;
+    top: 5%;
+
+    font-size: large;
+    text-align: center;
+    background-color: white;
+}
+
+input[type=text] {
+    width: 100%;
+    font-size: 13px;
+}
+
+table {
+    display: table;
+
+    box-sizing: content-box;
+    -webkit-border-horizontal-spacing: 2px;
+    -webkit-border-vertical-spacing: 2px;
+    border-spacing: 2px 2px;
+    border-collapse: separate;
+}
+
+tbody {
+    font-size: 9px;
+
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
+td {
+    padding: 0 2px 0 2px;
+    margin: 0;
+
+    display: table-cell;
+    vertical-align: inherit;
 }

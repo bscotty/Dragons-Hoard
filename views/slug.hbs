@@ -1,11 +1,95 @@
 <html>
 <head>
     <link type="text/css" rel="stylesheet" href="/css/sheet.css">
+    <title>{{sheet.name}} - Level {{sheet.level}} {{sheet.class}} -- D&D Sheet on the Dragon's Hoard</title>
 </head>
-<p>
-    This will be another form at some point later that live-saves your sheet information into each field! In the
-    meantime, you have the following to look at!
-<form>
-    {{sheet.name}} - Level {{sheet.level}} {{sheet.class}}.
-</form>
+<!--<p> This will be another form at some point later that live-saves your sheet information into each field! In the
+    meantime, you have the following to look at!</p>!-->
+
+<script type="text/javascript">
+    function disableAllInputs() {
+        const inputs = document.getElementsByTagName('input');
+        for (let i = 0; i < inputs.length; i++) {
+            inputs[i].disabled = true;
+        }
+    }
+
+    window.addEventListener('DOMContentLoaded', function() {
+        firebase.auth().onAuthStateChanged(function(user) {
+            if(user) {
+                console.log(user.uid);
+                if (user.uid !== '{{sheet.user}}') {
+                    disableAllInputs();
+                }
+            } else {
+                console.log('no user');
+                disableAllInputs();
+            }
+        });
+    });
+</script>
+<br><br>
+<div id="sheet-container">
+    <form class="sheet">
+        <div class="page">
+            <input type="submit" value="Save">
+            <!--<input type="hidden" class="" id="user" value="{{sheet.user}}">!-->
+            <table id="basic-info" cellspacing="0">
+                <tbody>
+                <tr>
+                    <td colspan="2">
+                        <label><input type="text" class="" id="name" value="{{sheet.name}}">
+                            <br>Character Name</label>
+                    </td>
+                    <td>
+                        <label><input type="text" class="" id="player" value="">
+                            <br>Player</label>
+                    </td>
+                    <td colspan="2">
+                        <label><input type="text" class="" id="class" value="{{sheet.class}}">
+                            <br>Class</label>
+                    </td>
+                    <td>
+                        <label><input type="number" class="" id="level" value="{{sheet.level}}">
+                            <br>Level</label>
+                    </td>
+                    <td>
+
+                        <label><input type="number" class="" id="exp" value="0">
+                            <br>Experience</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label><input type="text" class="" id="race" value="">
+                            <br>Race</label>
+                    </td>
+                    <td>
+                        <label><input type="text" class="" id="subrace" value="">
+                            <br>Subrace</label>
+                    </td>
+                    <td>
+                        <label><input type="text" class="" id="background" value="">
+                            <br>Background</label>
+                    </td>
+                    <td>
+                        <label><input type="text" class="" id="alignment" value="">
+                            <br>Alignment</label>
+                    </td>
+                    <td>
+                        <label><input type="text" class="" id="faction" value="">
+                            <br>Faction</label>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+
+        </div>
+
+        <!--
+        <label><input type="text" class="" id="" value=""></label>!
+        -->
+    </form>
+</div>
 </html>

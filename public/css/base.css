@@ -34,10 +34,10 @@ div#header {
     background-color: whitesmoke;
 }
 
-div#account {
+/*div#account {
     display: none;
     visibility: hidden;
-}
+}*/
 
 h1 {
     text-align: center;

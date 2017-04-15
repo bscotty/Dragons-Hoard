@@ -69,6 +69,7 @@ app.post('/sheet/newSheet', function (req, res) {
 
     const key = firebase.database().ref().child('sheets').push().key;
     const sheet = new Sheet();
+    sheet.user = req.body.huid;
     sheet.name = req.body.sheetName;
     sheet.level = 1;
     sheet.slug = key;
@@ -76,7 +77,13 @@ app.post('/sheet/newSheet', function (req, res) {
 
     const updates = {};
     updates['/users/' + req.body.huid + '/' + key] = key;
-    updates['/sheets/' + key] = {name: sheet.name, level: sheet.level, slug: key, class: sheet.class};
+    updates['/sheets/' + key] = {
+        user: sheet.user,
+        name: sheet.name,
+        level: sheet.level,
+        slug: key,
+        class: sheet.class
+    };
     firebase.database().ref().update(updates).then(function() {
         res.render('sheet', {sheet: sheet});
     });
@@ -91,6 +98,7 @@ app.get('/sheet/:slug', function(req, res) {
 
     let sheet = new Sheet();
     firebase.database().ref('/sheets/' + slug).once('value', function(snapshot) {
+        sheet.user = snapshot.val().user;
         sheet.name = snapshot.val().name;// + ' level ' + snapshot.val().level + ' ' + snapshot.val().class;
         sheet.level = snapshot.val().level;
         sheet.slug = snapshot.val().slug;
