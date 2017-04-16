@@ -14,15 +14,27 @@
         }
     }
 
+    function watchForChanges() {
+        // Highlight Changes Made to any input
+        const inputs = document.getElementsByTagName('input');
+        for (let i = 0; i < inputs.length; i++) {
+            if (inputs[i].type !== 'submit') {
+                inputs[i].addEventListener('input', function() {
+                    this.style.backgroundColor = 'beige';
+                });
+            }
+        }
+    }
+
     window.addEventListener('DOMContentLoaded', function() {
         firebase.auth().onAuthStateChanged(function(user) {
             if(user) {
-                console.log(user.uid);
                 if (user.uid !== '{{sheet.user}}') {
                     disableAllInputs();
+                } else {
+                    watchForChanges();
                 }
             } else {
-                console.log('no user');
                 disableAllInputs();
             }
         });
@@ -30,55 +42,58 @@
 </script>
 <br><br>
 <div id="sheet-container">
-    <form class="sheet">
+    <form class="sheet" method="post" action="{{sheet.slug}}">
         <div class="page">
             <input type="submit" value="Save">
-            <!--<input type="hidden" class="" id="user" value="{{sheet.user}}">!-->
+            <input type="hidden" class="" id="user" name="user" value="{{sheet.user}}">
             <table id="basic-info" cellspacing="0">
                 <tbody>
                 <tr>
                     <td colspan="2">
-                        <label><input type="text" class="" id="name" value="{{sheet.name}}">
+                        <label><input type="text" class="" id="name" name="name" value="{{sheet.name}}">
                             <br>Character Name</label>
                     </td>
                     <td>
-                        <label><input type="text" class="" id="player" value="">
+                        <label><input type="text" class="" id="player" name="player" value="{{sheet.player}}">
                             <br>Player</label>
                     </td>
                     <td colspan="2">
-                        <label><input type="text" class="" id="class" value="{{sheet.class}}">
+                        <label><input type="text" class="" id="class" name="class" value="{{sheet.class}}">
                             <br>Class</label>
                     </td>
                     <td>
-                        <label><input type="number" class="" id="level" value="{{sheet.level}}">
+                        <label><input type="number" class="" id="level" name="level" value="{{sheet.level}}">
                             <br>Level</label>
                     </td>
                     <td>
 
-                        <label><input type="number" class="" id="exp" value="0">
+                        <label><input type="number" class="" id="exp" name="exp" value="{{sheet.exp}}">
                             <br>Experience</label>
                     </td>
                 </tr>
                 <tr>
+                    <td class="filler">
+                        <label><input type="text"></label>
+                    </td>
                     <td>
-                        <label><input type="text" class="" id="race" value="">
+                        <label><input type="text" class="" id="faction" name="faction" value="{{sheet.faction}}">
+                            <br>Faction</label>
+                    </td>
+                    <td>
+                        <label><input type="text" class="" id="race" name="race" value="{{sheet.race}}">
                             <br>Race</label>
                     </td>
                     <td>
-                        <label><input type="text" class="" id="subrace" value="">
+                        <label><input type="text" class="" id="subrace" name="subrace" value="{{sheet.subrace}}">
                             <br>Subrace</label>
                     </td>
                     <td>
-                        <label><input type="text" class="" id="background" value="">
+                        <label><input type="text" class="" id="background" name="background" value="{{sheet.background}}">
                             <br>Background</label>
                     </td>
                     <td>
-                        <label><input type="text" class="" id="alignment" value="">
+                        <label><input type="text" class="" id="alignment" name="alignment" value="{{sheet.alignment}}">
                             <br>Alignment</label>
-                    </td>
-                    <td>
-                        <label><input type="text" class="" id="faction" value="">
-                            <br>Faction</label>
                     </td>
                 </tr>
                 </tbody>

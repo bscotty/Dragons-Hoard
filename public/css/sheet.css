@@ -33,7 +33,7 @@ form.sheet {
 }
 
 html {
-    //color: rgb(90, 90, 90);
+    /*color: rgb(90, 90, 90);*/
     background: repeating-linear-gradient(
             135deg,
             rgb(65, 65, 65),
@@ -43,8 +43,13 @@ html {
     );
 }
 
+input {
+    background: transparent;
+}
+
 input[type=number] {
     font-size: 13px;
+    text-align: center;
 }
 
 input[type=submit] {
@@ -86,4 +91,8 @@ td {
 
     display: table-cell;
     vertical-align: inherit;
+}
+
+td.filler {
+    visibility: hidden;
 }

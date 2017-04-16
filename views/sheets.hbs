@@ -27,8 +27,7 @@
                                 // Include a way to get to the sheet.
                                 const a = document.createElement('a');
                                 a.classList.add('sheet');
-                                a.textContent = a.title =
-                                        snapshot.val().name + ' level ' + snapshot.val().level + ' ' + snapshot.val().class;
+                                a.textContent = a.title = snapshot.val().name + ' -- Level ' + snapshot.val().level + ' ' + snapshot.val().class;
                                 a.href = '/sheet/' + snapshot.val().slug;
                                 sheet.appendChild(a);
                                 // And a way to delete the sheet.
