@@ -167,7 +167,7 @@ app.post('/delete/:slug', function (req, res) {
         }
     });
     // Also delete the sheet data itself.
-    firebase.database().ref('/sheets' + slug).remove(function (err) {
+    firebase.database().ref('/sheets/' + slug).remove(function (err) {
         if (err) {
             console.log('Error deleting sheet ' + slug, err);
         } else {
