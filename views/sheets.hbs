@@ -3,63 +3,65 @@
 <head>
     <link type="text/css" rel="stylesheet" href="/css/sheets.css">
     <script type="text/javascript">
-        window.addEventListener('load', function() {
-            firebase.auth().onAuthStateChanged(function(user) {
-                const newSheetForm = document.querySelector('#new-sheet-form');
-                const notSignedIn = document.querySelector('#not-signed-in');
-                //const hact = document.querySelector('#hact');
-                const huid = document.querySelector('#huid');
-                if (user) {
-                    newSheetForm.style.visibility = "visible";
-                    notSignedIn.style.visibility = "hidden";
-                    //user.getToken().then(function (accessToken) {
-                        //hact.value = accessToken;
-                    //});
-                    huid.value = firebaseUser.currentUser.uid;
+        function getUserForMenu(snapshot) {
+            const sheet = document.createElement('p');
 
-                    // Display the sheets for this user.
-                    firebase.database().ref('/users/' + user.uid).once('value', function(snapshot) {
-                        const envelope = document.querySelector('#sheets');
-                        snapshot.forEach((ele) => {
-                            firebase.database().ref('/sheets/' + ele.val()).once('value', function(snapshot) {
-                                const sheet = document.createElement('p');
+            // Include a way to get to the sheet.
+            const a = document.createElement('a');
+            a.classList.add('sheet');
+            a.textContent = a.title = snapshot.val().name + ' -- Level ' + snapshot.val().level + ' ' + snapshot.val().class;
+            a.href = '/sheet/' + snapshot.val().slug;
+            sheet.appendChild(a);
+            // And a way to delete the sheet.
+            const formDelete = document.createElement('form');
+            formDelete.setAttribute('action', '/delete/' + snapshot.val().slug);
+            formDelete.setAttribute('method', 'post');
+            formDelete.classList.add('delete');
+            const hiddenUser = document.createElement('input');
+            hiddenUser.type = 'hidden';
+            hiddenUser.name = 'uid';
+            hiddenUser.value = firebaseUser.currentUser.uid + '';
+            formDelete.appendChild(hiddenUser);
+            const submit = document.createElement('input');
+            submit.type = 'submit';
+            submit.value = 'Delete';
+            formDelete.appendChild(submit);
+            sheet.appendChild(formDelete);
 
-                                // Include a way to get to the sheet.
-                                const a = document.createElement('a');
-                                a.classList.add('sheet');
-                                a.textContent = a.title = snapshot.val().name + ' -- Level ' + snapshot.val().level + ' ' + snapshot.val().class;
-                                a.href = '/sheet/' + snapshot.val().slug;
-                                sheet.appendChild(a);
-                                // And a way to delete the sheet.
-                                const formDelete = document.createElement('form');
-                                formDelete.setAttribute('action', '/delete/' + snapshot.val().slug);
-                                formDelete.setAttribute('method', 'post');
-                                formDelete.classList.add('delete');
-                                const hiddenUser = document.createElement('input');
-                                hiddenUser.type = 'hidden';
-                                hiddenUser.name = 'uid';
-                                hiddenUser.value = firebaseUser.currentUser.uid + '';
-                                formDelete.appendChild(hiddenUser);
-                                const submit = document.createElement('input');
-                                submit.type = 'submit';
-                                submit.value = 'Delete';
-                                formDelete.appendChild(submit);
-                                sheet.appendChild(formDelete);
+            const envelope = document.querySelector('#sheets');
+            envelope.appendChild(sheet);
+            envelope.appendChild(document.createElement('br'));
+        }
 
-                                envelope.appendChild(sheet);
-                                envelope.appendChild(document.createElement('br'));
-                            });
-                        });
+        function onSignIn(user) {
+            const newSheetForm = document.querySelector('#new-sheet-form');
+            const notSignedIn = document.querySelector('#not-signed-in');
+            const huid = document.querySelector('#huid');
+            if (user) {
+                newSheetForm.style.visibility = "visible";
+                notSignedIn.style.visibility = "hidden";
+                huid.value = firebaseUser.currentUser.uid;
+
+                // Display the sheets for this user.
+                firebase.database().ref('/users/' + user.uid).once('value', function (snapshot) {
+                    snapshot.forEach((ele) => {
+                        firebase.database().ref('/sheets/' + ele.val()).once('value', getUserForMenu);
                     });
+                });
 
-                } else {
-                    newSheetForm.style.visibility = "hidden";
-                    notSignedIn.style.visibility = "visible";
-                    //hact.value = '';
-                    huid.value = '';
-                }
-            });
-        });
+            } else {
+                newSheetForm.style.visibility = "hidden";
+                notSignedIn.style.visibility = "visible";
+                //hact.value = '';
+                huid.value = '';
+            }
+        }
+
+        function onLoad() {
+            firebase.auth().onAuthStateChanged(onSignIn);
+        }
+
+        window.addEventListener('load', onLoad);
     </script>
 </head>
 
@@ -67,16 +69,10 @@
 <form action="/sheet/newSheet" method="post" id="new-sheet-form">
     <h2>Your Sheets</h2>
 
-    <div id="sheets">
-        <!--{{#each sheets}}
-            <A HREF={{this.slug}}>{{this.name}}, Level {{this.level}} {{this.class}}</A>
-            <br>
-        {{/each}}!-->
-    </div>
+    <div id="sheets"></div>
     <br>
 
     <input type="hidden" id="huid" name="huid">
-    <!--<input type="hidden" id="hact" name="hact">!-->
     <label>Sheet Name: <input type="text" name="sheetName"></label><br><br>
     <input type="submit" value="Create a New Sheet">
 </form>
@@ -85,5 +81,6 @@
     <comment class="error">{{error}}</comment>
 {{/if}}
 
-<h1 id="not-signed-in">In order to create a sheet, you must first sign in. Please sign in <A href="/signin">here</A>.</h1>
+<h1 id="not-signed-in">In order to create a sheet, you must first sign in. Please sign in <A href="/signin">here</A>.
+</h1>
 </html>

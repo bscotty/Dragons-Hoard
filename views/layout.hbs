@@ -17,11 +17,11 @@
     <script type="text/javascript">
         const firebaseUser = {
             hasCurrentUser: false,
-            currentUser : null,
+            currentUser: null,
             //accessToken: null,
         };
-        initApp = function() {
-            firebase.auth().onAuthStateChanged(function(user) {
+        initApp = function () {
+            firebase.auth().onAuthStateChanged(function (user) {
                 if (user) {
                     firebaseUser.hasCurrentUser = true;
                     firebaseUser.currentUser = user;
@@ -32,30 +32,20 @@
                     //const photoURL = user.photoURL;
                     const uid = user.uid;
                     //const providerData = user.providerData;
-                    user.getToken().then(function(accessToken) {
-                        //firebaseUser.accessToken = accessToken;
+                    user.getToken().then(function (accessToken) {
                         const signIn = document.querySelector('#sign-in');
                         signIn.textContent = 'Sign out';
                         signIn.setAttribute('href', '/signout');
-                        document.querySelector('#username').textContent = 'You are signed in as ' + displayName + ' ('
-                            + email + "). ";
+                        document.querySelector('#username').textContent =
+                                'You are signed in as ' + displayName + ' (' + email + "). ";
                         document.querySelector('#sheet-break').textContent = '| ';
                         document.querySelector('#my-sheets').textContent = 'My Sheets';
-                        document.querySelector('#account').textContent = user.uid;//JSON.stringify({
-                            //displayName: displayName,
-                            //email: email,
-                            //emailVerified: emailVerified,
-                            //photoURL: photoURL,
-                            //uid: uid,
-                            //accessToken: accessToken,
-                            //providerData: providerData
-                        //}, null, '  ');
+                        document.querySelector('#account').textContent = user.uid;
                     });
                 } else {
                     // User is signed out.
                     firebaseUser.hasCurrentUser = false;
                     firebaseUser.currentUser = null;
-                    //firebaseUser.accessToken = null;
                     const signIn = document.querySelector('#sign-in');
                     signIn.textContent = 'Sign in';
                     signIn.setAttribute('href', '/signin');
@@ -64,14 +54,12 @@
                     document.querySelector('#sheet-break').textContent = '';
                     document.querySelector('#my-sheets').textContent = '';
                 }
-            }, function(error) {
+            }, function (error) {
                 console.log(error);
             });
         };
 
-        window.addEventListener('load', function() {
-            initApp();
-        });
+        window.addEventListener('load', initApp);
     </script>
 
 </head>
@@ -87,7 +75,8 @@
 {{{body}}}
 <comment id="disclaimer">The Dragon's Hoard is a free to use non-profit D&D character sheet storage application and is
     not affiliated in any way with Dungeons and Dragons, or Wizards of the Coast. Dungeons and Dragons is a registered
-    trademark of Wizards Of The Coast, Inc. Please support the official release. </comment>
+    trademark of Wizards Of The Coast, Inc. Please support the official release.
+</comment>
 </html>
 
 <!--

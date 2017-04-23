@@ -1,19 +1,23 @@
 <!-- The home screen, where users can see their sheets!--->
 <html>
-    <head>
-        <script type="text/javascript">
-            window.addEventListener('load', function() {
-                firebase.auth().onAuthStateChanged(function(user) {
-                    const sheetLink = document.querySelector('#sheets');
-                    if (firebaseUser.hasCurrentUser === true) {
-                        sheetLink.textContent = "Go to my sheets!";
-                    } else {
-                        sheetLink.textContent = "";
-                    }
-                });
-            });
-        </script>
-    </head>
-    <h1>Welcome to the Dragon's Hoard! Functionality Coming Soon!</h1>
-    <h1><A id="sheets" href="/sheets"></A></h1>
+<head>
+    <script type="text/javascript">
+        function onSignIn(user) {
+            const sheetLink = document.querySelector('#sheets');
+            if (firebaseUser.hasCurrentUser === true) {
+                sheetLink.textContent = "Go to my sheets!";
+            } else {
+                sheetLink.textContent = "";
+            }
+        }
+
+        function onLoad() {
+            firebase.auth().onAuthStateChanged(onSignIn());
+        }
+
+        window.addEventListener('load', onLoad);
+    </script>
+</head>
+<h1>Welcome to the Dragon's Hoard! Functionality Coming Soon!</h1>
+<h1><A id="sheets" href="/sheets"></A></h1>
 </html>
