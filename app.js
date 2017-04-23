@@ -112,12 +112,14 @@ app.get('/sheet/:slug', function (req, res) {
         sheet.subrace = snapshot.val().subrace;
         sheet.background = snapshot.val().background;
         sheet.alignment = snapshot.val().alignment;
+        sheet.abilityScores = snapshot.val().abilityScores;
     }).then(function () {
         res.render('slug', {sheet: sheet});
     });
 });
 
 app.post('/sheet/:slug', function (req, res) {
+    console.log('req.body', req.body);
     const slug = req.params.slug;
 
     const sheet = new Sheet();
@@ -135,6 +137,15 @@ app.post('/sheet/:slug', function (req, res) {
     sheet.background = req.body.background;
     sheet.alignment = req.body.alignment;
 
+    sheet.abilityScores = {
+        str: req.body.str,
+        dex: req.body.dex,
+        con: req.body.con,
+        int: req.body.int,
+        wis: req.body.wis,
+        cha: req.body.cha
+    };
+
     //TODO: Find a way to only update the stuff changed, to cut down on traffic
     const update = {};
     update['/sheets/' + slug] = {
@@ -151,7 +162,18 @@ app.post('/sheet/:slug', function (req, res) {
         subrace: sheet.subrace,
         background: sheet.background,
         alignment: sheet.alignment,
+        abilityScores: {
+            str: sheet.abilityScores.str,
+            dex: sheet.abilityScores.dex,
+            con: sheet.abilityScores.con,
+            int: sheet.abilityScores.int,
+            wis: sheet.abilityScores.wis,
+            cha: sheet.abilityScores.cha
+        },
     };
+    // console.log('sheet ability scores', sheet.abilityScores);
+    // console.log('update', update);
+    // console.log('update ability scores', update['/sheets/' + slug].abilityScores);
 
     firebase.database().ref().update(update).then(function () {
         res.render('slug', {sheet: sheet});

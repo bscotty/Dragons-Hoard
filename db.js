@@ -268,12 +268,12 @@ const Sheet = new Schema({
     // Statistics
     abilityScores: {
         // The Six Main Statistics of Dungeons and Dragons
-        strength: Number,
-        dexterity: Number,
-        constitution: Number,
-        intelligence: Number,
-        wisdom: Number,
-        charisma: Number
+        str: Number,
+        dex: Number,
+        con: Number,
+        int: Number,
+        wis: Number,
+        cha: Number
     },
     saves: [String],        // Proficient Ability Saves
     skills: [SkillProficiency], // Proficient Skill Saves

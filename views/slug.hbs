@@ -7,6 +7,44 @@
     meantime, you have the following to look at!</p>!-->
 
 <script type="text/javascript">
+    function updateAbilityModifier(abilityScore) {
+        const score = abilityScore.value;
+        if(!isNaN(score)) {
+            const abilityMod = document.querySelector('#' + abilityScore.id + '-modifier');
+            const modifier = convertScoreToMod(score);
+            abilityMod.textContent = (modifier > 0) ? '+' + modifier : '' + modifier;
+        }
+    }
+
+    function updateModifiers() {
+        const abilityScores = document.getElementsByClassName('ability-score');
+        console.log(abilityScores);
+        for (let i = 0; i < abilityScores.length; i++) {
+            updateAbilityModifier(abilityScores[i]);
+        }
+    }
+
+    // Used to convert ability score number to their modifiers
+    function convertScoreToMod(abilityScore) {
+        return Math.floor((abilityScore - 10) / 2);
+    }
+
+    // Update the modifiers whenever the ability score changes.
+    function abilityScoreListener(HTMLObject) {
+        HTMLObject.addEventListener('input', function () {
+            updateAbilityModifier(this);
+        });
+    }
+
+    // Setup all javascript helper functions.
+    function setupHelpers() {
+        const abilityScores = document.getElementsByClassName('ability-score');
+        console.log(abilityScores);
+        for (let i = 0; i < abilityScores.length; i++) {
+            abilityScoreListener(abilityScores[i]);
+        }
+    }
+
     function disableAllInputs() {
         const inputs = document.getElementsByTagName('input');
         for (let i = 0; i < inputs.length; i++) {
@@ -19,16 +57,19 @@
         const inputs = document.getElementsByTagName('input');
         for (let i = 0; i < inputs.length; i++) {
             if (inputs[i].type !== 'submit') {
-                inputs[i].addEventListener('input', function() {
+                inputs[i].addEventListener('input', function () {
                     this.style.backgroundColor = 'beige';
                 });
             }
         }
+        setupHelpers();
     }
 
-    window.addEventListener('DOMContentLoaded', function() {
-        firebase.auth().onAuthStateChanged(function(user) {
-            if(user) {
+    window.addEventListener('DOMContentLoaded', function () {
+        updateModifiers();
+
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
                 if (user.uid !== '{{sheet.user}}') {
                     disableAllInputs();
                 } else {
@@ -49,62 +90,114 @@
             <table id="basic-info" cellspacing="0">
                 <tbody>
                 <tr>
-                    <td colspan="2">
-                        <label><input type="text" class="" id="name" name="name" value="{{sheet.name}}">
+                    <td colspan="2" rowspan="2">
+                        <label><input type="text" id="name" name="name" value="{{sheet.name}}">
                             <br>Character Name</label>
                     </td>
                     <td>
-                        <label><input type="text" class="" id="player" name="player" value="{{sheet.player}}">
+                        <label><input type="text" id="player" name="player" value="{{sheet.player}}">
                             <br>Player</label>
                     </td>
-                    <td colspan="2">
-                        <label><input type="text" class="" id="class" name="class" value="{{sheet.class}}">
+                    <td>
+                        <label><input type="text" id="class" name="class" value="{{sheet.class}}">
                             <br>Class</label>
                     </td>
                     <td>
-                        <label><input type="number" class="" id="level" name="level" value="{{sheet.level}}">
+                        <label><input type="number" id="level" name="level" value="{{sheet.level}}">
                             <br>Level</label>
                     </td>
                     <td>
-
-                        <label><input type="number" class="" id="exp" name="exp" value="{{sheet.exp}}">
+                        <label><input type="number" id="exp" name="exp" value="{{sheet.exp}}">
                             <br>Experience</label>
                     </td>
                 </tr>
                 <tr>
-                    <td class="filler">
-                        <label><input type="text"></label>
-                    </td>
                     <td>
-                        <label><input type="text" class="" id="faction" name="faction" value="{{sheet.faction}}">
-                            <br>Faction</label>
-                    </td>
-                    <td>
-                        <label><input type="text" class="" id="race" name="race" value="{{sheet.race}}">
+                        <label><input type="text" id="race" name="race" value="{{sheet.race}}">
                             <br>Race</label>
                     </td>
                     <td>
-                        <label><input type="text" class="" id="subrace" name="subrace" value="{{sheet.subrace}}">
+                        <label><input type="text" id="subrace" name="subrace" value="{{sheet.subrace}}">
                             <br>Subrace</label>
                     </td>
                     <td>
-                        <label><input type="text" class="" id="background" name="background" value="{{sheet.background}}">
+                        <label><input type="text" id="background" name="background" value="{{sheet.background}}">
                             <br>Background</label>
                     </td>
                     <td>
-                        <label><input type="text" class="" id="alignment" name="alignment" value="{{sheet.alignment}}">
+                        <label><input type="text" id="alignment" name="alignment" value="{{sheet.alignment}}">
                             <br>Alignment</label>
-                    </td>
                 </tr>
                 </tbody>
             </table>
 
+            <div id="ability-scores">
+                <table>
+                    <colgroup>
+                        <col width="100">
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <td class="ability-scores">
+                            <label>STRENGTH<input type="number" class="ability-score" name="str" id="strength"
+                                                  value="{{sheet.abilityScores.str}}"></label>
+                            <p id="strength-modifier" class="ability-modifier">0</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="ability-scores">
+                            <label>DEXTERITY<input type="number" class="ability-score" name="dex" id="dexterity"
+                                                   value="{{sheet.abilityScores.dex}}"></label>
+                            <p id="dexterity-modifier" class="ability-modifier">0</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="ability-scores">
+                            <label>CONSTITUTION<input type="number" class="ability-score" name="con" id="constitution"
+                                                      value="{{sheet.abilityScores.con}}"></label>
+                            <p id="constitution-modifier" class="ability-modifier">0</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="ability-scores">
+                            <label>INTELLIGENCE<input type="number" class="ability-score" name="int" id="intelligence"
+                                                      value="{{sheet.abilityScores.int}}"></label>
+                            <p id="intelligence-modifier" class="ability-modifier">0</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="ability-scores">
+                            <label>WISDOM<input type="number" class="ability-score" name="wis" id="wisdom"
+                                                value="{{sheet.abilityScores.wis}}"></label>
+                            <p id="wisdom-modifier" class="ability-modifier">0</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="ability-scores">
+                            <label>CHARISMA<input type="number" class="ability-score" name="cha" id="charisma"
+                                                  value="{{sheet.abilityScores.cha}}"></label>
+                            <p id="charisma-modifier" class="ability-modifier">0</p>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <label><input type="text" class="" id="faction" name="faction" value="{{sheet.faction}}">
+            <br>Faction</label>
 
         </div>
 
         <!--
-        <label><input type="text" class="" id="" value=""></label>!
-        -->
+        <label><input type="text" class="" id="" value=""></label>
+                    <td>
+                        <label><input type="text" class="" id="faction" name="faction" value="{{sheet.faction}}">
+                            <br>Faction</label>
+                    </td>
+
+                    <td class="filler">
+                        <label><input type="text"></label>
+                    </td>
+        !-->
     </form>
 </div>
 </html>
