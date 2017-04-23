@@ -279,7 +279,7 @@ const Sheet = new Schema({
     skills: [SkillProficiency], // Proficient Skill Saves
     hitPoints: Number,
     currentHP: Number,
-    inspiration: Number,
+    inspiration: String,
 
     proficiencies: {
         language: [String], // Chosen by User

@@ -26,6 +26,18 @@ div.page {
     overflow: hidden;
 }
 
+div#proficiency {
+    display: inline;
+}
+
+div#skills {
+    width: 21.4%;
+    margin: 15px 0 0 15px;
+
+    display: inline;
+    float: left;
+}
+
 div#sheet-container {
     position: relative;
     margin: 0 auto;
@@ -52,11 +64,6 @@ input {
     background: transparent;
 }
 
-input#name {
-    font-size: 32px;
-    padding: 2.3%;
-}
-
 input.ability-score[type=number] {
     height: 65px;
     padding-left: 15px;
@@ -69,6 +76,16 @@ input.ability-score[type=number] {
 
     font-size: 25px;
     text-align: center;
+}
+
+input#name {
+    font-size: 32px;
+    padding: 2.3%;
+}
+
+input[type=checkbox]:checked {
+    color: black;
+    background-color: black;
 }
 
 input[type=number] {
@@ -92,6 +109,17 @@ input[type=text] {
     width: 100%;
     /*height: 100%;*/
     font-size: 13px;
+}
+
+label#inspiration-label {
+    padding: 5px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+
+    border: solid dimgray 2px;
+    border-radius: 1px;
+
+    font-size: 18px;
 }
 
 p.ability-modifier {
@@ -133,4 +161,8 @@ td.ability-scores {
 
 td.filler {
     visibility: hidden;
+}
+
+td.skill-marker {
+    padding-bottom: 15px;
 }

@@ -57,7 +57,6 @@ app.get('/sheets', function (req, res) {
 
 app.post('/sheet/newSheet', function (req, res) {
     console.log('uid', req.body.huid);
-    //console.log('access token', req.body.hact);
     console.log('name', req.body.sheetName);
 
     if (req.body.sheetName + '' === '') {
@@ -75,6 +74,7 @@ app.post('/sheet/newSheet', function (req, res) {
     sheet.exp = 0;
     sheet.slug = key;
     sheet.class = 'Adventurer';
+    sheet.inspiration = 'false';
 
     const updates = {};
     updates['/users/' + req.body.huid + '/' + key] = key;
@@ -84,7 +84,8 @@ app.post('/sheet/newSheet', function (req, res) {
         level: sheet.level,
         exp: sheet.exp,
         slug: key,
-        class: sheet.class
+        class: sheet.class,
+        inspiration: sheet.inspiration,
     };
     firebase.database().ref().update(updates).then(function () {
         res.render('sheet', {sheet: sheet});
@@ -113,13 +114,15 @@ app.get('/sheet/:slug', function (req, res) {
         sheet.background = snapshot.val().background;
         sheet.alignment = snapshot.val().alignment;
         sheet.abilityScores = snapshot.val().abilityScores;
+        sheet.inspiration = snapshot.val().inspiration;
     }).then(function () {
+        console.log('sheet', sheet);
         res.render('slug', {sheet: sheet});
     });
 });
 
 app.post('/sheet/:slug', function (req, res) {
-    console.log('req.body', req.body);
+    //console.log('req.body', req.body);
     const slug = req.params.slug;
 
     const sheet = new Sheet();
@@ -146,6 +149,9 @@ app.post('/sheet/:slug', function (req, res) {
         cha: req.body.cha
     };
 
+    sheet.inspiration = (req.body.inspiration !== undefined) ? 'true' : 'false';
+    console.log('inspiration', sheet.inspiration);
+
     //TODO: Find a way to only update the stuff changed, to cut down on traffic
     const update = {};
     update['/sheets/' + slug] = {
@@ -170,6 +176,7 @@ app.post('/sheet/:slug', function (req, res) {
             wis: sheet.abilityScores.wis,
             cha: sheet.abilityScores.cha
         },
+        inspiration: sheet.inspiration,
     };
     // console.log('sheet ability scores', sheet.abilityScores);
     // console.log('update', update);

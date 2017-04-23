@@ -7,9 +7,18 @@
     meantime, you have the following to look at!</p>!-->
 
 <script type="text/javascript">
+    function updateCheckBoxes() {
+        const inspiration = document.querySelector('#inspiration');
+        if (inspiration.value === 'true') {
+            inspiration.setAttribute('checked', 'checked');
+        } else {
+            inspiration.removeAttribute('checked');
+        }
+    }
+
     function updateAbilityModifier(abilityScore) {
         const score = abilityScore.value;
-        if(!isNaN(score)) {
+        if (!isNaN(score)) {
             const abilityMod = document.querySelector('#' + abilityScore.id + '-modifier');
             const modifier = convertScoreToMod(score);
             abilityMod.textContent = (modifier > 0) ? '+' + modifier : '' + modifier;
@@ -18,7 +27,6 @@
 
     function updateModifiers() {
         const abilityScores = document.getElementsByClassName('ability-score');
-        console.log(abilityScores);
         for (let i = 0; i < abilityScores.length; i++) {
             updateAbilityModifier(abilityScores[i]);
         }
@@ -39,7 +47,6 @@
     // Setup all javascript helper functions.
     function setupHelpers() {
         const abilityScores = document.getElementsByClassName('ability-score');
-        console.log(abilityScores);
         for (let i = 0; i < abilityScores.length; i++) {
             abilityScoreListener(abilityScores[i]);
         }
@@ -67,6 +74,7 @@
 
     window.addEventListener('DOMContentLoaded', function () {
         updateModifiers();
+        updateCheckBoxes();
 
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
@@ -133,9 +141,6 @@
 
             <div id="ability-scores">
                 <table>
-                    <colgroup>
-                        <col width="100">
-                    </colgroup>
                     <tbody>
                     <tr>
                         <td class="ability-scores">
@@ -182,13 +187,26 @@
                     </tbody>
                 </table>
             </div>
+            <div id="skills">
+                <table>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <label id="inspiration-label"><input type="checkbox" name="inspiration" id="inspiration"
+                                                                 value="{{sheet.inspiration}}">Inspiration</label>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
             <label><input type="text" class="" id="faction" name="faction" value="{{sheet.faction}}">
-            <br>Faction</label>
+                <br>Faction</label>
 
         </div>
 
         <!--
-        <label><input type="text" class="" id="" value=""></label>
+        <label><input type="text" class="" name="" id="" value=""></label>
                     <td>
                         <label><input type="text" class="" id="faction" name="faction" value="{{sheet.faction}}">
                             <br>Faction</label>
