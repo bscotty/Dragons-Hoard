@@ -7,13 +7,13 @@
     meantime, you have the following to look at!</p>!-->
 
 <script type="text/javascript">
-    function updateCheckBoxes() {
-        const inspiration = document.querySelector('#inspiration');
-        if (inspiration.value === 'true') {
-            inspiration.setAttribute('checked', 'checked');
-        } else {
-            inspiration.removeAttribute('checked');
-        }
+    // Used to convert ability score number to their modifiers
+    function convertScoreToMod(abilityScore) {
+        return Math.floor((abilityScore - 10) / 2);
+    }
+
+    function convertLevelToProficiencyBonus(level) {
+        return 1 + Math.ceil((level) / 4);
     }
 
     function updateAbilityModifier(abilityScore) {
@@ -25,16 +25,28 @@
         }
     }
 
+    function updateCheckBoxes() {
+        const inspiration = document.querySelector('#inspiration');
+        if (inspiration.value === 'true') {
+            inspiration.setAttribute('checked', 'checked');
+        } else {
+            inspiration.removeAttribute('checked');
+        }
+    }
+
+    function updateProficiencies(level) {
+        const bonus = document.querySelector('#proficiency-bonus');
+        if(!isNaN(level.value)) {
+            const proficiencyBonus = convertLevelToProficiencyBonus(level.value);
+            bonus.textContent = '+' + proficiencyBonus;
+        }
+    }
+
     function updateModifiers() {
         const abilityScores = document.getElementsByClassName('ability-score');
         for (let i = 0; i < abilityScores.length; i++) {
             updateAbilityModifier(abilityScores[i]);
         }
-    }
-
-    // Used to convert ability score number to their modifiers
-    function convertScoreToMod(abilityScore) {
-        return Math.floor((abilityScore - 10) / 2);
     }
 
     // Update the modifiers whenever the ability score changes.
@@ -44,12 +56,21 @@
         });
     }
 
+    function proficiencyBonusListener(HTMLObject) {
+        HTMLObject.addEventListener('input', function() {
+            updateProficiencies(this);
+        })
+
+    }
+
     // Setup all javascript helper functions.
     function setupHelpers() {
         const abilityScores = document.getElementsByClassName('ability-score');
         for (let i = 0; i < abilityScores.length; i++) {
             abilityScoreListener(abilityScores[i]);
         }
+        const level = document.querySelector('#level');
+        proficiencyBonusListener(level);
     }
 
     function disableAllInputs() {
@@ -75,6 +96,7 @@
     window.addEventListener('DOMContentLoaded', function () {
         updateModifiers();
         updateCheckBoxes();
+        updateProficiencies(document.querySelector('#level'));
 
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
@@ -194,6 +216,14 @@
                         <td>
                             <label id="inspiration-label"><input type="checkbox" name="inspiration" id="inspiration"
                                                                  value="{{sheet.inspiration}}">Inspiration</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div id="proficiency">
+                                <p class="proficiency-bonus">Proficiency Bonus: </p>
+                                <p id="proficiency-bonus" class="proficiency-bonus">+0</p>
+                            </div>
                         </td>
                     </tr>
                     </tbody>

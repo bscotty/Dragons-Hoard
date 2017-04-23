@@ -116,7 +116,6 @@ app.get('/sheet/:slug', function (req, res) {
         sheet.abilityScores = snapshot.val().abilityScores;
         sheet.inspiration = snapshot.val().inspiration;
     }).then(function () {
-        console.log('sheet', sheet);
         res.render('slug', {sheet: sheet});
     });
 });
@@ -150,7 +149,6 @@ app.post('/sheet/:slug', function (req, res) {
     };
 
     sheet.inspiration = (req.body.inspiration !== undefined) ? 'true' : 'false';
-    console.log('inspiration', sheet.inspiration);
 
     //TODO: Find a way to only update the stuff changed, to cut down on traffic
     const update = {};
