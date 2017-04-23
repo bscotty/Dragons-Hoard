@@ -1,14 +1,11 @@
-div {
-    display: block;
-}
-
 div#ability-scores {
     text-align: center;
     margin-top: 15px;
     padding-left: 10px;
-    width: 100px;
+    width: 10.7%;
 
     display: inline;
+    float: left;
 }
 
 div.page {
@@ -38,7 +35,6 @@ div#sheet-container {
 
 form.sheet {
     margin: 0 0 18px;
-    display: block;
 }
 
 html {
@@ -104,7 +100,6 @@ p.ability-modifier {
 }
 
 table {
-    display: table;
 
     box-sizing: content-box;
     -webkit-border-horizontal-spacing: 2px;
@@ -116,7 +111,6 @@ table {
 tbody {
     font-size: 9px;
 
-    display: table-row-group;
     vertical-align: middle;
     border-color: inherit;
 }
@@ -125,7 +119,6 @@ td {
     padding: 0 2px 0 2px;
     margin: 0;
 
-    display: table-cell;
     vertical-align: inherit;
 }
 
