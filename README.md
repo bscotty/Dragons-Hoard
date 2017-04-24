@@ -84,7 +84,7 @@ An Example Character Sheet with Embedded Properties:
        con: 'proficient',
        int: 'none',
        wis: 'none',
-       cha: 'none,
+       cha: 'none',
     },
     skills: [
         acrobatics: 'expertise',
