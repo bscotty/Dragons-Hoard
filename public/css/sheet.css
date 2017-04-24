@@ -45,13 +45,14 @@ div#sheet-container {
 }
 
 div#skills {
-    width: 21.4%;
+    width: 22.6%;
     margin: 15px 0 0 15px;
-    padding-top: 10px;
-    padding-bottom: 15px;
+    padding-top: 0;
 
     display: inline;
     float: left;
+
+    text-align: center;
 
     border: solid dimgray 2px;
     border-radius: 15px;
@@ -121,13 +122,17 @@ input[type=submit] {
 
 input[type=text] {
     width: 100%;
-    /*height: 100%;*/
     font-size: 13px;
 }
 
 label.saving-throw-proficiency {
-    margin-top: 0;
+    margin: 0;
     font-size: 12px;
+}
+
+label.skill-proficiency {
+    margin: 0;
+    font-size: 10px;
 }
 
 label#inspiration-label {
@@ -135,7 +140,7 @@ label#inspiration-label {
 
     border-radius: 1px;
 
-    font-size: 18px;
+    font-size: 16px;
 }
 
 p.ability-modifier {
@@ -145,30 +150,43 @@ p.ability-modifier {
 
 p.saving-throw-proficiency {
     display: inline;
-    font-size: 14px;
+    font-size: 12px;
     padding: 3px 4px;
 
-    margin: 0;
+    margin: -5px 0 0 5px;
+    float: right;
 
-    width: 27px;
-    height: 27px;
+    border: solid lightgray 2px;
+    border-radius: 15px;
+}
+
+p.skill-proficiency {
+    display: inline;
+    font-size: 12px;
+    padding: 3px 4px;
+
+    margin: -5px 0 0 5px;
+
+    float: right;
 
     border: solid lightgray 2px;
     border-radius: 15px;
 }
 
 p#saving-throw-text {
-    font-size: 18px;
     margin-top: 5px;
+    margin-bottom: 10px;
 
-    margin-left: 15px;
+    text-align: center;
+    font-size: 18px;
+
 }
 
 p.proficiency-bonus {
-    margin-left: 15px;
+    margin-left: 4px;
     padding: 5px;
 
-    font-size: 14px;
+    font-size: 16px;
 
     display: inline;
 }
@@ -183,7 +201,8 @@ select {
     margin-left: 5px;
     margin-right: 5px;
 
-    font-size: 9px;
+    font-size: 8px;
+    float: left;
 }
 
 table {
@@ -220,6 +239,11 @@ td.ability-scores {
 
 td.filler {
     visibility: hidden;
+}
+
+td.skills {
+    text-align: center;
+    font-size: 10px;
 }
 
 tr {

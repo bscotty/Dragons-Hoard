@@ -21,7 +21,7 @@
         if (!isNaN(score)) {
             const abilityMod = document.querySelector('#' + abilityScore.id + '-modifier');
             const modifier = convertScoreToMod(score);
-            abilityMod.textContent = (modifier > 0) ? '+' + modifier : '' + modifier;
+            abilityMod.textContent = (modifier >= 0) ? '+' + modifier : '' + modifier;
         }
     }
 
@@ -89,7 +89,7 @@
             }
 
             const proficiencyNumber = document.querySelector('#' + abilityScores[i] + '-proficiency-bonus');
-            proficiencyNumber.textContent = (fullBonus > 0) ? '+' + fullBonus : '' + fullBonus;
+            proficiencyNumber.textContent = (fullBonus >= 0) ? '+' + fullBonus : '' + fullBonus;
         }
     }
 
@@ -280,13 +280,18 @@
                 <table>
                     <tbody>
                     <tr>
-                        <td>
+                        <td class="skills">
+                            SKILLS
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="skills">
                             <label id="inspiration-label"><input type="checkbox" name="inspiration" id="inspiration"
                                                                  value="{{sheet.inspiration}}">Inspiration</label>
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td class="skills">
                             <div id="proficiency">
                                 <p class="proficiency-bonus">Proficiency Bonus: </p>
                                 <p id="proficiency-bonus" class="proficiency-bonus">+0</p>
@@ -294,63 +299,233 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td class="skills">
                             <div id="saving-throws">
                                 <br>
                                 <p id="saving-throw-text">Saving Throws</p>
                                 <div class="saving-throw">
-                                    <p class="saving-throw-proficiency" id="str-proficiency-bonus">+0</p>
                                     <label class="saving-throw-proficiency">
                                         <select class="proficiency-select" id="str-proficiency" name="strSave">
                                             <option value="none"></option>
                                             <option value="proficient">Proficient</option>
                                             <option value="expertise">Expertise</option>
-                                        </select>Strength</label>
+                                        </select>Strength: </label>
+                                    <p class="saving-throw-proficiency" id="str-proficiency-bonus">+0</p>
                                 </div>
                                 <div class="saving-throw">
-                                    <p class="saving-throw-proficiency" id="dex-proficiency-bonus">+0</p>
                                     <label class="saving-throw-proficiency">
                                         <select class="proficiency-select" id="dex-proficiency" name="dexSave">
                                             <option value="none"></option>
                                             <option value="proficient">Proficient</option>
                                             <option value="expertise">Expertise</option>
-                                        </select>Dexterity</label>
+                                        </select>Dexterity: </label>
+                                    <p class="saving-throw-proficiency" id="dex-proficiency-bonus">+0</p>
                                 </div>
                                 <div class="saving-throw">
-                                    <p class="saving-throw-proficiency" id="con-proficiency-bonus">+0</p>
                                     <label class="saving-throw-proficiency">
                                         <select class="proficiency-select" id="con-proficiency" name="conSave">
                                             <option value="none"></option>
                                             <option value="proficient">Proficient</option>
                                             <option value="expertise">Expertise</option>
-                                        </select>Constitution</label>
+                                        </select>Constitution: </label>
+                                    <p class="saving-throw-proficiency" id="con-proficiency-bonus">+0</p>
                                 </div>
                                 <div class="saving-throw">
-                                    <p class="saving-throw-proficiency" id="int-proficiency-bonus">+0</p>
                                     <label class="saving-throw-proficiency">
                                         <select class="proficiency-select" id="int-proficiency" name="intSave">
                                             <option value="none"></option>
                                             <option value="proficient">Proficient</option>
                                             <option value="expertise">Expertise</option>
-                                        </select>Intelligence</label>
+                                        </select>Intelligence: </label>
+                                    <p class="saving-throw-proficiency" id="int-proficiency-bonus">+0</p>
                                 </div>
                                 <div class="saving-throw">
-                                    <p class="saving-throw-proficiency" id="wis-proficiency-bonus">+0</p>
                                     <label class="saving-throw-proficiency">
                                         <select class="proficiency-select" id="wis-proficiency" name="wisSave">
                                             <option value="none"></option>
                                             <option value="proficient">Proficient</option>
                                             <option value="expertise">Expertise</option>
-                                        </select>Wisdom</label>
+                                        </select>Wisdom: </label>
+                                    <p class="saving-throw-proficiency" id="wis-proficiency-bonus">+0</p>
                                 </div>
                                 <div class="saving-throw">
-                                    <p class="saving-throw-proficiency" id="cha-proficiency-bonus">+0</p>
                                     <label class="saving-throw-proficiency">
                                         <select class="proficiency-select" id="cha-proficiency" name="chaSave">
                                             <option value="none"></option>
                                             <option value="proficient">Proficient</option>
                                             <option value="expertise">Expertise</option>
-                                        </select>Charisma</label>
+                                        </select>Charisma: </label>
+                                    <p class="saving-throw-proficiency" id="cha-proficiency-bonus">+0</p>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div id="skill-proficiencies">
+                                <br>
+                                <p id="saving-throw-text">Skill Proficiencies</p>
+                                <div class="saving-throw">
+                                    <label class="skill-proficiency">
+                                        <select class="proficiency-select" id="acrobatics" name="acrobatics">
+                                            <option value="none"></option>
+                                            <option value="proficient">Proficient</option>
+                                            <option value="expertise">Expertise</option>
+                                        </select>Acrobatics (Dex)</label>
+                                    <p class="skill-proficiency" id="acrobatics-proficiency">+0</p>
+                                </div>
+                                <div class="saving-throw">
+                                    <label class="skill-proficiency">
+                                        <select class="proficiency-select" id="animal-handling" name="animalHandling">
+                                            <option value="none"></option>
+                                            <option value="proficient">Proficient</option>
+                                            <option value="expertise">Expertise</option>
+                                        </select>Animal Handling (Wis)</label>
+                                    <p class="skill-proficiency" id="animal-handling-proficiency">+0</p>
+                                </div>
+                                <div class="saving-throw">
+                                    <label class="skill-proficiency">
+                                        <select class="proficiency-select" id="arcana" name="arcana">
+                                            <option value="none"></option>
+                                            <option value="proficient">Proficient</option>
+                                            <option value="expertise">Expertise</option>
+                                        </select>Arcana (Int)</label>
+                                    <p class="skill-proficiency" id="arcana-proficiency">+0</p>
+                                </div>
+                                <div class="saving-throw">
+                                    <label class="skill-proficiency">
+                                        <select class="proficiency-select" id="athletics" name="athletics">
+                                            <option value="none"></option>
+                                            <option value="proficient">Proficient</option>
+                                            <option value="expertise">Expertise</option>
+                                        </select>Athletics (Str)</label>
+                                    <p class="skill-proficiency" id="athletics-proficiency">+0</p>
+                                </div>
+                                <div class="saving-throw">
+                                    <label class="skill-proficiency">
+                                        <select class="deception-select" id="deception" name="deception">
+                                            <option value="none"></option>
+                                            <option value="proficient">Proficient</option>
+                                            <option value="expertise">Expertise</option>
+                                        </select>Deception (Cha)</label>
+                                    <p class="skill-proficiency" id="deception-proficiency">+0</p>
+                                </div>
+                                <div class="saving-throw">
+                                    <label class="skill-proficiency">
+                                        <select class="proficiency-select" id="history" name="history">
+                                            <option value="none"></option>
+                                            <option value="proficient">Proficient</option>
+                                            <option value="expertise">Expertise</option>
+                                        </select>History (Dex)</label>
+                                    <p class="skill-proficiency" id="history-proficiency">+0</p>
+                                </div>
+                                <div class="saving-throw">
+                                    <label class="skill-proficiency">
+                                        <select class="proficiency-select" id="insight" name="insight">
+                                            <option value="none"></option>
+                                            <option value="proficient">Proficient</option>
+                                            <option value="expertise">Expertise</option>
+                                        </select>Insight (Wis)</label>
+                                    <p class="skill-proficiency" id="insight-proficiency">+0</p>
+                                </div>
+                                <div class="saving-throw">
+                                    <label class="skill-proficiency">
+                                        <select class="proficiency-select" id="intimidation" name="intimidation">
+                                            <option value="none"></option>
+                                            <option value="proficient">Proficient</option>
+                                            <option value="expertise">Expertise</option>
+                                        </select>Intimidation (Cha)</label>
+                                    <p class="skill-proficiency" id="intimidation-proficiency">+0</p>
+                                </div>
+                                <div class="saving-throw">
+                                    <label class="skill-proficiency">
+                                        <select class="proficiency-select" id="investigation" name="investigation">
+                                            <option value="none"></option>
+                                            <option value="proficient">Proficient</option>
+                                            <option value="expertise">Expertise</option>
+                                        </select>Acrobatics (Dex)</label>
+                                    <p class="skill-proficiency" id="investigation-proficiency">+0</p>
+                                </div>
+                                <div class="saving-throw">
+                                    <label class="skill-proficiency">
+                                        <select class="proficiency-select" id="medicine" name="medicine">
+                                            <option value="none"></option>
+                                            <option value="proficient">Proficient</option>
+                                            <option value="expertise">Expertise</option>
+                                        </select>Medicine (Wis)</label>
+                                    <p class="skill-proficiency" id="medicine-proficiency">+0</p>
+                                </div>
+                                <div class="saving-throw">
+                                    <label class="skill-proficiency">
+                                        <select class="proficiency-select" id="nature" name="nature">
+                                            <option value="none"></option>
+                                            <option value="proficient">Proficient</option>
+                                            <option value="expertise">Expertise</option>
+                                        </select>Nature (Int)</label>
+                                    <p class="skill-proficiency" id="nature-proficiency">+0</p>
+                                </div>
+                                <div class="saving-throw">
+                                    <label class="skill-proficiency">
+                                        <select class="proficiency-select" id="perception" name="perception">
+                                            <option value="none"></option>
+                                            <option value="proficient">Proficient</option>
+                                            <option value="expertise">Expertise</option>
+                                        </select>Perception (Wis)</label>
+                                    <p class="skill-proficiency" id="perception-proficiency">+0</p>
+                                </div>
+                                <div class="saving-throw">
+                                    <label class="skill-proficiency">
+                                        <select class="proficiency-select" id="performance" name="performance">
+                                            <option value="none"></option>
+                                            <option value="proficient">Proficient</option>
+                                            <option value="expertise">Expertise</option>
+                                        </select>Performance (Cha)</label>
+                                    <p class="skill-proficiency" id="performance-proficiency">+0</p>
+                                </div>
+                                <div class="saving-throw">
+                                    <label class="skill-proficiency">
+                                        <select class="proficiency-select" id="persuasion" name="persuasion">
+                                            <option value="none"></option>
+                                            <option value="proficient">Proficient</option>
+                                            <option value="expertise">Expertise</option>
+                                        </select>Persuasion (Cha)</label>
+                                    <p class="skill-proficiency" id="persuasion-proficiency">+0</p>
+                                </div>
+                                <div class="saving-throw">
+                                    <label class="skill-proficiency">
+                                        <select class="proficiency-select" id="religion" name="religion">
+                                            <option value="none"></option>
+                                            <option value="proficient">Proficient</option>
+                                            <option value="expertise">Expertise</option>
+                                        </select>Religion (Int)</label>
+                                    <p class="skill-proficiency" id="religion-proficiency">+0</p>
+                                </div>
+                                <div class="saving-throw">
+                                    <label class="skill-proficiency">
+                                        <select class="proficiency-select" id="sleight-of-hand" name="sleight-of-hand">
+                                            <option value="none"></option>
+                                            <option value="proficient">Proficient</option>
+                                            <option value="expertise">Expertise</option>
+                                        </select>Sleight of Hand (Dex)</label>
+                                    <p class="skill-proficiency" id="sleight-of-hand-proficiency">+0</p>
+                                </div>
+                                <div class="saving-throw">
+                                    <label class="skill-proficiency">
+                                        <select class="proficiency-select" id="stealth" name="stealth">
+                                            <option value="none"></option>
+                                            <option value="proficient">Proficient</option>
+                                            <option value="expertise">Expertise</option>
+                                        </select>Stealth (Dex)</label>
+                                    <p class="skill-proficiency" id="stealth-proficiency">+0</p>
+                                </div>
+                                <div class="saving-throw">
+                                    <label class="skill-proficiency">
+                                        <select class="proficiency-select" id="survival" name="survival">
+                                            <option value="none"></option>
+                                            <option value="proficient">Proficient</option>
+                                            <option value="expertise">Expertise</option>
+                                        </select>Survival (Wis)</label>
+                                    <p class="skill-proficiency" id="survival-proficiency">+0</p>
                                 </div>
                             </div>
                         </td>
