@@ -34,11 +34,62 @@
         }
     }
 
-    function updateProficiencies(level) {
+    function updateSelects() {
+        const str = document.querySelector('#str-proficiency');
+        str.value = '{{sheet.saves.str}}';
+        const dex = document.querySelector('#dex-proficiency');
+        dex.value = '{{sheet.saves.dex}}';
+        const con = document.querySelector('#con-proficiency');
+        con.value = '{{sheet.saves.con}}';
+        const int = document.querySelector('#int-proficiency');
+        int.value = '{{sheet.saves.int}}';
+        const wis = document.querySelector('#wis-proficiency');
+        wis.value = '{{sheet.saves.wis}}';
+        const cha = document.querySelector('#cha-proficiency');
+        cha.value = '{{sheet.saves.cha}}';
+    }
+
+    // Whenever the level changes, ensure that the proficiency bonus changes if need be.
+    function updateProficiencyBonus(level) {
         const bonus = document.querySelector('#proficiency-bonus');
-        if(!isNaN(level.value)) {
+        if (!isNaN(level.value)) {
             const proficiencyBonus = convertLevelToProficiencyBonus(level.value);
-            bonus.textContent = '+' + proficiencyBonus;
+            if (bonus.textContent !== '+' + proficiencyBonus) {
+                bonus.textContent = '+' + proficiencyBonus;
+            }
+        }
+    }
+
+    function updateSavingThrows(proficiency) {
+        console.log('updating saving throws');
+        const proficiencyBonus = (proficiency.textContent.includes('+'))
+                ? parseInt(proficiency.textContent.slice(1)) : parseInt(proficiency.textContent);
+        const abilityScores = ['str', 'dex', 'con', 'int', 'wis', 'cha'];
+        let fullBonus = 0;
+
+        for (let i = 0; i < abilityScores.length; i++) {
+            const abilityModifierObj = document.querySelector('#' + abilityScores[i] + '-modifier');
+            fullBonus = 0;
+
+            fullBonus += (abilityModifierObj.textContent.includes('+')) ?
+                    parseInt(abilityModifierObj.textContent.slice(1)) : parseInt(abilityModifierObj.textContent);
+
+            const proficiencyIndicator = document.querySelector('#' + abilityScores[i] + '-proficiency');
+            switch (proficiencyIndicator.value) {
+                default:
+                case 'none':
+                    fullBonus += 0;
+                    break;
+                case 'proficient':
+                    fullBonus += proficiencyBonus;
+                    break;
+                case 'expertise':
+                    fullBonus += proficiencyBonus * 2;
+                    break;
+            }
+
+            const proficiencyNumber = document.querySelector('#' + abilityScores[i] + '-proficiency-bonus');
+            proficiencyNumber.textContent = (fullBonus > 0) ? '+' + fullBonus : '' + fullBonus;
         }
     }
 
@@ -53,14 +104,21 @@
     function abilityScoreListener(HTMLObject) {
         HTMLObject.addEventListener('input', function () {
             updateAbilityModifier(this);
+            updateSavingThrows(document.querySelector('#proficiency-bonus'));
         });
     }
 
-    function proficiencyBonusListener(HTMLObject) {
-        HTMLObject.addEventListener('input', function() {
-            updateProficiencies(this);
-        })
+    function levelListener(HTMLObject) {
+        HTMLObject.addEventListener('input', function () {
+            updateProficiencyBonus(this);
+        });
 
+    }
+
+    function proficiencyBonusListener(HTMLObject) {
+        HTMLObject.addEventListener('change', function () {
+            updateSavingThrows(this);
+        });
     }
 
     // Setup all javascript helper functions.
@@ -69,8 +127,8 @@
         for (let i = 0; i < abilityScores.length; i++) {
             abilityScoreListener(abilityScores[i]);
         }
-        const level = document.querySelector('#level');
-        proficiencyBonusListener(level);
+        levelListener(document.querySelector('#level'));
+        proficiencyBonusListener(document.querySelector('#proficiency-bonus'));
     }
 
     function disableAllInputs() {
@@ -90,13 +148,22 @@
                 });
             }
         }
+        // Update skill proficiencies when a proficiency value is changed.
+        const skillProficiencySelections = document.getElementsByClassName('proficiency-select');
+        for (let i = 0; i < skillProficiencySelections.length; i++) {
+            skillProficiencySelections[i].addEventListener('input', function () {
+                updateSavingThrows(document.querySelector('#proficiency-bonus'));
+            });
+        }
         setupHelpers();
     }
 
     window.addEventListener('DOMContentLoaded', function () {
         updateModifiers();
         updateCheckBoxes();
-        updateProficiencies(document.querySelector('#level'));
+        updateSelects();
+        updateProficiencyBonus(document.querySelector('#level'));
+        updateSavingThrows(document.querySelector('#proficiency-bonus'));
 
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
@@ -166,44 +233,44 @@
                     <tbody>
                     <tr>
                         <td class="ability-scores">
-                            <label>STRENGTH<input type="number" class="ability-score" name="str" id="strength"
+                            <label>STRENGTH<input type="number" class="ability-score" name="str" id="str"
                                                   value="{{sheet.abilityScores.str}}"></label>
-                            <p id="strength-modifier" class="ability-modifier">0</p>
+                            <p id="str-modifier" class="ability-modifier">0</p>
                         </td>
                     </tr>
                     <tr>
                         <td class="ability-scores">
-                            <label>DEXTERITY<input type="number" class="ability-score" name="dex" id="dexterity"
+                            <label>DEXTERITY<input type="number" class="ability-score" name="dex" id="dex"
                                                    value="{{sheet.abilityScores.dex}}"></label>
-                            <p id="dexterity-modifier" class="ability-modifier">0</p>
+                            <p id="dex-modifier" class="ability-modifier">0</p>
                         </td>
                     </tr>
                     <tr>
                         <td class="ability-scores">
-                            <label>CONSTITUTION<input type="number" class="ability-score" name="con" id="constitution"
+                            <label>CONSTITUTION<input type="number" class="ability-score" name="con" id="con"
                                                       value="{{sheet.abilityScores.con}}"></label>
-                            <p id="constitution-modifier" class="ability-modifier">0</p>
+                            <p id="con-modifier" class="ability-modifier">0</p>
                         </td>
                     </tr>
                     <tr>
                         <td class="ability-scores">
-                            <label>INTELLIGENCE<input type="number" class="ability-score" name="int" id="intelligence"
+                            <label>INTELLIGENCE<input type="number" class="ability-score" name="int" id="int"
                                                       value="{{sheet.abilityScores.int}}"></label>
-                            <p id="intelligence-modifier" class="ability-modifier">0</p>
+                            <p id="int-modifier" class="ability-modifier">0</p>
                         </td>
                     </tr>
                     <tr>
                         <td class="ability-scores">
-                            <label>WISDOM<input type="number" class="ability-score" name="wis" id="wisdom"
+                            <label>WISDOM<input type="number" class="ability-score" name="wis" id="wis"
                                                 value="{{sheet.abilityScores.wis}}"></label>
-                            <p id="wisdom-modifier" class="ability-modifier">0</p>
+                            <p id="wis-modifier" class="ability-modifier">0</p>
                         </td>
                     </tr>
                     <tr>
                         <td class="ability-scores">
-                            <label>CHARISMA<input type="number" class="ability-score" name="cha" id="charisma"
+                            <label>CHARISMA<input type="number" class="ability-score" name="cha" id="cha"
                                                   value="{{sheet.abilityScores.cha}}"></label>
-                            <p id="charisma-modifier" class="ability-modifier">0</p>
+                            <p id="cha-modifier" class="ability-modifier">0</p>
                         </td>
                     </tr>
                     </tbody>
@@ -223,6 +290,68 @@
                             <div id="proficiency">
                                 <p class="proficiency-bonus">Proficiency Bonus: </p>
                                 <p id="proficiency-bonus" class="proficiency-bonus">+0</p>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div id="saving-throws">
+                                <br>
+                                <p id="saving-throw-text">Saving Throws</p>
+                                <div class="saving-throw">
+                                    <p class="saving-throw-proficiency" id="str-proficiency-bonus">+0</p>
+                                    <label class="saving-throw-proficiency">
+                                        <select class="proficiency-select" id="str-proficiency" name="strSave">
+                                            <option value="none"></option>
+                                            <option value="proficient">Proficient</option>
+                                            <option value="expertise">Expertise</option>
+                                        </select>Strength</label>
+                                </div>
+                                <div class="saving-throw">
+                                    <p class="saving-throw-proficiency" id="dex-proficiency-bonus">+0</p>
+                                    <label class="saving-throw-proficiency">
+                                        <select class="proficiency-select" id="dex-proficiency" name="dexSave">
+                                            <option value="none"></option>
+                                            <option value="proficient">Proficient</option>
+                                            <option value="expertise">Expertise</option>
+                                        </select>Dexterity</label>
+                                </div>
+                                <div class="saving-throw">
+                                    <p class="saving-throw-proficiency" id="con-proficiency-bonus">+0</p>
+                                    <label class="saving-throw-proficiency">
+                                        <select class="proficiency-select" id="con-proficiency" name="conSave">
+                                            <option value="none"></option>
+                                            <option value="proficient">Proficient</option>
+                                            <option value="expertise">Expertise</option>
+                                        </select>Constitution</label>
+                                </div>
+                                <div class="saving-throw">
+                                    <p class="saving-throw-proficiency" id="int-proficiency-bonus">+0</p>
+                                    <label class="saving-throw-proficiency">
+                                        <select class="proficiency-select" id="int-proficiency" name="intSave">
+                                            <option value="none"></option>
+                                            <option value="proficient">Proficient</option>
+                                            <option value="expertise">Expertise</option>
+                                        </select>Intelligence</label>
+                                </div>
+                                <div class="saving-throw">
+                                    <p class="saving-throw-proficiency" id="wis-proficiency-bonus">+0</p>
+                                    <label class="saving-throw-proficiency">
+                                        <select class="proficiency-select" id="wis-proficiency" name="wisSave">
+                                            <option value="none"></option>
+                                            <option value="proficient">Proficient</option>
+                                            <option value="expertise">Expertise</option>
+                                        </select>Wisdom</label>
+                                </div>
+                                <div class="saving-throw">
+                                    <p class="saving-throw-proficiency" id="cha-proficiency-bonus">+0</p>
+                                    <label class="saving-throw-proficiency">
+                                        <select class="proficiency-select" id="cha-proficiency" name="chaSave">
+                                            <option value="none"></option>
+                                            <option value="proficient">Proficient</option>
+                                            <option value="expertise">Expertise</option>
+                                        </select>Charisma</label>
+                                </div>
                             </div>
                         </td>
                     </tr>

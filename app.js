@@ -101,20 +101,22 @@ app.get('/sheet/:slug', function (req, res) {
 
     let sheet = new Sheet();
     firebase.database().ref('/sheets/' + slug).once('value', function (snapshot) {
-        sheet.user = snapshot.val().user;
-        sheet.slug = snapshot.val().slug;
-        sheet.name = snapshot.val().name;// + ' level ' + snapshot.val().level + ' ' + snapshot.val().class;
-        sheet.player = snapshot.val().player;
-        sheet.class = snapshot.val().class;
-        sheet.level = snapshot.val().level;
-        sheet.exp = snapshot.val().exp;
-        sheet.faction = snapshot.val().faction;
-        sheet.race = snapshot.val().race;
-        sheet.subrace = snapshot.val().subrace;
-        sheet.background = snapshot.val().background;
-        sheet.alignment = snapshot.val().alignment;
-        sheet.abilityScores = snapshot.val().abilityScores;
-        sheet.inspiration = snapshot.val().inspiration;
+        const val = snapshot.val();
+        sheet.user = val.user;
+        sheet.slug = val.slug;
+        sheet.name = val.name;// + ' level ' + snapshot.val().level + ' ' + snapshot.val().class;
+        sheet.player = val.player;
+        sheet.class = val.class;
+        sheet.level = val.level;
+        sheet.exp = val.exp;
+        sheet.faction = val.faction;
+        sheet.race = val.race;
+        sheet.subrace = val.subrace;
+        sheet.background = val.background;
+        sheet.alignment = val.alignment;
+        sheet.abilityScores = val.abilityScores;
+        sheet.inspiration = val.inspiration;
+        sheet.saves = val.saves;
     }).then(function () {
         res.render('slug', {sheet: sheet});
     });
@@ -148,6 +150,15 @@ app.post('/sheet/:slug', function (req, res) {
         cha: req.body.cha
     };
 
+    sheet.saves = {
+        str: req.body.strSave,
+        dex: req.body.dexSave,
+        con: req.body.conSave,
+        int: req.body.intSave,
+        wis: req.body.wisSave,
+        cha: req.body.chaSave,
+    };
+
     sheet.inspiration = (req.body.inspiration !== undefined) ? 'true' : 'false';
 
     //TODO: Find a way to only update the stuff changed, to cut down on traffic
@@ -175,6 +186,14 @@ app.post('/sheet/:slug', function (req, res) {
             cha: sheet.abilityScores.cha
         },
         inspiration: sheet.inspiration,
+        saves: {
+            str: sheet.saves.str,
+            dex: sheet.saves.dex,
+            con: sheet.saves.con,
+            int: sheet.saves.int,
+            wis: sheet.saves.wis,
+            cha: sheet.saves.cha,
+        }
     };
     // console.log('sheet ability scores', sheet.abilityScores);
     // console.log('update', update);

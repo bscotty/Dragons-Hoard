@@ -275,7 +275,14 @@ const Sheet = new Schema({
         wis: Number,
         cha: Number
     },
-    saves: [String],        // Proficient Ability Saves
+    saves: {
+        str: String,
+        dex: String,
+        con: String,
+        int: String,
+        wis: String,
+        cha: String
+    },        // Proficient Ability Saves
     skills: [SkillProficiency], // Proficient Skill Saves
     hitPoints: Number,
     currentHP: Number,

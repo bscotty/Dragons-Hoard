@@ -27,10 +27,21 @@ div.page {
 }
 
 div#proficiency {
-    margin-top: 15px;
+    margin-top: 10px;
 
     align-content: center;
     font-size: 14px;
+}
+
+div.saving-throw {
+    margin: 10px 10px 10px 0;
+}
+
+div#sheet-container {
+    position: relative;
+    margin: 0 auto;
+    width: 940px;
+    text-align: center;
 }
 
 div#skills {
@@ -51,10 +62,6 @@ div#sheet-container {
     margin: 0 auto;
     width: 940px;
     text-align: center;
-}
-
-form.sheet {
-    margin: 0 0 18px;
 }
 
 html {
@@ -92,8 +99,7 @@ input#name {
 }
 
 input[type=checkbox] {
-    margin-left: 15px;
-    margin-right: 15px;
+    margin: 5px 15px;
 }
 
 input[type=number] {
@@ -119,6 +125,11 @@ input[type=text] {
     font-size: 13px;
 }
 
+label.saving-throw-proficiency {
+    margin-top: 0;
+    font-size: 12px;
+}
+
 label#inspiration-label {
     padding-left: 5px;
 
@@ -132,15 +143,47 @@ p.ability-modifier {
     margin-bottom: 10px;
 }
 
+p.saving-throw-proficiency {
+    display: inline;
+    font-size: 14px;
+    padding: 3px 4px;
+
+    margin: 0;
+
+    width: 27px;
+    height: 27px;
+
+    border: solid lightgray 2px;
+    border-radius: 15px;
+}
+
+p#saving-throw-text {
+    font-size: 18px;
+    margin-top: 5px;
+
+    margin-left: 15px;
+}
+
 p.proficiency-bonus {
     margin-left: 15px;
     padding: 5px;
+
+    font-size: 14px;
+
     display: inline;
 }
 
 p.proficiency-bonus#proficiency-bonus {
+    padding: 4px 5px;
     border: solid lightgray 2px;
     border-radius: 15px;
+}
+
+select {
+    margin-left: 5px;
+    margin-right: 5px;
+
+    font-size: 9px;
 }
 
 table {
@@ -177,4 +220,8 @@ td.ability-scores {
 
 td.filler {
     visibility: hidden;
+}
+
+tr {
+    width: 100%;
 }
