@@ -123,7 +123,7 @@ app.get('/sheet/:slug', function (req, res) {
 });
 
 app.post('/sheet/:slug', function (req, res) {
-    //console.log('req.body', req.body);
+    console.log('req.body', req.body);
     const slug = req.params.slug;
 
     const sheet = new Sheet();
@@ -151,12 +151,33 @@ app.post('/sheet/:slug', function (req, res) {
     };
 
     sheet.saves = {
-        str: req.body.strSave,
-        dex: req.body.dexSave,
-        con: req.body.conSave,
-        int: req.body.intSave,
-        wis: req.body.wisSave,
-        cha: req.body.chaSave,
+        str: (req.body.strSave) ? req.body.strSave : 'none',
+        dex: (req.body.dexSave) ? req.body.dexSave : 'none',
+        con: (req.body.conSave) ? req.body.conSave : 'none',
+        int: (req.body.intSave) ? req.body.intSave : 'none',
+        wis: (req.body.wisSave) ? req.body.wisSave : 'none',
+        cha: (req.body.chaSave) ? req.body.chaSave : 'none',
+    };
+
+    sheet.skills = {
+        acrobatics: (req.body.acrobatics) ? req.body.acrobatics : 'none',
+        animalHandling: (req.body.animalHandling) ? req.body.animalHandling : 'none',
+        arcana: (req.body.arcana) ? req.body.arcana : 'none',
+        athletics: (req.body.athletics) ? req.body.athletics : 'none',
+        deception: (req.body.deception) ? req.body.deception : 'none',
+        history: (req.body.history) ? req.body.history : 'none',
+        insight: (req.body.insight) ? req.body.insight : 'none',
+        intimidation: (req.body.intimidation) ? req.body.intimidation : 'none',
+        investigation: (req.body.investigation) ? req.body.investigation : 'none',
+        medicine: (req.body.medicine) ? req.body.medicine : 'none',
+        nature: (req.body.nature) ? req.body.nature : 'none',
+        perception: (req.body.perception) ? req.body.perception : 'none',
+        performance: (req.body.performance) ? req.body.performance : 'none',
+        persuasion: (req.body.persuasion) ? req.body.persuasion : 'none',
+        religion: (req.body.religion) ? req.body.religion : 'none',
+        sleightOfHand: (req.body.sleightOfHand) ? req.body.sleightOfHand : 'none',
+        stealth: (req.body.stealth) ? req.body.stealth : 'none',
+        survival: (req.body.survival) ? req.body.survival : 'none',
     };
 
     sheet.inspiration = (req.body.inspiration !== undefined) ? 'true' : 'false';
@@ -193,7 +214,27 @@ app.post('/sheet/:slug', function (req, res) {
             int: sheet.saves.int,
             wis: sheet.saves.wis,
             cha: sheet.saves.cha,
-        }
+        },
+        skills: {
+            acrobatics: sheet.skills.acrobatics,
+            animalHandling: sheet.skills.animalHandling,
+            arcana: sheet.skills.arcana,
+            athletics: sheet.skills.athletics,
+            deception: sheet.skills.deception,
+            history: sheet.skills.history,
+            insight: sheet.skills.insight,
+            intimidation: sheet.skills.intimidation,
+            investigation: sheet.skills.investigation,
+            medicine: sheet.skills.medicine,
+            nature: sheet.skills.nature,
+            perception: sheet.skills.perception,
+            performance: sheet.skills.performance,
+            persuasion: sheet.skills.persuasion,
+            religion: sheet.skills.religion,
+            sleightOfHand: sheet.skills.sleightOfHand,
+            stealth: sheet.skills.stealth,
+            survival: sheet.skills.survival,
+        },
     };
     // console.log('sheet ability scores', sheet.abilityScores);
     // console.log('update', update);

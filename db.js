@@ -283,7 +283,26 @@ const Sheet = new Schema({
         wis: String,
         cha: String
     },        // Proficient Ability Saves
-    skills: [SkillProficiency], // Proficient Skill Saves
+    skills: {
+        acrobatics: String,
+        animalHandling: String,
+        arcana: String,
+        athletics: String,
+        deception: String,
+        history: String,
+        insight: String,
+        intimidation: String,
+        investigation: String,
+        medicine: String,
+        nature: String,
+        perception: String,
+        performance: String,
+        persuasion: String,
+        religion: String,
+        sleightOfHand: String,
+        stealth: String,
+        survival: String
+    }, // Proficient Skill Saves
     hitPoints: Number,
     currentHP: Number,
     inspiration: String,

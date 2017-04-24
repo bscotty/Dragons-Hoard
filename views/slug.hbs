@@ -12,10 +12,12 @@
         return Math.floor((abilityScore - 10) / 2);
     }
 
+    // Used to convert the level to the proficiency bonus.
     function convertLevelToProficiencyBonus(level) {
         return 1 + Math.ceil((level) / 4);
     }
 
+    // Updates an ability modifier when an ability score changes.
     function updateAbilityModifier(abilityScore) {
         const score = abilityScore.value;
         if (!isNaN(score)) {
@@ -25,6 +27,7 @@
         }
     }
 
+    // Sets all checkboxes to checked or unchecked when the page loads.
     function updateCheckBoxes() {
         const inspiration = document.querySelector('#inspiration');
         if (inspiration.value === 'true') {
@@ -34,19 +37,12 @@
         }
     }
 
-    function updateSelects() {
-        const str = document.querySelector('#str-proficiency');
-        str.value = '{{sheet.saves.str}}';
-        const dex = document.querySelector('#dex-proficiency');
-        dex.value = '{{sheet.saves.dex}}';
-        const con = document.querySelector('#con-proficiency');
-        con.value = '{{sheet.saves.con}}';
-        const int = document.querySelector('#int-proficiency');
-        int.value = '{{sheet.saves.int}}';
-        const wis = document.querySelector('#wis-proficiency');
-        wis.value = '{{sheet.saves.wis}}';
-        const cha = document.querySelector('#cha-proficiency');
-        cha.value = '{{sheet.saves.cha}}';
+    // Update ALL ability modifiers based on their ability scores.
+    function updateModifiers() {
+        const abilityScores = document.getElementsByClassName('ability-score');
+        for (let i = 0; i < abilityScores.length; i++) {
+            updateAbilityModifier(abilityScores[i]);
+        }
     }
 
     // Whenever the level changes, ensure that the proficiency bonus changes if need be.
@@ -56,12 +52,14 @@
             const proficiencyBonus = convertLevelToProficiencyBonus(level.value);
             if (bonus.textContent !== '+' + proficiencyBonus) {
                 bonus.textContent = '+' + proficiencyBonus;
+                updateSavingThrows(document.querySelector('#proficiency-bonus'));
+                updateSkillProficiencies(document.querySelector('#proficiency-bonus'));
             }
         }
     }
 
+    // Update all saving throws based on their proficiencies and relevant ability scores.
     function updateSavingThrows(proficiency) {
-        console.log('updating saving throws');
         const proficiencyBonus = (proficiency.textContent.includes('+'))
                 ? parseInt(proficiency.textContent.slice(1)) : parseInt(proficiency.textContent);
         const abilityScores = ['str', 'dex', 'con', 'int', 'wis', 'cha'];
@@ -93,11 +91,74 @@
         }
     }
 
-    function updateModifiers() {
-        const abilityScores = document.getElementsByClassName('ability-score');
-        for (let i = 0; i < abilityScores.length; i++) {
-            updateAbilityModifier(abilityScores[i]);
+    // Set the correct values for all the select objects when the page loads.
+    function updateSelects() {
+        // Saving Throws
+        document.querySelector('#str-proficiency').value = '{{sheet.saves.str}}';
+        document.querySelector('#dex-proficiency').value = '{{sheet.saves.dex}}';
+        document.querySelector('#con-proficiency').value = '{{sheet.saves.con}}';
+        document.querySelector('#int-proficiency').value = '{{sheet.saves.int}}';
+        document.querySelector('#wis-proficiency').value = '{{sheet.saves.wis}}';
+        document.querySelector('#cha-proficiency').value = '{{sheet.saves.cha}}';
+
+        // Skill Proficiencies
+        document.querySelector('#acrobatics').value = '{{sheet.skills.acrobatics}}';
+        document.querySelector('#animal-handling').value = '{{sheet.skills.animalHandling}}';
+        document.querySelector('#arcana').value = '{{sheet.skills.arcana}}';
+        document.querySelector('#athletics').value = '{{sheet.skills.athletics}}';
+        document.querySelector('#deception').value = '{{sheet.skills.deception}}';
+        document.querySelector('#history').value = '{{sheet.skills.history}}';
+        document.querySelector('#insight').value = '{{sheet.skills.insight}}';
+        document.querySelector('#intimidation').value = '{{sheet.skills.intimidation}}';
+        document.querySelector('#investigation').value = '{{sheet.skills.investigation}}';
+        document.querySelector('#medicine').value = '{{sheet.skills.medicine}}';
+        document.querySelector('#nature').value = '{{sheet.skills.nature}}';
+        document.querySelector('#perception').value = '{{sheet.skills.perception}}';
+        document.querySelector('#performance').value = '{{sheet.skills.performance}}';
+        document.querySelector('#persuasion').value = '{{sheet.skills.persuasion}}';
+        document.querySelector('#religion').value = '{{sheet.skills.religion}}';
+        document.querySelector('#sleight-of-hand').value = '{{sheet.skills.sleightOfHand}}';
+        document.querySelector('#stealth').value = '{{sheet.skills.stealth}}';
+        document.querySelector('#survival').value = '{{sheet.skills.survival}}';
+    }
+
+    // Update all skill proficiencies based on their proficiency and and relevant ability score.
+    function updateSkillProficiencies(proficiency) {
+        const proficiencyBonus = (proficiency.textContent.includes('+'))
+                ? parseInt(proficiency.textContent.slice(1)) : parseInt(proficiency.textContent);
+        let fullBonus = 0;
+
+        const skills = ["acrobatics", "animal-handling", "arcana", "athletics", "deception", "history", "insight",
+            "intimidation", "investigation", "medicine", "nature", "perception", "performance", "persuasion",
+            "religion", "sleight-of-hand", "stealth", "survival"];
+        const relevantAbilityScores = ["dex", "wis", "int", "str", "cha", "int", "wis",
+            "cha", "int", "wis", "int", "wis", "cha", "cha",
+            "int", "dex", "dex", "wis"];
+
+        for (let i = 0; i < skills.length; i++) {
+            const abilityModifierObj = document.querySelector('#' + relevantAbilityScores[i] + '-modifier');
+            fullBonus = 0;
+            fullBonus += (abilityModifierObj.textContent.includes('+')) ?
+                    parseInt(abilityModifierObj.textContent.slice(1)) : parseInt(abilityModifierObj.textContent);
+
+            const proficiencyIndicator = document.querySelector('#' + skills[i]);
+            switch (proficiencyIndicator.value) {
+                default:
+                case 'none':
+                    fullBonus += 0;
+                    break;
+                case 'proficient':
+                    fullBonus += proficiencyBonus;
+                    break;
+                case 'expertise':
+                    fullBonus += proficiencyBonus * 2;
+                    break;
+            }
+
+            const proficiencyNumber = document.querySelector('#' + skills[i] + '-proficiency');
+            proficiencyNumber.textContent = (fullBonus >= 0) ? '+' + fullBonus : '' + fullBonus;
         }
+
     }
 
     // Update the modifiers whenever the ability score changes.
@@ -105,19 +166,14 @@
         HTMLObject.addEventListener('input', function () {
             updateAbilityModifier(this);
             updateSavingThrows(document.querySelector('#proficiency-bonus'));
+            updateSkillProficiencies(document.querySelector('#proficiency-bonus'));
         });
     }
 
+    // Update proficiency bonus, saving throws, and skill proficiencies on level up.
     function levelListener(HTMLObject) {
         HTMLObject.addEventListener('input', function () {
             updateProficiencyBonus(this);
-        });
-
-    }
-
-    function proficiencyBonusListener(HTMLObject) {
-        HTMLObject.addEventListener('change', function () {
-            updateSavingThrows(this);
         });
     }
 
@@ -128,9 +184,9 @@
             abilityScoreListener(abilityScores[i]);
         }
         levelListener(document.querySelector('#level'));
-        proficiencyBonusListener(document.querySelector('#proficiency-bonus'));
     }
 
+    // Disable all inputs if the user is signed out.
     function disableAllInputs() {
         const inputs = document.getElementsByTagName('input');
         for (let i = 0; i < inputs.length; i++) {
@@ -138,6 +194,7 @@
         }
     }
 
+    // Watch for changes made to inputs and respond accordingly.
     function watchForChanges() {
         // Highlight Changes Made to any input
         const inputs = document.getElementsByTagName('input');
@@ -148,11 +205,12 @@
                 });
             }
         }
-        // Update skill proficiencies when a proficiency value is changed.
+        // Update skill proficiencies and saving throws when a proficiency value is changed.
         const skillProficiencySelections = document.getElementsByClassName('proficiency-select');
         for (let i = 0; i < skillProficiencySelections.length; i++) {
             skillProficiencySelections[i].addEventListener('input', function () {
                 updateSavingThrows(document.querySelector('#proficiency-bonus'));
+                updateSkillProficiencies(document.querySelector('#proficiency-bonus'));
             });
         }
         setupHelpers();
@@ -164,6 +222,7 @@
         updateSelects();
         updateProficiencyBonus(document.querySelector('#level'));
         updateSavingThrows(document.querySelector('#proficiency-bonus'));
+        updateSkillProficiencies(document.querySelector('#proficiency-bonus'));
 
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
@@ -415,7 +474,7 @@
                                             <option value="none"></option>
                                             <option value="proficient">Proficient</option>
                                             <option value="expertise">Expertise</option>
-                                        </select>History (Dex)</label>
+                                        </select>History (Int)</label>
                                     <p class="skill-proficiency" id="history-proficiency">+0</p>
                                 </div>
                                 <div class="saving-throw">
@@ -442,7 +501,7 @@
                                             <option value="none"></option>
                                             <option value="proficient">Proficient</option>
                                             <option value="expertise">Expertise</option>
-                                        </select>Acrobatics (Dex)</label>
+                                        </select>Investigation (Int)</label>
                                     <p class="skill-proficiency" id="investigation-proficiency">+0</p>
                                 </div>
                                 <div class="saving-throw">
@@ -501,7 +560,7 @@
                                 </div>
                                 <div class="saving-throw">
                                     <label class="skill-proficiency">
-                                        <select class="proficiency-select" id="sleight-of-hand" name="sleight-of-hand">
+                                        <select class="proficiency-select" id="sleight-of-hand" name="sleightOfHand">
                                             <option value="none"></option>
                                             <option value="proficient">Proficient</option>
                                             <option value="expertise">Expertise</option>
