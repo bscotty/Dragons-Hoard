@@ -109,7 +109,7 @@ app.get('/sheet/:slug', function (req, res) {
         sheet.class = val.class;
         sheet.level = val.level;
         sheet.exp = val.exp;
-        sheet.faction = val.faction;
+        //sheet.faction = val.faction;
         sheet.race = val.race;
         sheet.subrace = val.subrace;
         sheet.background = val.background;
@@ -136,7 +136,7 @@ app.post('/sheet/:slug', function (req, res) {
     sheet.level = req.body.level;
     sheet.exp = req.body.exp;
 
-    sheet.faction = req.body.faction;
+    //sheet.faction = req.body.faction;
     sheet.race = req.body.race;
     sheet.subrace = req.body.subrace;
     sheet.background = req.body.background;
@@ -194,7 +194,7 @@ app.post('/sheet/:slug', function (req, res) {
         level: sheet.level,
         exp: sheet.exp,
 
-        faction: sheet.faction,
+        //faction: sheet.faction,
         race: sheet.race,
         subrace: sheet.subrace,
         background: sheet.background,

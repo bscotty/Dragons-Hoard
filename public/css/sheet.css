@@ -8,6 +8,28 @@ div#ability-scores {
     float: left;
 }
 
+div#hp-equipment {
+    text-align: center;
+    margin-top: 15px;
+    padding-left: 10px;
+    width: 30%;
+
+    float: left;
+    border: solid dimgray 2px;
+    border-radius: 15px;
+}
+
+div#features-traits {
+    text-align: center;
+    margin-top: 15px;
+    padding-left: 10px;
+    width: 30%;
+
+    float: left;
+    border: solid dimgray 2px;
+    border-radius: 15px;
+}
+
 div.page {
     font-size: 9px;
     color: black;
