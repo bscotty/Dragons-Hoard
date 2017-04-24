@@ -117,6 +117,7 @@ app.get('/sheet/:slug', function (req, res) {
         sheet.abilityScores = val.abilityScores;
         sheet.inspiration = val.inspiration;
         sheet.saves = val.saves;
+        sheet.skills = val.skills;
     }).then(function () {
         res.render('slug', {sheet: sheet});
     });
