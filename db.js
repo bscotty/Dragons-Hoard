@@ -305,7 +305,26 @@ const Sheet = new Schema({
     }, // Proficient Skill Saves
     hitPoints: Number,
     currentHP: Number,
+    temporaryHP: Number,
+    hitDice: String,
     inspiration: String,
+
+    armorClass: Number,
+    initiative: Number,
+    speed: Number,
+
+    deathSaves: {
+        successes: {
+            success1: Boolean,
+            success2: Boolean,
+            success3: Boolean
+        },
+        failures: {
+            failure1: Boolean,
+            failure2: Boolean,
+            failure3: Boolean
+        }
+    },
 
     proficiencies: {
         language: [String], // Chosen by User

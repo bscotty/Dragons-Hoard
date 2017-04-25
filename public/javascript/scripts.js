@@ -20,11 +20,24 @@ function updateAbilityModifier(abilityScore) {
 
 // Sets all checkboxes to checked or unchecked when the page loads.
 function updateCheckBoxes() {
-    const inspiration = document.querySelector('#inspiration');
-    if (inspiration.value === 'true') {
-        inspiration.setAttribute('checked', 'checked');
-    } else {
-        inspiration.removeAttribute('checked');
+    const checkboxes = [];
+
+    checkboxes.push(document.querySelector('#inspiration'));
+
+    checkboxes.push(document.querySelector('#dss1'));
+    checkboxes.push(document.querySelector('#dss2'));
+    checkboxes.push(document.querySelector('#dss3'));
+
+    checkboxes.push(document.querySelector('#dsf1'));
+    checkboxes.push(document.querySelector('#dsf2'));
+    checkboxes.push(document.querySelector('#dsf3'));
+
+    for (let i = 0; i < checkboxes.length; i++) {
+        if (checkboxes[i].value === 'true') {
+            checkboxes[i].setAttribute('checked', 'checked');
+        } else {
+            checkboxes[i].removeAttribute('checked');
+        }
     }
 }
 

@@ -75,6 +75,18 @@ app.post('/sheet/newSheet', function (req, res) {
     sheet.slug = key;
     sheet.class = 'Adventurer';
     sheet.inspiration = 'false';
+    sheet.deathSaves = {
+        successes: {
+            success1: 'false',
+            success2: 'false',
+            success3: 'false',
+        },
+        failures: {
+            failure1: 'false',
+            failure2: 'false',
+            failure3: 'false',
+        }
+    };
 
     const updates = {};
     updates['/users/' + req.body.huid + '/' + key] = key;
@@ -86,6 +98,18 @@ app.post('/sheet/newSheet', function (req, res) {
         slug: key,
         class: sheet.class,
         inspiration: sheet.inspiration,
+        deathSaves: {
+            successes: {
+                success1: sheet.deathSaves.successes.success1,
+                success2: sheet.deathSaves.successes.success2,
+                success3: sheet.deathSaves.successes.success3,
+            },
+            failures: {
+                failure1: sheet.deathSaves.successes.failure1,
+                failure2: sheet.deathSaves.successes.failure2,
+                failure3: sheet.deathSaves.successes.failure3,
+            }
+        }
     };
     firebase.database().ref().update(updates).then(function () {
         res.render('sheet', {sheet: sheet});
@@ -118,6 +142,16 @@ app.get('/sheet/:slug', function (req, res) {
         sheet.inspiration = val.inspiration;
         sheet.saves = val.saves;
         sheet.skills = val.skills;
+        sheet.armorClass = val.armorClass;
+        sheet.initiative = val.initiative;
+        sheet.speed = val.speed;
+
+        sheet.hitPoints = val.hitPoints;
+        sheet.currentHP = val.currentHP;
+        sheet.temporaryHP = val.temporaryHP;
+        sheet.hitDice = val.hitDice;
+
+        sheet.deathSaves = val.deathSaves;
     }).then(function () {
         res.render('slug', {sheet: sheet});
     });
@@ -181,7 +215,31 @@ app.post('/sheet/:slug', function (req, res) {
         survival: (req.body.survival) ? req.body.survival : 'none',
     };
 
+    sheet.armorClass = parseInt(req.body.armorClass);
+    sheet.initiative = parseInt(req.body.initiative);
+    sheet.speed = parseInt(req.body.speed);
+
+    sheet.hitPoints = parseInt(req.body.hitPoints);
+    sheet.currentHP = parseInt(req.body.currentHP);
+    sheet.temporaryHP = parseInt(req.body.temporaryHP);
+    sheet.hitDice = req.body.hitDice;
+
+    sheet.deathSaves = {
+        successes: {
+            success1: (req.body.deathSaveSuccess1 !== undefined) ? 'true' : 'false',
+            success2: (req.body.deathSaveSuccess2 !== undefined) ? 'true' : 'false',
+            success3: (req.body.deathSaveSuccess3 !== undefined) ? 'true' : 'false',
+        },
+        failures: {
+            failure1: (req.body.deathSaveFailure1 !== undefined) ? 'true' : 'false',
+            failure2: (req.body.deathSaveFailure2 !== undefined) ? 'true' : 'false',
+            failure3: (req.body.deathSaveFailure3 !== undefined) ? 'true' : 'false',
+        }
+    };
+
     sheet.inspiration = (req.body.inspiration !== undefined) ? 'true' : 'false';
+
+    console.log(sheet);
 
     //TODO: Find a way to only update the stuff changed, to cut down on traffic
     const update = {};
@@ -236,6 +294,27 @@ app.post('/sheet/:slug', function (req, res) {
             stealth: sheet.skills.stealth,
             survival: sheet.skills.survival,
         },
+        armorClass: sheet.armorClass,
+        initiative: sheet.initiative,
+        speed: sheet.speed,
+
+        hitPoints: sheet.hitPoints,
+        currentHP: sheet.currentHP,
+        temporaryHP: sheet.temporaryHP,
+        hitDice: sheet.hitDice,
+        deathSaves: {
+            successes: {
+                success1: sheet.deathSaves.successes.success1,
+                success2: sheet.deathSaves.successes.success2,
+                success3: sheet.deathSaves.successes.success3
+            },
+            failures: {
+                failure1: sheet.deathSaves.failures.failure1,
+                failure2: sheet.deathSaves.failures.failure2,
+                failure3: sheet.deathSaves.failures.failure3
+            }
+        }
+
     };
     // console.log('sheet ability scores', sheet.abilityScores);
     // console.log('update', update);
