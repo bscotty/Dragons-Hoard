@@ -1,10 +1,14 @@
+ /*
+  * This WebGL code has been provided generously by Ken Perlin. You can contact him or see more of his work at his
+  * website: https://mrl.nyu.edu/~perlin/
+  */
 const fragmentShaderHeader = [''               // PREDEFINED STUFF FOR FRAGMENT SHADERS
     , '   precision highp float;'
 ].join('\n');
 
 let time = 0;
 
-function SceneObject(vertices) {
+function SceneObject() {
     const bpe = Float32Array.BYTES_PER_ELEMENT;
 
     this.vertexSize = 6;

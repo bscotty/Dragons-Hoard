@@ -1,3 +1,7 @@
+/*
+ * This Matrix Math code has been provided generously by Ken Perlin. You can contact him or see more of his work at his
+ * website: https://mrl.nyu.edu/~perlin/
+ */
 const M = (function () {
     const my = {};
     const stack = [];

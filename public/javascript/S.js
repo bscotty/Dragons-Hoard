@@ -1,3 +1,7 @@
+/*
+ * Much of this coordinate generation code has been provided generously by Ken Perlin. You can contact him or see more
+ * of his work at his website: https://mrl.nyu.edu/~perlin/
+ */
 const S = (function () {
     const my = {};
 
@@ -24,8 +28,8 @@ const S = (function () {
         return C;
     };
 
-    /**
-     * Icosahedron coordinate generation based on superwills' C++ code available at the address below.
+    /*
+     * Icosahedron coordinate generation is loosely based on superwills' C++ code available at the address below.
      * https://github.com/superwills/gtp/blob/master/gtp/geometry/Icosahedron.cpp
      */
     my.UnitIcosahedron = function () {
