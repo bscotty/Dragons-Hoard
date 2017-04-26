@@ -4,10 +4,13 @@
     <script type="text/javascript">
         function onSignIn(user) {
             const sheetLink = document.querySelector('#sheets');
+            const notSignedIn = document.querySelector('#not-signed-in');
             if (firebaseUser.hasCurrentUser === true) {
                 sheetLink.textContent = "Go to my sheets!";
+                notSignedIn.textContent = "";
             } else {
                 sheetLink.textContent = "";
+                notSignedIn.textContent = "Please Sign In!"
             }
         }
 
@@ -18,11 +21,12 @@
         window.addEventListener('load', onLoad);
     </script>
 </head>
-<h1>Welcome to the Dragon's Hoard! Functionality Coming Soon!</h1>
-<h1><A id="sheets" href="/sheets"></A></h1>
+<h1>Welcome to the Dragon's Hoard!</h1>
+<h2><A id="sheets" href="/sheets"></A></h2>
+<h2 id="not-signed-in"></h2>
 
 <body style="text-align: center;">
-<canvas id="canvas1" width="600" height="600"></canvas>
+<canvas id="canvas1" width="400" height="400"></canvas>
 </body>
 
 <script src="/javascript/M.js"></script>
@@ -57,8 +61,8 @@ void main() {
    vec3 c = normal * .5 + .5;
 
    /* Begin Phong Shading. */
-   vec3 L = normalize(vec3(1,1,0));     // Light
-   vec3 Lcol = vec3(.8, .8, .8);        // Light Color
+   vec3 L = normalize(vec3(1,1,-1));     // Light
+   vec3 Lcol = vec3(.8, .5, .8);        // Light Color
    vec3 R = 2. * normal * dot(normal, L) - L;   // R
 
    vec3 a = vec3(.2, 0,.2); // ambient
@@ -75,6 +79,19 @@ void main() {
 </script>
 
 <script>
+    function calculateNormal(point1, point2, point3) {
+        const normal = [];
+
+        const V = [point2[0] - point1[0], point2[1] - point1[1], point2[2] - point1[2]];
+        const W = [point3[0] - point1[0], point3[1] - point1[1], point3[2] - point1[2]];
+
+        normal[0] = (V[1] * W[2]) - (V[2] * W[1]); // Nx = (Vy * Wz) − (Vz * Wy);
+        normal[1] = (V[2] * W[0]) - (V[0] * W[2]); // Ny = (Vz * Wx) − (Vx * Wz)
+        normal[2] = (V[0] * W[1]) - (V[1] * W[0]); // Nz = (Vx * Wy) − (Vy * Wx)
+
+        return normal;
+    }
+
     window.addEventListener('load', function () {
         const m = M.identityMatrix();
 
@@ -89,7 +106,7 @@ void main() {
                     M.identity(m);
                     M.rotateY(m, time);
                     M.rotateZ(m, time);
-                    M.scale(m, 0.7);
+                    M.scale(m, 0.40);
 
                     M.save(m);
                     obj1.setMatrix(m);
@@ -98,39 +115,17 @@ void main() {
         );
         const scene = new Scene();
 
-        const vertices = S.parametricMesh(S.sphere, 15, 15);
-        console.log(vertices);
+        const vertices = S.UnitIcosahedron();
+        //console.log(vertices);
 
         obj1 = new SceneObject();
         const obj1Vertices = [];
         for (let i = 0; i < vertices.length; i++) {
-            for (let j = 0; j < 3; j++)
-                obj1Vertices.push(vertices[i][0][j]);
-            for (let j = 0; j < 3; j++)
-                obj1Vertices.push(vertices[i][1][j]);
-            for (let j = 0; j < 3; j++)
-                obj1Vertices.push(vertices[i][2][j]);
-
-            for (let j = 0; j < 3; j++)
-                obj1Vertices.push(vertices[i][0][j]);
-            for (let j = 0; j < 3; j++)
-                obj1Vertices.push(vertices[i][1][j]);
-            for (let j = 0; j < 3; j++)
-                obj1Vertices.push(vertices[i][2][j]);
-
-            for (let j = 0; j < 3; j++)
-                obj1Vertices.push(vertices[i][2][j]);
-            for (let j = 0; j < 3; j++)
-                obj1Vertices.push(vertices[i][3][j]);
-            for (let j = 0; j < 3; j++)
-                obj1Vertices.push(vertices[i][4][j]);
-
-            for (let j = 0; j < 3; j++)
-                obj1Vertices.push(vertices[i][2][j]);
-            for (let j = 0; j < 3; j++)
-                obj1Vertices.push(vertices[i][3][j]);
-            for (let j = 0; j < 3; j++)
-                obj1Vertices.push(vertices[i][4][j]);
+            const triangle = vertices[i];
+            const normal = calculateNormal(triangle[0], triangle[1], triangle[2]);
+            obj1Vertices.push(...triangle[0], ...normal,
+                              ...triangle[1], ...normal,
+                              ...triangle[2], ...normal);
         }
         obj1.setVertices(obj1Vertices);
         scene.addObject(obj1);

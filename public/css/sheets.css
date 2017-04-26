@@ -16,10 +16,6 @@ form#new-sheet-form {
     margin: 10px;
 }
 
-h1#not-signed-in {
-    visibility: hidden;
-}
-
 p {
     margin: 0;
 }
