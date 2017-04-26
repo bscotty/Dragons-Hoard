@@ -110,460 +110,541 @@
                 </tbody>
             </table>
 
-            <div id="ability-scores">
-                <table>
-                    <tbody>
-                    <tr>
-                        <td class="ability-scores">
-                            <label>STRENGTH<input type="number" class="ability-score" name="str" id="str"
-                                                  value="{{sheet.abilityScores.str}}"></label>
-                            <p id="str-modifier" class="ability-modifier">0</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="ability-scores">
-                            <label>DEXTERITY<input type="number" class="ability-score" name="dex" id="dex"
+            <table>
+                <colgroup>
+                    <col width="10.7%">
+                    <col width="23.2%">
+                    <col width="30%">
+                    <col width="30%">
+                </colgroup>
+                <tr>
+                    <td rowspan="2">
+                        <!-- Ability Scores !-->
+                        <div id="ability-scores">
+                            <table>
+                                <tbody>
+                                <tr>
+                                    <td class="ability-scores">
+                                        <label>STRENGTH
+                                            <input type="number" class="ability-score" name="str" id="str"
+                                                   value="{{sheet.abilityScores.str}}">
+                                        </label>
+                                        <p id="str-modifier" class="ability-modifier">0</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="ability-scores">
+                                        <label>DEXTERITY
+                                            <input type="number" class="ability-score" name="dex" id="dex"
                                                    value="{{sheet.abilityScores.dex}}"></label>
-                            <p id="dex-modifier" class="ability-modifier">0</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="ability-scores">
-                            <label>CONSTITUTION<input type="number" class="ability-score" name="con" id="con"
-                                                      value="{{sheet.abilityScores.con}}"></label>
-                            <p id="con-modifier" class="ability-modifier">0</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="ability-scores">
-                            <label>INTELLIGENCE<input type="number" class="ability-score" name="int" id="int"
-                                                      value="{{sheet.abilityScores.int}}"></label>
-                            <p id="int-modifier" class="ability-modifier">0</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="ability-scores">
-                            <label>WISDOM<input type="number" class="ability-score" name="wis" id="wis"
-                                                value="{{sheet.abilityScores.wis}}"></label>
-                            <p id="wis-modifier" class="ability-modifier">0</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="ability-scores">
-                            <label>CHARISMA<input type="number" class="ability-score" name="cha" id="cha"
-                                                  value="{{sheet.abilityScores.cha}}"></label>
-                            <p id="cha-modifier" class="ability-modifier">0</p>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div id="skills">
-                <table>
-                    <tbody>
-                    <tr>
-                        <td class="skills">
-                            SKILLS
-                        </td>
-                    </tr>
-                    <tr>
-                        <td id="inspiration-td">
-                            <label id="inspiration-label">Inspiration:
-                                <input type="checkbox" name="inspiration" id="inspiration"
-                                       value="{{sheet.inspiration}}"></label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td id="proficiency-td">
-                            <div id="proficiency">
-                                <p class="proficiency-bonus">Proficiency Bonus: </p>
-                                <p id="proficiency-bonus" class="proficiency-bonus">+0</p>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="skills">
-                            <div id="saving-throws">
-                                <p id="saving-throw-text">Saving Throws</p>
-                                <div class="saving-throw">
-                                    <label class="saving-throw-proficiency">
-                                        <select class="proficiency-select" id="str-proficiency" name="strSave">
-                                            <option value="none"></option>
-                                            <option value="proficient">Proficient</option>
-                                            <option value="expertise">Expertise</option>
-                                        </select>Strength: </label>
-                                    <p class="saving-throw-proficiency" id="str-proficiency-bonus">+0</p>
-                                </div>
-                                <div class="saving-throw">
-                                    <label class="saving-throw-proficiency">
-                                        <select class="proficiency-select" id="dex-proficiency" name="dexSave">
-                                            <option value="none"></option>
-                                            <option value="proficient">Proficient</option>
-                                            <option value="expertise">Expertise</option>
-                                        </select>Dexterity: </label>
-                                    <p class="saving-throw-proficiency" id="dex-proficiency-bonus">+0</p>
-                                </div>
-                                <div class="saving-throw">
-                                    <label class="saving-throw-proficiency">
-                                        <select class="proficiency-select" id="con-proficiency" name="conSave">
-                                            <option value="none"></option>
-                                            <option value="proficient">Proficient</option>
-                                            <option value="expertise">Expertise</option>
-                                        </select>Constitution: </label>
-                                    <p class="saving-throw-proficiency" id="con-proficiency-bonus">+0</p>
-                                </div>
-                                <div class="saving-throw">
-                                    <label class="saving-throw-proficiency">
-                                        <select class="proficiency-select" id="int-proficiency" name="intSave">
-                                            <option value="none"></option>
-                                            <option value="proficient">Proficient</option>
-                                            <option value="expertise">Expertise</option>
-                                        </select>Intelligence: </label>
-                                    <p class="saving-throw-proficiency" id="int-proficiency-bonus">+0</p>
-                                </div>
-                                <div class="saving-throw">
-                                    <label class="saving-throw-proficiency">
-                                        <select class="proficiency-select" id="wis-proficiency" name="wisSave">
-                                            <option value="none"></option>
-                                            <option value="proficient">Proficient</option>
-                                            <option value="expertise">Expertise</option>
-                                        </select>Wisdom: </label>
-                                    <p class="saving-throw-proficiency" id="wis-proficiency-bonus">+0</p>
-                                </div>
-                                <div class="saving-throw">
-                                    <label class="saving-throw-proficiency">
-                                        <select class="proficiency-select" id="cha-proficiency" name="chaSave">
-                                            <option value="none"></option>
-                                            <option value="proficient">Proficient</option>
-                                            <option value="expertise">Expertise</option>
-                                        </select>Charisma: </label>
-                                    <p class="saving-throw-proficiency" id="cha-proficiency-bonus">+0</p>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div id="skill-proficiencies">
-                                <p id="saving-throw-text">Skill Proficiencies</p>
-                                <div class="saving-throw">
-                                    <label class="skill-proficiency">
-                                        <select class="proficiency-select" id="acrobatics" name="acrobatics">
-                                            <option value="none"></option>
-                                            <option value="proficient">Proficient</option>
-                                            <option value="expertise">Expertise</option>
-                                        </select>Acrobatics (Dex)</label>
-                                    <p class="skill-proficiency" id="acrobatics-proficiency">+0</p>
-                                </div>
-                                <div class="saving-throw">
-                                    <label class="skill-proficiency">
-                                        <select class="proficiency-select" id="animal-handling" name="animalHandling">
-                                            <option value="none"></option>
-                                            <option value="proficient">Proficient</option>
-                                            <option value="expertise">Expertise</option>
-                                        </select>Animal Handling (Wis)</label>
-                                    <p class="skill-proficiency" id="animal-handling-proficiency">+0</p>
-                                </div>
-                                <div class="saving-throw">
-                                    <label class="skill-proficiency">
-                                        <select class="proficiency-select" id="arcana" name="arcana">
-                                            <option value="none"></option>
-                                            <option value="proficient">Proficient</option>
-                                            <option value="expertise">Expertise</option>
-                                        </select>Arcana (Int)</label>
-                                    <p class="skill-proficiency" id="arcana-proficiency">+0</p>
-                                </div>
-                                <div class="saving-throw">
-                                    <label class="skill-proficiency">
-                                        <select class="proficiency-select" id="athletics" name="athletics">
-                                            <option value="none"></option>
-                                            <option value="proficient">Proficient</option>
-                                            <option value="expertise">Expertise</option>
-                                        </select>Athletics (Str)</label>
-                                    <p class="skill-proficiency" id="athletics-proficiency">+0</p>
-                                </div>
-                                <div class="saving-throw">
-                                    <label class="skill-proficiency">
-                                        <select class="deception-select" id="deception" name="deception">
-                                            <option value="none"></option>
-                                            <option value="proficient">Proficient</option>
-                                            <option value="expertise">Expertise</option>
-                                        </select>Deception (Cha)</label>
-                                    <p class="skill-proficiency" id="deception-proficiency">+0</p>
-                                </div>
-                                <div class="saving-throw">
-                                    <label class="skill-proficiency">
-                                        <select class="proficiency-select" id="history" name="history">
-                                            <option value="none"></option>
-                                            <option value="proficient">Proficient</option>
-                                            <option value="expertise">Expertise</option>
-                                        </select>History (Int)</label>
-                                    <p class="skill-proficiency" id="history-proficiency">+0</p>
-                                </div>
-                                <div class="saving-throw">
-                                    <label class="skill-proficiency">
-                                        <select class="proficiency-select" id="insight" name="insight">
-                                            <option value="none"></option>
-                                            <option value="proficient">Proficient</option>
-                                            <option value="expertise">Expertise</option>
-                                        </select>Insight (Wis)</label>
-                                    <p class="skill-proficiency" id="insight-proficiency">+0</p>
-                                </div>
-                                <div class="saving-throw">
-                                    <label class="skill-proficiency">
-                                        <select class="proficiency-select" id="intimidation" name="intimidation">
-                                            <option value="none"></option>
-                                            <option value="proficient">Proficient</option>
-                                            <option value="expertise">Expertise</option>
-                                        </select>Intimidation (Cha)</label>
-                                    <p class="skill-proficiency" id="intimidation-proficiency">+0</p>
-                                </div>
-                                <div class="saving-throw">
-                                    <label class="skill-proficiency">
-                                        <select class="proficiency-select" id="investigation" name="investigation">
-                                            <option value="none"></option>
-                                            <option value="proficient">Proficient</option>
-                                            <option value="expertise">Expertise</option>
-                                        </select>Investigation (Int)</label>
-                                    <p class="skill-proficiency" id="investigation-proficiency">+0</p>
-                                </div>
-                                <div class="saving-throw">
-                                    <label class="skill-proficiency">
-                                        <select class="proficiency-select" id="medicine" name="medicine">
-                                            <option value="none"></option>
-                                            <option value="proficient">Proficient</option>
-                                            <option value="expertise">Expertise</option>
-                                        </select>Medicine (Wis)</label>
-                                    <p class="skill-proficiency" id="medicine-proficiency">+0</p>
-                                </div>
-                                <div class="saving-throw">
-                                    <label class="skill-proficiency">
-                                        <select class="proficiency-select" id="nature" name="nature">
-                                            <option value="none"></option>
-                                            <option value="proficient">Proficient</option>
-                                            <option value="expertise">Expertise</option>
-                                        </select>Nature (Int)</label>
-                                    <p class="skill-proficiency" id="nature-proficiency">+0</p>
-                                </div>
-                                <div class="saving-throw">
-                                    <label class="skill-proficiency">
-                                        <select class="proficiency-select" id="perception" name="perception">
-                                            <option value="none"></option>
-                                            <option value="proficient">Proficient</option>
-                                            <option value="expertise">Expertise</option>
-                                        </select>Perception (Wis)</label>
-                                    <p class="skill-proficiency" id="perception-proficiency">+0</p>
-                                </div>
-                                <div class="saving-throw">
-                                    <label class="skill-proficiency">
-                                        <select class="proficiency-select" id="performance" name="performance">
-                                            <option value="none"></option>
-                                            <option value="proficient">Proficient</option>
-                                            <option value="expertise">Expertise</option>
-                                        </select>Performance (Cha)</label>
-                                    <p class="skill-proficiency" id="performance-proficiency">+0</p>
-                                </div>
-                                <div class="saving-throw">
-                                    <label class="skill-proficiency">
-                                        <select class="proficiency-select" id="persuasion" name="persuasion">
-                                            <option value="none"></option>
-                                            <option value="proficient">Proficient</option>
-                                            <option value="expertise">Expertise</option>
-                                        </select>Persuasion (Cha)</label>
-                                    <p class="skill-proficiency" id="persuasion-proficiency">+0</p>
-                                </div>
-                                <div class="saving-throw">
-                                    <label class="skill-proficiency">
-                                        <select class="proficiency-select" id="religion" name="religion">
-                                            <option value="none"></option>
-                                            <option value="proficient">Proficient</option>
-                                            <option value="expertise">Expertise</option>
-                                        </select>Religion (Int)</label>
-                                    <p class="skill-proficiency" id="religion-proficiency">+0</p>
-                                </div>
-                                <div class="saving-throw">
-                                    <label class="skill-proficiency">
-                                        <select class="proficiency-select" id="sleight-of-hand" name="sleightOfHand">
-                                            <option value="none"></option>
-                                            <option value="proficient">Proficient</option>
-                                            <option value="expertise">Expertise</option>
-                                        </select>Sleight of Hand (Dex)</label>
-                                    <p class="skill-proficiency" id="sleight-of-hand-proficiency">+0</p>
-                                </div>
-                                <div class="saving-throw">
-                                    <label class="skill-proficiency">
-                                        <select class="proficiency-select" id="stealth" name="stealth">
-                                            <option value="none"></option>
-                                            <option value="proficient">Proficient</option>
-                                            <option value="expertise">Expertise</option>
-                                        </select>Stealth (Dex)</label>
-                                    <p class="skill-proficiency" id="stealth-proficiency">+0</p>
-                                </div>
-                                <div class="saving-throw">
-                                    <label class="skill-proficiency">
-                                        <select class="proficiency-select" id="survival" name="survival">
-                                            <option value="none"></option>
-                                            <option value="proficient">Proficient</option>
-                                            <option value="expertise">Expertise</option>
-                                        </select>Survival (Wis)</label>
-                                    <p class="skill-proficiency" id="survival-proficiency">+0</p>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div id="hp-equipment">
-                <table>
-                    <tbody>
-                    <tr>
-                        <td class="skills" colspan="6">
-                            <p>HIT POINTS AND COMBAT</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="thirds" colspan="2">
-                            <label><input type="number" class="thirdNumber" name="armorClass"
-                                          id="armor-class" value="{{sheet.armorClass}}">Armor Class</label>
-                        </td>
-                        <td class="thirds" colspan="2">
-                            <label><input type="number" class="thirdNumber" name="initiative"
-                                          id="initiative" value="{{sheet.initiative}}">Initiative</label>
-                        </td>
-                        <td class="thirds" colspan="2">
-                            <label><input type="number" class="thirdNumber" name="speed"
-                                          id="speed" value="{{sheet.speed}}">Speed (ft)</label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="halfs" colspan="3">
-                            <label><input type="number" class="thirdNumber" name="hitPoints" id="hit-points"
-                                          value="{{sheet.hitPoints}}"><br>Max Hit Points</label>
-                        </td>
-                        <td class="halfs" colspan="3">
-                            <label><input type="number" class="thirdNumber" name="currentHP" id="current-hp"
-                                          value="{{sheet.currentHP}}"><br>Current HP</label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="3" id="hit-dice" class="halfs">
-                            <label id="temporary-hp">
-                                <input type="number" class="thirdNumber" name="temporaryHP" id="temporary-hp"
-                                       value="{{sheet.temporaryHP}}"><br>Temporary HP</label>
-                        </td>
-                        <td colspan="3" id="hit-dice" class="halfs">
-                            <label id="hit-dice"><input type="text" class="thirdNumber" name="hitDice" id="hit-dice"
-                                                        value="{{sheet.hitDice}}">Hit Dice</label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="death-save" id="death-save" colspan="6">
-                            Death Saves
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="death-save halfs" colspan="3">
-                            <label class="death-save">Successes:</label>
-                        </td>
-                        <td class="death-save halfs" colspan="3">
-                            <input type="checkbox" class="death-save" name="deathSaveSuccess1" id="dss1"
-                                   title="dss1" value="{{sheet.deathSaves.successes.success1}}">
-                            <input type="checkbox" class="death-save" name="deathSaveSuccess2" id="dss2"
-                                   title="dss2" value="{{sheet.deathSaves.successes.success2}}">
-                            <input type="checkbox" class="death-save" name="deathSaveSuccess3" id="dss3"
-                                   title="dss3" value="{{sheet.deathSaves.successes.success3}}">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="skills" colspan="6"></td>
-                    </tr>
-                    <tr>
-                        <td class="death-save halfs" colspan="3">
-                            <label class="death-save">Failures:</label>
-                        </td>
-                        <td class="death-save halfs" colspan="3">
-                            <input type="checkbox" class="death-save" name="deathSaveFailure1" id="dsf1"
-                                   title="dsf1" value="{{sheet.deathSaves.failures.failure1}}">
-                            <input type="checkbox" class="death-save" name="deathSaveFailure2" id="dsf2"
-                                   title="dsf2" value="{{sheet.deathSaves.failures.failure2}}">
-                            <input type="checkbox" class="death-save" name="deathSaveFailure3" id="dsf3"
-                                   title="dsf3" value="{{sheet.deathSaves.failures.failure3}}">
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div id="features-traits">
-                <table>
-                    <tbody>
-                    <tr>
-                        <td class="skills">
-                            <p>TRAITS</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label><textarea name="personality" id="personality"
-                                             rows="5">{{sheet.traits.ideological.personality}}</textarea>
-                                Personality Traits</label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label><textarea name="ideals" id="ideals"
-                                             rows="4">{{sheet.traits.ideological.ideals}}</textarea>
-                                Ideals</label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label><textarea name="bonds" id="bonds"
-                                             rows="4">{{sheet.traits.ideological.bonds}}</textarea>
-                                Bonds</label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label><textarea name="flaws" id="flaws"
-                                             rows="4">{{sheet.traits.ideological.flaws}}</textarea>
-                                Flaws</label>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div id="hp-equipment">
-                <table>
-                    <tbody>
-                    <tr>
-                        <td class="skills">
-                            <label>EQUIPMENT
-                            </label>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+                                        <p id="dex-modifier" class="ability-modifier">0</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="ability-scores">
+                                        <label>CONSTITUTION
+                                            <input type="number" class="ability-score" name="con" id="con"
+                                                   value="{{sheet.abilityScores.con}}"></label>
+                                        <p id="con-modifier" class="ability-modifier">0</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="ability-scores">
+                                        <label>INTELLIGENCE
+                                            <input type="number" class="ability-score" name="int" id="int"
+                                                   value="{{sheet.abilityScores.int}}"></label>
+                                        <p id="int-modifier" class="ability-modifier">0</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="ability-scores">
+                                        <label>WISDOM
+                                            <input type="number" class="ability-score" name="wis" id="wis"
+                                                   value="{{sheet.abilityScores.wis}}"></label>
+                                        <p id="wis-modifier" class="ability-modifier">0</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="ability-scores">
+                                        <label>CHARISMA
+                                            <input type="number" class="ability-score" name="cha" id="cha"
+                                                   value="{{sheet.abilityScores.cha}}"></label>
+                                        <p id="cha-modifier" class="ability-modifier">0</p>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                    <td rowspan="2">
+                        <!-- Skills !-->
+                        <div id="skills">
+                            <table>
+                                <tbody>
+                                <tr>
+                                    <td class="skills">
+                                        SKILLS
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td id="inspiration-td">
+                                        <label id="inspiration-label">Inspiration:
+                                            <input type="checkbox" name="inspiration" id="inspiration"
+                                                   value="{{sheet.inspiration}}"></label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td id="proficiency-td">
+                                        <div id="proficiency">
+                                            <p class="proficiency-bonus">Proficiency Bonus: </p>
+                                            <p id="proficiency-bonus" class="proficiency-bonus">+0</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="skills">
+                                        <div id="saving-throws">
+                                            <p id="saving-throw-text">Saving Throws</p>
+                                            <div class="saving-throw">
+                                                <label class="saving-throw-proficiency">
+                                                    <select class="proficiency-select" id="str-proficiency"
+                                                            name="strSave">
+                                                        <option value="none"></option>
+                                                        <option value="proficient">Proficient</option>
+                                                        <option value="expertise">Expertise</option>
+                                                    </select>Strength: </label>
+                                                <p class="saving-throw-proficiency" id="str-proficiency-bonus">+0</p>
+                                            </div>
+                                            <div class="saving-throw">
+                                                <label class="saving-throw-proficiency">
+                                                    <select class="proficiency-select" id="dex-proficiency"
+                                                            name="dexSave">
+                                                        <option value="none"></option>
+                                                        <option value="proficient">Proficient</option>
+                                                        <option value="expertise">Expertise</option>
+                                                    </select>Dexterity: </label>
+                                                <p class="saving-throw-proficiency" id="dex-proficiency-bonus">+0</p>
+                                            </div>
+                                            <div class="saving-throw">
+                                                <label class="saving-throw-proficiency">
+                                                    <select class="proficiency-select" id="con-proficiency"
+                                                            name="conSave">
+                                                        <option value="none"></option>
+                                                        <option value="proficient">Proficient</option>
+                                                        <option value="expertise">Expertise</option>
+                                                    </select>Constitution: </label>
+                                                <p class="saving-throw-proficiency" id="con-proficiency-bonus">+0</p>
+                                            </div>
+                                            <div class="saving-throw">
+                                                <label class="saving-throw-proficiency">
+                                                    <select class="proficiency-select" id="int-proficiency"
+                                                            name="intSave">
+                                                        <option value="none"></option>
+                                                        <option value="proficient">Proficient</option>
+                                                        <option value="expertise">Expertise</option>
+                                                    </select>Intelligence: </label>
+                                                <p class="saving-throw-proficiency" id="int-proficiency-bonus">+0</p>
+                                            </div>
+                                            <div class="saving-throw">
+                                                <label class="saving-throw-proficiency">
+                                                    <select class="proficiency-select" id="wis-proficiency"
+                                                            name="wisSave">
+                                                        <option value="none"></option>
+                                                        <option value="proficient">Proficient</option>
+                                                        <option value="expertise">Expertise</option>
+                                                    </select>Wisdom: </label>
+                                                <p class="saving-throw-proficiency" id="wis-proficiency-bonus">+0</p>
+                                            </div>
+                                            <div class="saving-throw">
+                                                <label class="saving-throw-proficiency">
+                                                    <select class="proficiency-select" id="cha-proficiency"
+                                                            name="chaSave">
+                                                        <option value="none"></option>
+                                                        <option value="proficient">Proficient</option>
+                                                        <option value="expertise">Expertise</option>
+                                                    </select>Charisma: </label>
+                                                <p class="saving-throw-proficiency" id="cha-proficiency-bonus">+0</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div id="skill-proficiencies">
+                                            <p id="saving-throw-text">Skill Proficiencies</p>
+                                            <div class="saving-throw">
+                                                <label class="skill-proficiency">
+                                                    <select class="proficiency-select" id="acrobatics"
+                                                            name="acrobatics">
+                                                        <option value="none"></option>
+                                                        <option value="proficient">Proficient</option>
+                                                        <option value="expertise">Expertise</option>
+                                                    </select>Acrobatics (Dex)</label>
+                                                <p class="skill-proficiency" id="acrobatics-proficiency">+0</p>
+                                            </div>
+                                            <div class="saving-throw">
+                                                <label class="skill-proficiency">
+                                                    <select class="proficiency-select" id="animal-handling"
+                                                            name="animalHandling">
+                                                        <option value="none"></option>
+                                                        <option value="proficient">Proficient</option>
+                                                        <option value="expertise">Expertise</option>
+                                                    </select>Animal Handling (Wis)</label>
+                                                <p class="skill-proficiency" id="animal-handling-proficiency">+0</p>
+                                            </div>
+                                            <div class="saving-throw">
+                                                <label class="skill-proficiency">
+                                                    <select class="proficiency-select" id="arcana" name="arcana">
+                                                        <option value="none"></option>
+                                                        <option value="proficient">Proficient</option>
+                                                        <option value="expertise">Expertise</option>
+                                                    </select>Arcana (Int)</label>
+                                                <p class="skill-proficiency" id="arcana-proficiency">+0</p>
+                                            </div>
+                                            <div class="saving-throw">
+                                                <label class="skill-proficiency">
+                                                    <select class="proficiency-select" id="athletics" name="athletics">
+                                                        <option value="none"></option>
+                                                        <option value="proficient">Proficient</option>
+                                                        <option value="expertise">Expertise</option>
+                                                    </select>Athletics (Str)</label>
+                                                <p class="skill-proficiency" id="athletics-proficiency">+0</p>
+                                            </div>
+                                            <div class="saving-throw">
+                                                <label class="skill-proficiency">
+                                                    <select class="deception-select" id="deception" name="deception">
+                                                        <option value="none"></option>
+                                                        <option value="proficient">Proficient</option>
+                                                        <option value="expertise">Expertise</option>
+                                                    </select>Deception (Cha)</label>
+                                                <p class="skill-proficiency" id="deception-proficiency">+0</p>
+                                            </div>
+                                            <div class="saving-throw">
+                                                <label class="skill-proficiency">
+                                                    <select class="proficiency-select" id="history" name="history">
+                                                        <option value="none"></option>
+                                                        <option value="proficient">Proficient</option>
+                                                        <option value="expertise">Expertise</option>
+                                                    </select>History (Int)</label>
+                                                <p class="skill-proficiency" id="history-proficiency">+0</p>
+                                            </div>
+                                            <div class="saving-throw">
+                                                <label class="skill-proficiency">
+                                                    <select class="proficiency-select" id="insight" name="insight">
+                                                        <option value="none"></option>
+                                                        <option value="proficient">Proficient</option>
+                                                        <option value="expertise">Expertise</option>
+                                                    </select>Insight (Wis)</label>
+                                                <p class="skill-proficiency" id="insight-proficiency">+0</p>
+                                            </div>
+                                            <div class="saving-throw">
+                                                <label class="skill-proficiency">
+                                                    <select class="proficiency-select" id="intimidation"
+                                                            name="intimidation">
+                                                        <option value="none"></option>
+                                                        <option value="proficient">Proficient</option>
+                                                        <option value="expertise">Expertise</option>
+                                                    </select>Intimidation (Cha)</label>
+                                                <p class="skill-proficiency" id="intimidation-proficiency">+0</p>
+                                            </div>
+                                            <div class="saving-throw">
+                                                <label class="skill-proficiency">
+                                                    <select class="proficiency-select" id="investigation"
+                                                            name="investigation">
+                                                        <option value="none"></option>
+                                                        <option value="proficient">Proficient</option>
+                                                        <option value="expertise">Expertise</option>
+                                                    </select>Investigation (Int)</label>
+                                                <p class="skill-proficiency" id="investigation-proficiency">+0</p>
+                                            </div>
+                                            <div class="saving-throw">
+                                                <label class="skill-proficiency">
+                                                    <select class="proficiency-select" id="medicine" name="medicine">
+                                                        <option value="none"></option>
+                                                        <option value="proficient">Proficient</option>
+                                                        <option value="expertise">Expertise</option>
+                                                    </select>Medicine (Wis)</label>
+                                                <p class="skill-proficiency" id="medicine-proficiency">+0</p>
+                                            </div>
+                                            <div class="saving-throw">
+                                                <label class="skill-proficiency">
+                                                    <select class="proficiency-select" id="nature" name="nature">
+                                                        <option value="none"></option>
+                                                        <option value="proficient">Proficient</option>
+                                                        <option value="expertise">Expertise</option>
+                                                    </select>Nature (Int)</label>
+                                                <p class="skill-proficiency" id="nature-proficiency">+0</p>
+                                            </div>
+                                            <div class="saving-throw">
+                                                <label class="skill-proficiency">
+                                                    <select class="proficiency-select" id="perception"
+                                                            name="perception">
+                                                        <option value="none"></option>
+                                                        <option value="proficient">Proficient</option>
+                                                        <option value="expertise">Expertise</option>
+                                                    </select>Perception (Wis)</label>
+                                                <p class="skill-proficiency" id="perception-proficiency">+0</p>
+                                            </div>
+                                            <div class="saving-throw">
+                                                <label class="skill-proficiency">
+                                                    <select class="proficiency-select" id="performance"
+                                                            name="performance">
+                                                        <option value="none"></option>
+                                                        <option value="proficient">Proficient</option>
+                                                        <option value="expertise">Expertise</option>
+                                                    </select>Performance (Cha)</label>
+                                                <p class="skill-proficiency" id="performance-proficiency">+0</p>
+                                            </div>
+                                            <div class="saving-throw">
+                                                <label class="skill-proficiency">
+                                                    <select class="proficiency-select" id="persuasion"
+                                                            name="persuasion">
+                                                        <option value="none"></option>
+                                                        <option value="proficient">Proficient</option>
+                                                        <option value="expertise">Expertise</option>
+                                                    </select>Persuasion (Cha)</label>
+                                                <p class="skill-proficiency" id="persuasion-proficiency">+0</p>
+                                            </div>
+                                            <div class="saving-throw">
+                                                <label class="skill-proficiency">
+                                                    <select class="proficiency-select" id="religion" name="religion">
+                                                        <option value="none"></option>
+                                                        <option value="proficient">Proficient</option>
+                                                        <option value="expertise">Expertise</option>
+                                                    </select>Religion (Int)</label>
+                                                <p class="skill-proficiency" id="religion-proficiency">+0</p>
+                                            </div>
+                                            <div class="saving-throw">
+                                                <label class="skill-proficiency">
+                                                    <select class="proficiency-select" id="sleight-of-hand"
+                                                            name="sleightOfHand">
+                                                        <option value="none"></option>
+                                                        <option value="proficient">Proficient</option>
+                                                        <option value="expertise">Expertise</option>
+                                                    </select>Sleight of Hand (Dex)</label>
+                                                <p class="skill-proficiency" id="sleight-of-hand-proficiency">+0</p>
+                                            </div>
+                                            <div class="saving-throw">
+                                                <label class="skill-proficiency">
+                                                    <select class="proficiency-select" id="stealth" name="stealth">
+                                                        <option value="none"></option>
+                                                        <option value="proficient">Proficient</option>
+                                                        <option value="expertise">Expertise</option>
+                                                    </select>Stealth (Dex)</label>
+                                                <p class="skill-proficiency" id="stealth-proficiency">+0</p>
+                                            </div>
+                                            <div class="saving-throw">
+                                                <label class="skill-proficiency">
+                                                    <select class="proficiency-select" id="survival" name="survival">
+                                                        <option value="none"></option>
+                                                        <option value="proficient">Proficient</option>
+                                                        <option value="expertise">Expertise</option>
+                                                    </select>Survival (Wis)</label>
+                                                <p class="skill-proficiency" id="survival-proficiency">+0</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                    <td>
+                        <!-- Hit Points !-->
+                        <div id="hp-equipment">
+                            <table>
+                                <tbody>
+                                <tr>
+                                    <td class="skills" colspan="6">
+                                        <p>HIT POINTS AND COMBAT</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="thirds" colspan="2">
+                                        <label>
+                                            <input type="number" class="thirdNumber" name="armorClass" id="armor-class"
+                                                   value="{{sheet.armorClass}}">
+                                            Armor Class
+                                        </label>
+                                    </td>
+                                    <td class="thirds" colspan="2">
+                                        <label>
+                                            <input type="number" class="thirdNumber" name="initiative" id="initiative"
+                                                   value="{{sheet.initiative}}">
+                                            Initiative
+                                        </label>
+                                    </td>
+                                    <td class="thirds" colspan="2">
+                                        <label>
+                                            <input type="number" class="thirdNumber" name="speed" id="speed"
+                                                   value="{{sheet.speed}}">
+                                            Speed (ft)
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="halfs" colspan="3">
+                                        <label>
+                                            <input type="number" class="thirdNumber" name="hitPoints" id="hit-points"
+                                                   value="{{sheet.hitPoints}}">
+                                            <br>Max Hit Points
+                                        </label>
+                                    </td>
+                                    <td class="halfs" colspan="3">
+                                        <label>
+                                            <input type="number" class="thirdNumber" name="currentHP" id="current-hp"
+                                                   value="{{sheet.currentHP}}">
+                                            <br>Current HP
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" id="hit-dice" class="halfs">
+                                        <label id="temporary-hp">
+                                            <input type="number" class="thirdNumber" name="temporaryHP"
+                                                   id="temporary-hp" value="{{sheet.temporaryHP}}"><br>Temporary
+                                            HP</label>
+                                    </td>
+                                    <td colspan="3" id="hit-dice" class="halfs">
+                                        <label id="hit-dice">
+                                            <input type="text" class="thirdNumber" name="hitDice" id="hit-dice"
+                                                   value="{{sheet.hitDice}}">
+                                            Hit Dice
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="death-save" id="death-save" colspan="6">
+                                        Death Saves
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="death-save halfs" colspan="3">
+                                        <label class="death-save">Successes:</label>
+                                    </td>
+                                    <td class="death-save halfs" colspan="3">
+                                        <input type="checkbox" class="death-save" name="deathSaveSuccess1" id="dss1"
+                                               title="dss1" value="{{sheet.deathSaves.successes.success1}}">
+                                        <input type="checkbox" class="death-save" name="deathSaveSuccess2" id="dss2"
+                                               title="dss2" value="{{sheet.deathSaves.successes.success2}}">
+                                        <input type="checkbox" class="death-save" name="deathSaveSuccess3" id="dss3"
+                                               title="dss3" value="{{sheet.deathSaves.successes.success3}}">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="skills" colspan="6"></td>
+                                </tr>
+                                <tr>
+                                    <td class="death-save halfs" colspan="3">
+                                        <label class="death-save">Failures:</label>
+                                    </td>
+                                    <td class="death-save halfs" colspan="3">
+                                        <input type="checkbox" class="death-save" name="deathSaveFailure1" id="dsf1"
+                                               title="dsf1" value="{{sheet.deathSaves.failures.failure1}}">
+                                        <input type="checkbox" class="death-save" name="deathSaveFailure2" id="dsf2"
+                                               title="dsf2" value="{{sheet.deathSaves.failures.failure2}}">
+                                        <input type="checkbox" class="death-save" name="deathSaveFailure3" id="dsf3"
+                                               title="dsf3" value="{{sheet.deathSaves.failures.failure3}}">
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                    <td rowspan="3">
+                        <!-- Traits and Feats !-->
+                        <div id="features-traits">
+                            <table>
+                                <tbody>
+                                <tr>
+                                    <td class="skills">
+                                        <p>TRAITS</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>
+                                            <textarea name="personality" id="personality" rows="5">
+                                                {{sheet.traits.ideological.personality}}</textarea>
+                                            Personality Traits
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>
+                                            <textarea name="ideals" id="ideals" rows="4">
+                                                {{sheet.traits.ideological.ideals}}</textarea>
+                                            Ideals
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>
+                                            <textarea name="bonds" id="bonds" rows="4">
+                                                {{sheet.traits.ideological.bonds}}
+                                            </textarea>Bonds</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>
+                                            <textarea name="flaws" id="flaws" rows="4">
+                                                {{sheet.traits.ideological.flaws}}</textarea>
+                                            Flaws
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="skills">
+                                        <p>FEATS</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>
+                                            <textarea name="feats" id="feats" rows="10">{{sheet.feats}}</textarea>
+                                        </label>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <!-- Ability Scores #2 !-->
+                    <!-- Skills #2 !-->
+                    <td>
+                        <!-- Weapons/Spellcasting !-->
+                        <div id="hp-equipment">
+                            <table>
+                                <tbody>
+                                <tr>
+                                    <td class="skills">
+                                        <label>EQUIPMENT
+                                        </label>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <!-- Passive Perception / Misc. Proficiencies !-->
+                    </td>
+                    <td>
+                        <!-- Equipment !-->
+                    </td>
+                </tr>
+            </table>
+        </div>
 
-            <div id="features-traits">
-                <table>
-                    <tbody>
-                    <tr>
-                        <td class="skills">
-                            FEATS
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label>
-                                <textarea name="feats" id="feats" rows="49">{{sheet.feats}}</textarea>
-                            </label>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+        <div class="page">
+
         </div>
 
         <!--
@@ -580,3 +661,5 @@
     </form>
 </div>
 </html>
+
+<!--  !-->
