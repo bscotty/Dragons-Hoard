@@ -419,7 +419,7 @@
                     <tbody>
                     <tr>
                         <td class="skills" colspan="6">
-                            <p>HP AND EQUIPMENT</p>
+                            <p>HIT POINTS AND COMBAT</p>
                         </td>
                     </tr>
                     <tr>
@@ -498,8 +498,36 @@
                 <table>
                     <tbody>
                     <tr>
+                        <td class="skills">
+                            <p>TRAITS</p>
+                        </td>
+                    </tr>
+                    <tr>
                         <td>
-                            <p>FEATURES AND TRAITS</p>
+                            <label><textarea name="personality" id="personality"
+                                             rows="5">{{sheet.traits.ideological.personality}}</textarea>
+                                Personality Traits</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label><textarea name="ideals" id="ideals"
+                                             rows="4">{{sheet.traits.ideological.ideals}}</textarea>
+                                Ideals</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label><textarea name="bonds" id="bonds"
+                                             rows="4">{{sheet.traits.ideological.bonds}}</textarea>
+                                Bonds</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label><textarea name="flaws" id="flaws"
+                                             rows="4">{{sheet.traits.ideological.flaws}}</textarea>
+                                Flaws</label>
                         </td>
                     </tr>
                     </tbody>

@@ -246,11 +246,11 @@ const Sheet = new Schema({
     // More in-depth character information
     traits: {
         ideological: {
-            personality: [String],
-            ideals: [String],
-            bonds: [String],
-            flaws: [String],
-            backstory: [String]
+            personality: String,
+            ideals: String,
+            bonds: String,
+            flaws: String,
+            backstory: String
         },
         personal: {
             gender: [String],

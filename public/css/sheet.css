@@ -1,11 +1,14 @@
 div#ability-scores {
     text-align: center;
-    margin-top: 15px;
-    padding-left: 10px;
+    margin: 15px 0 0 10px;
+    padding: 2px 0 0 0;
     width: 10.7%;
 
     display: inline;
     float: left;
+
+    border: transparent 2px;
+    border-radius: 8px;
 }
 
 div#hp-equipment {
@@ -68,7 +71,7 @@ div#sheet-container {
 
 div#skills {
     width: 23.2%;
-    margin: 15px 0 0 15px;
+    margin: 15px 0 0 10px;
     padding-top: 0;
 
     display: inline;
@@ -296,9 +299,10 @@ td.halfs {
 
 td.thirds {
     padding: 2px 5px 3px 5px;
-    width: 30%;
+    width: 33%;
 
     font-size: 12px;
+    text-align: center;
 }
 
 td.skills, td.death-save, td#hit-dice {
@@ -313,4 +317,11 @@ td#proficiency-td, td.skills {
 
 td#inspiration-td {
     padding-top: 5px;
+}
+
+textarea {
+    width: 100%;
+
+    font-size: 12px;
+    resize: none;
 }

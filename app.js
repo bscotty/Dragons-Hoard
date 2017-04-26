@@ -56,8 +56,8 @@ app.get('/sheets', function (req, res) {
 });
 
 app.post('/sheet/newSheet', function (req, res) {
-    console.log('uid', req.body.huid);
-    console.log('name', req.body.sheetName);
+    // console.log('uid', req.body.huid);
+    // console.log('name', req.body.sheetName);
 
     if (req.body.sheetName + '' === '') {
         res.render('sheets', {error: 'You must enter a sheet name.'});
@@ -152,13 +152,15 @@ app.get('/sheet/:slug', function (req, res) {
         sheet.hitDice = val.hitDice;
 
         sheet.deathSaves = val.deathSaves;
+
+        sheet.traits = val.traits;
     }).then(function () {
         res.render('slug', {sheet: sheet});
     });
 });
 
 app.post('/sheet/:slug', function (req, res) {
-    console.log('req.body', req.body);
+    // console.log('req.body', req.body);
     const slug = req.params.slug;
 
     const sheet = new Sheet();
@@ -237,9 +239,16 @@ app.post('/sheet/:slug', function (req, res) {
         }
     };
 
-    sheet.inspiration = (req.body.inspiration !== undefined) ? 'true' : 'false';
+    sheet.traits = {
+        ideological: {
+            personality: req.body.personality,
+            ideals: req.body.ideals,
+            bonds: req.body.bonds,
+            flaws: req.body.flaws,
+        }
+    };
 
-    console.log(sheet);
+    sheet.inspiration = (req.body.inspiration !== undefined) ? 'true' : 'false';
 
     //TODO: Find a way to only update the stuff changed, to cut down on traffic
     const update = {};
@@ -312,6 +321,14 @@ app.post('/sheet/:slug', function (req, res) {
                 failure1: sheet.deathSaves.failures.failure1,
                 failure2: sheet.deathSaves.failures.failure2,
                 failure3: sheet.deathSaves.failures.failure3
+            }
+        },
+        traits: {
+            ideological: {
+                personality: sheet.traits.ideological.personality,
+                ideals: sheet.traits.ideological.ideals,
+                bonds: sheet.traits.ideological.bonds,
+                flaws: sheet.traits.ideological.flaws
             }
         }
 

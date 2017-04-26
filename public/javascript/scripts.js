@@ -165,19 +165,29 @@ function disableAllInputs() {
     for (let i = 0; i < inputs.length; i++) {
         inputs[i].disabled = true;
     }
+    const textAreas = document.getElementsByTagName('textarea');
+    for (let i = 0; i < textAreas.length; i++) {
+        textAreas[i].disabled = true;
+    }
+}
+
+function highlightBackgroundsOnChange(objectArray) {
+    for (let i = 0; i < objectArray.length; i++) {
+        if (objectArray[i].type !== 'submit') {
+            objectArray[i].addEventListener('input', function () {
+                this.style.backgroundColor = 'beige';
+            });
+        }
+    }
 }
 
 // Watch for changes made to inputs and respond accordingly.
 function watchForChanges() {
     // Highlight Changes Made to any input
     const inputs = document.getElementsByTagName('input');
-    for (let i = 0; i < inputs.length; i++) {
-        if (inputs[i].type !== 'submit') {
-            inputs[i].addEventListener('input', function () {
-                this.style.backgroundColor = 'beige';
-            });
-        }
-    }
+    highlightBackgroundsOnChange(inputs);
+    const textAreas = document.getElementsByTagName('textarea');
+    highlightBackgroundsOnChange(textAreas);
     // Update skill proficiencies and saving throws when a proficiency value is changed.
     const skillProficiencySelections = document.getElementsByClassName('proficiency-select');
     for (let i = 0; i < skillProficiencySelections.length; i++) {
