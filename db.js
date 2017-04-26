@@ -334,7 +334,7 @@ const Sheet = new Schema({
         other: [String]     // Chosen by User
     },
 
-    feats: [Feat],
+    feats: String,
 
     // Equipment
     weapons: [Weapon],      // Chosen By User

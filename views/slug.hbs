@@ -437,58 +437,58 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="thirds" colspan="2">
+                        <td class="halfs" colspan="3">
                             <label><input type="number" class="thirdNumber" name="hitPoints" id="hit-points"
-                                          value="{{sheet.hitPoints}}">Max Hit Points</label>
+                                          value="{{sheet.hitPoints}}"><br>Max Hit Points</label>
                         </td>
-                        <td class="thirds" colspan="2">
+                        <td class="halfs" colspan="3">
                             <label><input type="number" class="thirdNumber" name="currentHP" id="current-hp"
-                                          value="{{sheet.currentHP}}">Current HP</label>
-                        </td>
-                        <td class="thirds" colspan="2">
-                            <label><input type="number" class="thirdNumber" name="temporaryHP" id="temporary-hp"
-                                          value="{{sheet.temporaryHP}}">Temporary HP</label>
+                                          value="{{sheet.currentHP}}"><br>Current HP</label>
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="3" id="hit-dice">
-                            <label id="hit-dice"><input type="text" class="" name="hitDice" id="hit-dice"
+                        <td colspan="3" id="hit-dice" class="halfs">
+                            <label id="temporary-hp">
+                                <input type="number" class="thirdNumber" name="temporaryHP" id="temporary-hp"
+                                       value="{{sheet.temporaryHP}}"><br>Temporary HP</label>
+                        </td>
+                        <td colspan="3" id="hit-dice" class="halfs">
+                            <label id="hit-dice"><input type="text" class="thirdNumber" name="hitDice" id="hit-dice"
                                                         value="{{sheet.hitDice}}">Hit Dice</label>
                         </td>
-                        <td colspan="3" id="death-saves">
-                            <table>
-                                <tbody>
-                                <tr>
-                                    <td class="skills">
-                                        Death Saves
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="death-save">
-                                        <label class="death-save">
-                                            Successes:</label>
-                                        <input type="checkbox" class="death-save" name="deathSaveSuccess1" id="dss1"
-                                               title="dss1" value="{{sheet.deathSaves.successes.success1}}">
-                                        <input type="checkbox" class="death-save" name="deathSaveSuccess2" id="dss2"
-                                               title="dss2" value="{{sheet.deathSaves.successes.success2}}">
-                                        <input type="checkbox" class="death-save" name="deathSaveSuccess3" id="dss3"
-                                               title="dss3" value="{{sheet.deathSaves.successes.success3}}">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="death-save">
-                                        <label class="death-save">
-                                            Failures:</label>
-                                        <input type="checkbox" class="death-save" name="deathSaveFailure1" id="dsf1"
-                                               title="dsf1" value="{{sheet.deathSaves.failures.failure1}}">
-                                        <input type="checkbox" class="death-save" name="deathSaveFailure2" id="dsf2"
-                                               title="dsf2" value="{{sheet.deathSaves.failures.failure2}}">
-                                        <input type="checkbox" class="death-save" name="deathSaveFailure3" id="dsf3"
-                                               title="dsf3" value="{{sheet.deathSaves.failures.failure3}}">
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+                    </tr>
+                    <tr>
+                        <td class="death-save" id="death-save" colspan="6">
+                            Death Saves
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="death-save halfs" colspan="3">
+                            <label class="death-save">Successes:</label>
+                        </td>
+                        <td class="death-save halfs" colspan="3">
+                            <input type="checkbox" class="death-save" name="deathSaveSuccess1" id="dss1"
+                                   title="dss1" value="{{sheet.deathSaves.successes.success1}}">
+                            <input type="checkbox" class="death-save" name="deathSaveSuccess2" id="dss2"
+                                   title="dss2" value="{{sheet.deathSaves.successes.success2}}">
+                            <input type="checkbox" class="death-save" name="deathSaveSuccess3" id="dss3"
+                                   title="dss3" value="{{sheet.deathSaves.successes.success3}}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="skills" colspan="6"></td>
+                    </tr>
+                    <tr>
+                        <td class="death-save halfs" colspan="3">
+                            <label class="death-save">Failures:</label>
+                        </td>
+                        <td class="death-save halfs" colspan="3">
+                            <input type="checkbox" class="death-save" name="deathSaveFailure1" id="dsf1"
+                                   title="dsf1" value="{{sheet.deathSaves.failures.failure1}}">
+                            <input type="checkbox" class="death-save" name="deathSaveFailure2" id="dsf2"
+                                   title="dsf2" value="{{sheet.deathSaves.failures.failure2}}">
+                            <input type="checkbox" class="death-save" name="deathSaveFailure3" id="dsf3"
+                                   title="dsf3" value="{{sheet.deathSaves.failures.failure3}}">
                         </td>
                     </tr>
                     </tbody>
@@ -533,7 +533,37 @@
                     </tbody>
                 </table>
             </div>
+            <div id="hp-equipment">
+                <table>
+                    <tbody>
+                    <tr>
+                        <td class="skills">
+                            <label>EQUIPMENT
+                            </label>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
 
+            <div id="features-traits">
+                <table>
+                    <tbody>
+                    <tr>
+                        <td class="skills">
+                            FEATS
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>
+                                <textarea name="feats" id="feats" rows="49">{{sheet.feats}}</textarea>
+                            </label>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <!--

@@ -17,7 +17,9 @@ div#hp-equipment {
     margin-left: 10px;
     width: 30%;
 
+    display: inline;
     float: left;
+
     border: solid dimgray 2px;
     border-radius: 15px;
 }
@@ -28,7 +30,9 @@ div#features-traits {
     margin-left: 10px;
     width: 30%;
 
+    display: inline;
     float: left;
+
     border: solid dimgray 2px;
     border-radius: 15px;
 }
@@ -125,9 +129,11 @@ input#name {
 }
 
 input.thirdNumber[type=number] {
-    height: 45px;
-    padding-left: 10px;
-    font-size: 18px;
+    height: 65px;
+    padding-left: 15px;
+    font-size: 24px;
+    border: solid lightgray 2px;
+    border-radius: 16px;
 }
 
 input[type=checkbox]#inspiration {
@@ -136,8 +142,9 @@ input[type=checkbox]#inspiration {
 }
 
 input[type=checkbox].death-save {
-    float: right;
     margin: 2px 8px 0 2px;
+
+    border: solid red 2px;
 }
 
 input[type=number] {
@@ -162,22 +169,23 @@ input[type=text] {
     font-size: 13px;
 }
 
-input[type=text]#hit-dice {
+input[type=text]#hit-dice, input[type=number]#temporary-hp {
     height: 40px;
     margin-top: 5px;
 
     text-align: center;
     font-size: 13px;
 
+    border: solid lightgray 2px;
     border-radius:8px;
 }
 
-label.saving-throw-proficiency, label#hit-dice {
+label.saving-throw-proficiency, label#hit-dice, label#temporary-hp {
     margin: 0;
     font-size: 12px;
 }
 
-label.skill-proficiency, label.death-save {
+label.skill-proficiency {
     margin: 0;
     font-size: 10px;
 }
@@ -295,6 +303,9 @@ td.filler {
 td.halfs {
     padding: 0 5px 0 5px;
     width: 45%;
+
+    font-size: 12px;
+    text-align: center;
 }
 
 td.thirds {
@@ -305,12 +316,19 @@ td.thirds {
     text-align: center;
 }
 
-td.skills, td.death-save, td#hit-dice {
+td.death-save, label.death-save {
+    padding: 5px 0 5px 0;
+
+    text-align: center;
+    font-size: 16px;
+}
+
+td.skills, td#hit-dice {
     text-align: center;
     font-size: 10px;
 }
 
-td#proficiency-td, td.skills {
+td#proficiency-td, td.skills, td#death-save {
     border-bottom: solid dimgray 1px;
     padding-bottom: 3px;
 }
@@ -323,5 +341,5 @@ textarea {
     width: 100%;
 
     font-size: 12px;
-    resize: none;
+    resize: vertical;
 }

@@ -154,6 +154,7 @@ app.get('/sheet/:slug', function (req, res) {
         sheet.deathSaves = val.deathSaves;
 
         sheet.traits = val.traits;
+        sheet.feats = val.feats;
     }).then(function () {
         res.render('slug', {sheet: sheet});
     });
@@ -217,6 +218,7 @@ app.post('/sheet/:slug', function (req, res) {
         survival: (req.body.survival) ? req.body.survival : 'none',
     };
 
+    sheet.inspiration = (req.body.inspiration !== undefined) ? 'true' : 'false';
     sheet.armorClass = parseInt(req.body.armorClass);
     sheet.initiative = parseInt(req.body.initiative);
     sheet.speed = parseInt(req.body.speed);
@@ -248,7 +250,7 @@ app.post('/sheet/:slug', function (req, res) {
         }
     };
 
-    sheet.inspiration = (req.body.inspiration !== undefined) ? 'true' : 'false';
+    sheet.feats = req.body.feats;
 
     //TODO: Find a way to only update the stuff changed, to cut down on traffic
     const update = {};
@@ -330,7 +332,8 @@ app.post('/sheet/:slug', function (req, res) {
                 bonds: sheet.traits.ideological.bonds,
                 flaws: sheet.traits.ideological.flaws
             }
-        }
+        },
+        feats: sheet.feats,
 
     };
     // console.log('sheet ability scores', sheet.abilityScores);
