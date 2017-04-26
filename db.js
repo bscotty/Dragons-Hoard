@@ -185,8 +185,8 @@ const Weapon = new Schema({
     name: String,
     bonus: Number,
     damage: String,
-    type: String,   // Chosen from ProficiencyEnum.WEAPON
-    description: String,
+    //type: String,   // Chosen from ProficiencyEnum.WEAPON
+    //description: String,
 });
 
 const Armor = new Schema({
@@ -327,20 +327,25 @@ const Sheet = new Schema({
     },
 
     proficiencies: {
-        language: [String], // Chosen by User
-        weapon: [String],   // Chosen from ProficiencyEnum.Weapon
-        armor: [String],    // Chosen from ProficiencyEnum.Armor
-        tool: [String],     // Chosen from ToolEnum
-        other: [String]     // Chosen by User
+        languages: String, // Chosen by User
+        weapons: String,   // Chosen from ProficiencyEnum.Weapon
+        armor: String,    // Chosen from ProficiencyEnum.Armor
+        // tool: String,     // Chosen from ToolEnum
+        misc: String     // Chosen by User
     },
 
     feats: String,
 
     // Equipment
-    weapons: [Weapon],      // Chosen By User
+    weapons: {
+        weapon1: Weapon,
+        weapon2: Weapon,
+        weapon3: Weapon,
+        spells: String
+    },      // Chosen By User
     armor: [Armor],         // Chosen By User
     shields: [Shield],      // Chosen By User
-    inventory: [String],    // Chosen by User
+    inventory: String,    // Chosen by User
 
     // Magical Information
     magic: {

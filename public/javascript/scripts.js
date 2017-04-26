@@ -132,6 +132,12 @@ function updateSkillProficiencies(proficiency) {
         proficiencyNumber.textContent = (fullBonus >= 0) ? '+' + fullBonus : '' + fullBonus;
     }
 
+    const passivePerception = document.querySelector('#passive-perception');
+    const perceptionObj = document.querySelector('#perception-proficiency');
+    const perceptionMod = (perceptionObj.textContent.includes('+')) ?
+        parseInt(perceptionObj.textContent.slice(1)) : parseInt(perceptionObj.textContent);
+    const passivePerceptionMod = 10 + perceptionMod;
+    passivePerception.textContent = (passivePerceptionMod >= 0) ? '+' + passivePerceptionMod : '' + passivePerceptionMod;
 }
 
 // Update the modifiers whenever the ability score changes.

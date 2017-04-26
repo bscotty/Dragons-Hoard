@@ -13,6 +13,7 @@ div#hp-equipment {
 
     display: inline;
     float: left;
+    padding-bottom: 2px;
 
     border: solid dimgray 2px;
     border-radius: 15px;
@@ -24,6 +25,16 @@ div#features-traits {
 
     display: inline;
     float: left;
+
+    border: solid dimgray 2px;
+    border-radius: 15px;
+}
+
+div#misc-proficiencies {
+    text-align: center;
+    width: 100%;
+
+    margin-top: 2px;
 
     border: solid dimgray 2px;
     border-radius: 15px;
@@ -47,6 +58,16 @@ div.page {
     overflow: hidden;
 }
 
+div.passive-perception {
+    text-align: center;
+    width: 100%;
+
+    font-size: 16px;
+
+    border: solid dimgray 2px;
+    border-radius: 15px;
+}
+
 div#proficiency {
     margin-top: 10px;
 
@@ -67,9 +88,8 @@ div#sheet-container {
 
 div#skills {
     width: 100%;
-    padding-top: 0;
+    padding-bottom: 3px;
 
-    display: inline;
     float: left;
 
     text-align: center;
@@ -100,8 +120,12 @@ input {
     background: transparent;
 }
 
+input.atk-bonus[type=number] {
+    padding-left: 10px;
+}
+
 input.ability-score[type=number] {
-    height: 65px;
+    height: 64px;
     padding-left: 15px;
     margin-bottom: -10px;
 
@@ -110,7 +134,7 @@ input.ability-score[type=number] {
     border-right: transparent;
     border-bottom: solid dimgray 1px;
 
-    font-size: 25px;
+    font-size: 24px;
     text-align: center;
 }
 
@@ -191,6 +215,19 @@ label#inspiration-label {
 p.ability-modifier {
     font-size: 18px;
     margin-bottom: 10px;
+}
+
+p.passive-perception {
+    display: inline;
+    font-size: 16px;
+    margin-left: 7px;
+}
+
+p#passive-perception {
+    padding: 3px 4px;
+
+    border: solid lightgray 2px;
+    border-radius: 15px;
 }
 
 p.saving-throw-proficiency {
@@ -312,12 +349,27 @@ td.death-save, label.death-save {
     font-size: 16px;
 }
 
+td#feats-td {
+    padding-top: 12px;
+}
+
 td.skills, td#hit-dice {
     text-align: center;
     font-size: 10px;
 }
 
-td#proficiency-td, td.skills, td#death-save {
+td.passive-perception {
+    padding: 7px 5px;
+
+    text-align: center;
+}
+
+td#proficiency-td {
+    border-bottom: solid dimgray 1px;
+    padding-bottom: 8px;
+}
+
+td.skills, td#death-save {
     border-bottom: solid dimgray 1px;
     padding-bottom: 3px;
 }
@@ -326,10 +378,26 @@ td#inspiration-td {
     padding-top: 5px;
 }
 
+td#proficiencies-td {
+    text-align: center;
+    font-size: 16px;
+
+    border-bottom: solid dimgray 1px;
+}
+
 textarea {
     width: 100%;
+    margin-bottom: 2px;
 
     font-size: 12px;
+    resize: none;
+}
+
+textarea#feats {
+    max-height: 742px;
+}
+
+textarea.resizable {
     resize: vertical;
 }
 

@@ -23,6 +23,7 @@ const db = require('./db.js');
 const app = express();
 
 const Sheet = mongoose.model('Sheet');
+const Weapon = mongoose.model('Weapon');
 
 // 1. Express-Static
 app.use(express.static(path.join(__dirname, 'public')));
@@ -155,6 +156,9 @@ app.get('/sheet/:slug', function (req, res) {
 
         sheet.traits = val.traits;
         sheet.feats = val.feats;
+        sheet.proficiencies = val.proficiencies;
+        sheet.weapons = val.weapons;
+        sheet.inventory = val.inventory;
     }).then(function () {
         res.render('slug', {sheet: sheet});
     });
@@ -251,6 +255,19 @@ app.post('/sheet/:slug', function (req, res) {
     };
 
     sheet.feats = req.body.feats;
+    sheet.weapons = {
+        weapon1: new Weapon({name: req.body.weapon1Name, bonus: req.body.weapon1Bonus, damage: req.body.weapon1Damage}),
+        weapon2: new Weapon({name: req.body.weapon2Name, bonus: req.body.weapon2Bonus, damage: req.body.weapon2Damage}),
+        weapon3: new Weapon({name: req.body.weapon3Name, bonus: req.body.weapon3Bonus, damage: req.body.weapon3Damage}),
+        spells: req.body.spells,
+    };
+    sheet.proficiencies = {
+        languages: req.body.languages,
+        misc: req.body.proficiencies,
+        weapons: req.body.weapons,
+        armor: req.body.armor
+    };
+    sheet.inventory = req.body.inventory;
 
     //TODO: Find a way to only update the stuff changed, to cut down on traffic
     const update = {};
@@ -333,7 +350,32 @@ app.post('/sheet/:slug', function (req, res) {
                 flaws: sheet.traits.ideological.flaws
             }
         },
+        proficiencies: {
+            languages: sheet.proficiencies.languages,
+            weapons: sheet.proficiencies.weapons,
+            armor: sheet.proficiencies.armor,
+            misc: sheet.proficiencies.misc
+        },
         feats: sheet.feats,
+        weapons: {
+            weapon1: {
+                name: sheet.weapons.weapon1.name,
+                bonus: sheet.weapons.weapon1.bonus,
+                damage: sheet.weapons.weapon1.damage,
+            },
+            weapon2: {
+                name: sheet.weapons.weapon2.name,
+                bonus: sheet.weapons.weapon2.bonus,
+                damage: sheet.weapons.weapon2.damage,
+            },
+            weapon3: {
+                name: sheet.weapons.weapon3.name,
+                bonus: sheet.weapons.weapon3.bonus,
+                damage: sheet.weapons.weapon3.damage,
+            },
+            spells: sheet.weapons.spells
+        },
+        inventory: sheet.inventory,
 
     };
     // console.log('sheet ability scores', sheet.abilityScores);

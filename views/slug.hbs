@@ -564,8 +564,8 @@
                                 <tr>
                                     <td>
                                         <label>
-                                            <textarea name="personality" id="personality" rows="5">
-                                                {{sheet.traits.ideological.personality}}</textarea>
+                                            <textarea name="personality" id="personality"
+                                                      rows="5">{{sheet.traits.ideological.personality}}</textarea>
                                             Personality Traits
                                         </label>
                                     </td>
@@ -573,8 +573,8 @@
                                 <tr>
                                     <td>
                                         <label>
-                                            <textarea name="ideals" id="ideals" rows="4">
-                                                {{sheet.traits.ideological.ideals}}</textarea>
+                                            <textarea name="ideals" id="ideals"
+                                                      rows="4">{{sheet.traits.ideological.ideals}}</textarea>
                                             Ideals
                                         </label>
                                     </td>
@@ -582,29 +582,31 @@
                                 <tr>
                                     <td>
                                         <label>
-                                            <textarea name="bonds" id="bonds" rows="4">
-                                                {{sheet.traits.ideological.bonds}}
-                                            </textarea>Bonds</label>
+                                            <textarea name="bonds" id="bonds"
+                                                      rows="4">{{sheet.traits.ideological.bonds}}</textarea>
+                                            Bonds
+                                        </label>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <label>
-                                            <textarea name="flaws" id="flaws" rows="4">
-                                                {{sheet.traits.ideological.flaws}}</textarea>
+                                            <textarea name="flaws" id="flaws"
+                                                      rows="4">{{sheet.traits.ideological.flaws}}</textarea>
                                             Flaws
                                         </label>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="skills">
+                                    <td id="feats-td" class="skills">
                                         <p>FEATS</p>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <label>
-                                            <textarea name="feats" id="feats" rows="10">{{sheet.feats}}</textarea>
+                                            <textarea name="feats" id="feats"
+                                                      rows="8" style="height: 742px">{{sheet.feats}}</textarea>
                                         </label>
                                     </td>
                                 </tr>
@@ -623,8 +625,91 @@
                                 <tbody>
                                 <tr>
                                     <td class="skills">
-                                        <label>EQUIPMENT
-                                        </label>
+                                        <p>WEAPONS / SPELLS</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <table id="weapon-table">
+                                            <colgroup>
+                                                <col width="40%">
+                                                <col width="18%">
+                                                <col width="32%">
+                                            </colgroup>
+                                            <tbody>
+                                            <tr>
+                                                <th>
+                                                    Name
+                                                </th>
+                                                <th>
+                                                    Atk. Bonus
+                                                </th>
+                                                <th>
+                                                    Damage/Type
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="text" class="" name="weapon1Name" id="weapon1-name"
+                                                           value="{{sheet.weapons.weapon1.name}}" title="weapon1Name">
+                                                </td>
+                                                <td>
+                                                    <input type="number" class="atk-bonus" name="weapon1Bonus"
+                                                           id="weapon1-bonus" value="{{sheet.weapons.weapon1.bonus}}"
+                                                           title="weapon1Bonus">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="" name="weapon1Damage" id="weapon1-damage"
+                                                           value="{{sheet.weapons.weapon1.damage}}"
+                                                           title="weapon1Damage">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="text" class="" name="weapon2Name" id="weapon2-name"
+                                                           value="{{sheet.weapons.weapon2.name}}" title="weapon2Name">
+                                                </td>
+                                                <td>
+                                                    <input type="number" class="atk-bonus" name="weapon2Bonus"
+                                                           id="weapon2-bonus" value="{{sheet.weapons.weapon2.bonus}}"
+                                                           title="weapon2Bonus">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="" name="weapon2Damage" id="weapon2-damage"
+                                                           value="{{sheet.weapons.weapon2.damage}}"
+                                                           title="weapon2Damage">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="text" class="" name="weapon3Name" id="weapon3-name"
+                                                           value="{{sheet.weapons.weapon3.name}}"
+                                                           title="weapon3Name">
+                                                </td>
+                                                <td>
+                                                    <input type="number" class="atk-bonus" name="weapon3Bonus"
+                                                           id="weapon3-bonus" value="{{sheet.weapons.weapon3.bonus}}"
+                                                           title="weapon3Bonus">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="" name="weapon3Damage" id="weapon3-damage"
+                                                           value="{{sheet.weapons.weapon3.damage}}"
+                                                           title="weapon3Damage">
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="skills">
+                                        COMBAT SPELLS
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <textarea name="spells" id="spells" rows="16"
+                                                  title="spells">{{sheet.weapons.spells}}</textarea>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -635,20 +720,90 @@
                 <tr>
                     <td colspan="2">
                         <!-- Passive Perception / Misc. Proficiencies !-->
+                        <div class="passive-perception">
+                            <table>
+                                <tr>
+                                    <td class="passive-perception">
+                                        <p id="passive-perception" class="passive-perception">+0</p>
+                                        <p class="passive-perception">PASSIVE WISDOM (PERCEPTION)</p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div id="misc-proficiencies">
+                            <table>
+                                <tr>
+                                    <td colspan="2" id="proficiencies-td">
+                                        PROFICIENCIES
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="skills">
+                                        WEAPONS
+                                    </td>
+                                    <td class="skills">
+                                        ARMOR
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <textarea name="weapons" id="weapons" rows="6"
+                                                  title="weapons">{{sheet.proficiencies.weapons}}</textarea>
+                                    </td>
+                                    <td>
+                                        <textarea name="armor" id="armor" rows="6"
+                                                  title="armor">{{sheet.proficiencies.armor}}</textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="skills">
+                                        LANGUAGES
+                                    </td>
+                                    <td class="skills">
+                                        OTHER PROFICIENCIES
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <textarea name="languages" id="languages" rows="12"
+                                                  title="languages">{{sheet.proficiencies.languages}}</textarea>
+                                    </td>
+                                    <td>
+                                        <textarea name="proficiencies" id="proficiencies" rows="12"
+                                                  title="proficiencies">{{sheet.proficiencies.misc}}</textarea>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
                     </td>
                     <td>
                         <!-- Equipment !-->
+                        <div id="hp-equipment">
+                            <table>
+                                <tr>
+                                    <td class="skills">
+                                        INVENTORY
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <textarea name="inventory" id="inventory" rows="24"
+                                                  title="inventory">{{sheet.inventory}}</textarea>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
                     </td>
                 </tr>
             </table>
         </div>
 
-        <div class="page">
+        <!--<div class="page">-->
 
-        </div>
+        <!--</div>-->
 
         <!--
-        <label><input type="text" class="" name="" id="" value=""></label>
+        <label><input type="text" class="" name="" id="" value="" title=""></label>
                     <td>
                         <label><input type="text" class="" id="faction" name="faction" value="{{sheet.faction}}">
                             <br>Faction</label>
