@@ -21,7 +21,7 @@
 <h1>Welcome to the Dragon's Hoard! Functionality Coming Soon!</h1>
 <h1><A id="sheets" href="/sheets"></A></h1>
 
-<body>
+<body style="text-align: center;">
 <canvas id="canvas1" width="600" height="600"></canvas>
 </body>
 
@@ -75,68 +75,68 @@ void main() {
 </script>
 
 <script>
-    const m = M.identityMatrix();
+    window.addEventListener('load', function () {
+        const m = M.identityMatrix();
 
-    const vs = vs_script.innerHTML, fs = fs_script.innerHTML;
+        const canvas1 = document.querySelector('#canvas1');
+        const vs = document.querySelector('#vs_script').innerHTML;
+        const fs = document.querySelector('#fs_script').innerHTML;
 
-    addTextEditor(fs, function () {
-        canvas1.setShaders(vs, this.value);
+        let obj1;
+
+        gl_start(canvas1, vs, fs,
+                function (time) {
+                    M.identity(m);
+                    M.rotateY(m, time);
+                    M.rotateZ(m, time);
+                    M.scale(m, 0.7);
+
+                    M.save(m);
+                    obj1.setMatrix(m);
+                    M.restore(m);
+                }
+        );
+        const scene = new Scene();
+
+        const vertices = S.parametricMesh(S.sphere, 15, 15);
+        console.log(vertices);
+
+        obj1 = new SceneObject();
+        const obj1Vertices = [];
+        for (let i = 0; i < vertices.length; i++) {
+            for (let j = 0; j < 3; j++)
+                obj1Vertices.push(vertices[i][0][j]);
+            for (let j = 0; j < 3; j++)
+                obj1Vertices.push(vertices[i][1][j]);
+            for (let j = 0; j < 3; j++)
+                obj1Vertices.push(vertices[i][2][j]);
+
+            for (let j = 0; j < 3; j++)
+                obj1Vertices.push(vertices[i][0][j]);
+            for (let j = 0; j < 3; j++)
+                obj1Vertices.push(vertices[i][1][j]);
+            for (let j = 0; j < 3; j++)
+                obj1Vertices.push(vertices[i][2][j]);
+
+            for (let j = 0; j < 3; j++)
+                obj1Vertices.push(vertices[i][2][j]);
+            for (let j = 0; j < 3; j++)
+                obj1Vertices.push(vertices[i][3][j]);
+            for (let j = 0; j < 3; j++)
+                obj1Vertices.push(vertices[i][4][j]);
+
+            for (let j = 0; j < 3; j++)
+                obj1Vertices.push(vertices[i][2][j]);
+            for (let j = 0; j < 3; j++)
+                obj1Vertices.push(vertices[i][3][j]);
+            for (let j = 0; j < 3; j++)
+                obj1Vertices.push(vertices[i][4][j]);
+        }
+        obj1.setVertices(obj1Vertices);
+        scene.addObject(obj1);
+
+        canvas1.scene = scene;
     });
-
-    let obj1;
-
-    gl_start(canvas1, vs, fs,
-            function (time) {
-                M.identity(m);
-                M.rotateY(m, time);
-                M.rotateZ(m, time);
-                M.scale(m, 0.7);
-
-                M.save(m);
-                obj1.setMatrix(m);
-                M.restore(m);
-            }
-    );
-    const scene = new Scene();
-
-    const vertices = S.parametricMesh(S.sphere, 15, 15);
-    console.log(vertices);
-
-    obj1 = new SceneObject();
-    const obj1Vertices = [];
-    for (let i = 0; i < vertices.length; i++) {
-        for (let j = 0; j < 3; j++)
-            obj1Vertices.push(vertices[i][0][j]);
-        for (let j = 0; j < 3; j++)
-            obj1Vertices.push(vertices[i][1][j]);
-        for (let j = 0; j < 3; j++)
-            obj1Vertices.push(vertices[i][2][j]);
-
-        for (let j = 0; j < 3; j++)
-            obj1Vertices.push(vertices[i][0][j]);
-        for (let j = 0; j < 3; j++)
-            obj1Vertices.push(vertices[i][1][j]);
-        for (let j = 0; j < 3; j++)
-            obj1Vertices.push(vertices[i][2][j]);
-
-        for (let j = 0; j < 3; j++)
-            obj1Vertices.push(vertices[i][2][j]);
-        for (let j = 0; j < 3; j++)
-            obj1Vertices.push(vertices[i][3][j]);
-        for (let j = 0; j < 3; j++)
-            obj1Vertices.push(vertices[i][4][j]);
-
-        for (let j = 0; j < 3; j++)
-            obj1Vertices.push(vertices[i][2][j]);
-        for (let j = 0; j < 3; j++)
-            obj1Vertices.push(vertices[i][3][j]);
-        for (let j = 0; j < 3; j++)
-            obj1Vertices.push(vertices[i][4][j]);
-    }
-    obj1.setVertices(obj1Vertices);
-    scene.addObject(obj1);
-
-    canvas1.scene = scene;
 </script>
 
 </html>

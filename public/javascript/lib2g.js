@@ -2,6 +2,8 @@ const fragmentShaderHeader = [''               // PREDEFINED STUFF FOR FRAGMENT 
     , '   precision highp float;'
 ].join('\n');
 
+let time = 0;
+
 function SceneObject(vertices) {
     const bpe = Float32Array.BYTES_PER_ELEMENT;
 
@@ -51,8 +53,6 @@ function Scene() {
         }
     }
 }
-
-let time = 0;
 
 function gl_start(canvas, vertexShader, fragmentShader, update) {           // START WEBGL RUNNING IN A CANVAS
     try {
@@ -131,23 +131,3 @@ function gl_start(canvas, vertexShader, fragmentShader, update) {           // S
 
     }, 100); // Wait 100 milliseconds after page has loaded before starting WebGL.
 }
-
-function addTextEditor(code, callback) {                                // Add a text editor to the web page:
-    document.body.innerHTML = [''
-        , '<table><tr><td width=10></td><td valign=top>'                // Insert new html for textArea into the page.
-        , '<textArea id=textArea '
-        , 'style="font:13px courier;outline-width:0;border-style:none;resize:none;overflow:scroll;display:none"'
-        , '></textArea>'
-        , '</td><td valign=top>' + document.body.innerHTML + '</td></tr></table>'
-    ].join('');
-    textArea.value = code;                                              // Set its current text to user-provided code.
-    let i = 0;
-    const text = textArea.value.split('\n');                            // Set the correct number of rows and columns.
-    textArea.rows = Math.max(text.length, 50);
-    while (i < text.length)
-        textArea.cols = Math.max(textArea.cols, text[i++].length);
-    textArea.style.backgroundColor = 'black';                           // Set the text editor's text and bg colors.
-    textArea.style.color = 'white';
-    textArea.onkeyup = callback;                                        // User-provided callback function on keystroke.
-}
-
