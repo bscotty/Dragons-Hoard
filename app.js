@@ -106,9 +106,9 @@ app.post('/sheet/newSheet', function (req, res) {
                 success3: sheet.deathSaves.successes.success3,
             },
             failures: {
-                failure1: sheet.deathSaves.successes.failure1,
-                failure2: sheet.deathSaves.successes.failure2,
-                failure3: sheet.deathSaves.successes.failure3,
+                failure1: sheet.deathSaves.failures.failure1,
+                failure2: sheet.deathSaves.failures.failure2,
+                failure3: sheet.deathSaves.failures.failure3,
             }
         }
     };
