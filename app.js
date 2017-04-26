@@ -223,13 +223,13 @@ app.post('/sheet/:slug', function (req, res) {
     };
 
     sheet.inspiration = (req.body.inspiration !== undefined) ? 'true' : 'false';
-    sheet.armorClass = parseInt(req.body.armorClass);
-    sheet.initiative = parseInt(req.body.initiative);
-    sheet.speed = parseInt(req.body.speed);
+    sheet.armorClass = req.body.armorClass;
+    sheet.initiative = req.body.initiative;
+    sheet.speed = req.body.speed;
 
-    sheet.hitPoints = parseInt(req.body.hitPoints);
-    sheet.currentHP = parseInt(req.body.currentHP);
-    sheet.temporaryHP = parseInt(req.body.temporaryHP);
+    sheet.hitPoints = req.body.hitPoints;
+    sheet.currentHP = req.body.currentHP;
+    sheet.temporaryHP = req.body.temporaryHP;
     sheet.hitDice = req.body.hitDice;
 
     sheet.deathSaves = {
