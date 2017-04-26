@@ -12,7 +12,7 @@
         }
 
         function onLoad() {
-            firebase.auth().onAuthStateChanged(onSignIn());
+            firebase.auth().onAuthStateChanged(onSignIn);
         }
 
         window.addEventListener('load', onLoad);
@@ -20,4 +20,123 @@
 </head>
 <h1>Welcome to the Dragon's Hoard! Functionality Coming Soon!</h1>
 <h1><A id="sheets" href="/sheets"></A></h1>
+
+<body>
+<canvas id="canvas1" width="600" height="600"></canvas>
+</body>
+
+<script src="/javascript/M.js"></script>
+<script src="/javascript/lib2g.js"></script>
+<script src="/javascript/S.js"></script>
+
+<script id="vs_script" type="x-shader/x-vertex">
+   attribute vec3 aPos, aNor;
+   varying   vec3 vPos, vNor;
+   uniform   mat4 matrix, invMatrix;
+   void main() {
+      vec4 pos = matrix * vec4(aPos, 1.);
+      vec4 nor = vec4(aNor, 0.) * invMatrix;
+
+// dot(nor, pos);
+// dot(nor * invMatrix, matrix * pos);
+// nor . invMatrix . matrix . pos
+// nor . (invMatrix . matrix) . pos
+// nor . pos
+
+      gl_Position = pos;
+      vPos = pos.xyz;
+      vNor = nor.xyz;
+   }
+</script>
+
+<script id="fs_script" type="x-shader/x-fragment">
+
+varying vec3 vPos, vNor;
+void main() {
+   vec3 normal = normalize(vNor);
+   vec3 c = normal * .5 + .5;
+
+   /* Begin Phong Shading. */
+   vec3 L = normalize(vec3(1,1,0));     // Light
+   vec3 Lcol = vec3(.8, .8, .8);        // Light Color
+   vec3 R = 2. * normal * dot(normal, L) - L;   // R
+
+   vec3 a = vec3(.2, 0,.2); // ambient
+   vec3 d = vec3(.5,.4,.5); // diffuse
+   vec3 s = vec3(.3,.2,.3); // specular
+   vec3 E = normalize(-L);  // direction back
+
+   c = a + Lcol *
+       (d * max(0., dot(normal, L)) +
+        s * pow(max(0., dot(E, R)), 2.5));
+   /* End Phong Shading. */
+   gl_FragColor = vec4(sqrt(c), 1.);
+}
+</script>
+
+<script>
+    const m = M.identityMatrix();
+
+    const vs = vs_script.innerHTML, fs = fs_script.innerHTML;
+
+    addTextEditor(fs, function () {
+        canvas1.setShaders(vs, this.value);
+    });
+
+    let obj1;
+
+    gl_start(canvas1, vs, fs,
+            function (time) {
+                M.identity(m);
+                M.rotateY(m, time);
+                M.rotateZ(m, time);
+                M.scale(m, 0.7);
+
+                M.save(m);
+                obj1.setMatrix(m);
+                M.restore(m);
+            }
+    );
+    const scene = new Scene();
+
+    const vertices = S.parametricMesh(S.sphere, 15, 15);
+    console.log(vertices);
+
+    obj1 = new SceneObject();
+    const obj1Vertices = [];
+    for (let i = 0; i < vertices.length; i++) {
+        for (let j = 0; j < 3; j++)
+            obj1Vertices.push(vertices[i][0][j]);
+        for (let j = 0; j < 3; j++)
+            obj1Vertices.push(vertices[i][1][j]);
+        for (let j = 0; j < 3; j++)
+            obj1Vertices.push(vertices[i][2][j]);
+
+        for (let j = 0; j < 3; j++)
+            obj1Vertices.push(vertices[i][0][j]);
+        for (let j = 0; j < 3; j++)
+            obj1Vertices.push(vertices[i][1][j]);
+        for (let j = 0; j < 3; j++)
+            obj1Vertices.push(vertices[i][2][j]);
+
+        for (let j = 0; j < 3; j++)
+            obj1Vertices.push(vertices[i][2][j]);
+        for (let j = 0; j < 3; j++)
+            obj1Vertices.push(vertices[i][3][j]);
+        for (let j = 0; j < 3; j++)
+            obj1Vertices.push(vertices[i][4][j]);
+
+        for (let j = 0; j < 3; j++)
+            obj1Vertices.push(vertices[i][2][j]);
+        for (let j = 0; j < 3; j++)
+            obj1Vertices.push(vertices[i][3][j]);
+        for (let j = 0; j < 3; j++)
+            obj1Vertices.push(vertices[i][4][j]);
+    }
+    obj1.setVertices(obj1Vertices);
+    scene.addObject(obj1);
+
+    canvas1.scene = scene;
+</script>
+
 </html>
