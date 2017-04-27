@@ -26,13 +26,13 @@ function updateCheckBoxes() {
     checkboxes.push(document.querySelector('#dsf2'));
     checkboxes.push(document.querySelector('#dsf3'));
 
-    for (let i = 0; i < checkboxes.length; i++) {
-        if (checkboxes[i].value === 'true') {
-            checkboxes[i].setAttribute('checked', 'checked');
+    checkboxes.forEach((ele) => {
+        if (ele.value === 'true') {
+            ele.setAttribute('checked', 'checked');
         } else {
-            checkboxes[i].removeAttribute('checked');
+            ele.removeAttribute('checked');
         }
-    }
+    });
 }
 
 // Update ALL ability modifiers based on their ability scores.
@@ -137,22 +137,6 @@ function updateSkillProficiencies() {
     passivePerception.textContent = (passivePerceptionMod >= 0) ? '+' + passivePerceptionMod : '' + passivePerceptionMod;
 }
 
-// Setup all javascript helper functions.
-function setupHelpers() {
-    const abilityScores = document.getElementsByClassName('ability-score');
-    for (let i = 0; i < abilityScores.length; i++) {
-        addInputListener(abilityScores[i], function() {
-            updateAbilityModifier(abilityScores[i]);
-            updateSavingThrows();
-            updateSkillProficiencies();
-        });
-    }
-    const level = document.querySelector('#level');
-    addInputListener(level, function () {
-        updateProficiencyBonus(level);
-    });
-}
-
 // Disable all inputs if the user is signed out.
 function disableAllInputs() {
     const inputs = document.getElementsByTagName('input');
@@ -191,5 +175,19 @@ function watchForChanges() {
             updateSkillProficiencies();
         });
     }
-    setupHelpers();
+
+    // Update modifiers, saving throws, and skill proficiencies whenever an ability score is changed.
+    const abilityScores = document.getElementsByClassName('ability-score');
+    for (let i = 0; i < abilityScores.length; i++) {
+        addInputListener(abilityScores[i], function() {
+            updateAbilityModifier(abilityScores[i]);
+            updateSavingThrows();
+            updateSkillProficiencies();
+        });
+    }
+    // Update proficiency bonus whenever the level is changed.
+    const level = document.querySelector('#level');
+    addInputListener(level, function () {
+        updateProficiencyBonus(level);
+    });
 }
