@@ -43,9 +43,9 @@
         updateModifiers();
         updateCheckBoxes();
         updateSelects();
-        updateProficiencyBonus(document.querySelector('#level'));
-        updateSavingThrows(document.querySelector('#proficiency-bonus'));
-        updateSkillProficiencies(document.querySelector('#proficiency-bonus'));
+        updateProficiencyBonus();
+        updateSavingThrows();
+        updateSkillProficiencies();
 
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {

@@ -40,7 +40,8 @@ function updateModifiers() {
 }
 
 // Whenever the level changes, ensure that the proficiency bonus changes if need be.
-function updateProficiencyBonus(level) {
+function updateProficiencyBonus() {
+    const level = document.querySelector('#level');
     const bonus = document.querySelector('#proficiency-bonus');
     if (!isNaN(level.value)) {
         const proficiencyBonus = 1 + Math.ceil((level.value) / 4);
@@ -53,7 +54,8 @@ function updateProficiencyBonus(level) {
 }
 
 // Update all saving throws based on their proficiencies and relevant ability scores.
-function updateSavingThrows(proficiency) {
+function updateSavingThrows() {
+    const proficiency = document.querySelector('#proficiency-bonus');
     const proficiencyBonus = (proficiency.textContent.includes('+'))
         ? parseInt(proficiency.textContent.slice(1)) : parseInt(proficiency.textContent);
     const abilityScores = ['str', 'dex', 'con', 'int', 'wis', 'cha'];
@@ -86,7 +88,8 @@ function updateSavingThrows(proficiency) {
 }
 
 // Update all skill proficiencies based on their proficiency and and relevant ability score.
-function updateSkillProficiencies(proficiency) {
+function updateSkillProficiencies() {
+    const proficiency = document.querySelector('#proficiency-bonus');
     const proficiencyBonus = (proficiency.textContent.includes('+'))
         ? parseInt(proficiency.textContent.slice(1)) : parseInt(proficiency.textContent);
     let fullBonus = 0;
