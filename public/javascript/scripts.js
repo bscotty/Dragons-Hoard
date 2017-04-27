@@ -137,29 +137,20 @@ function updateSkillProficiencies() {
     passivePerception.textContent = (passivePerceptionMod >= 0) ? '+' + passivePerceptionMod : '' + passivePerceptionMod;
 }
 
-// Update the modifiers whenever the ability score changes.
-function abilityScoreListener(DOMObject) {
-    addInputListener(DOMObject, function() {
-        updateAbilityModifier(DOMObject);
-        updateSavingThrows();
-        updateSkillProficiencies();
-    });
-}
-
-// Update proficiency bonus, saving throws, and skill proficiencies on level up.
-function levelListener(DOMObject) {
-    addInputListener(DOMObject, function () {
-        updateProficiencyBonus(DOMObject);
-    });
-}
-
 // Setup all javascript helper functions.
 function setupHelpers() {
     const abilityScores = document.getElementsByClassName('ability-score');
     for (let i = 0; i < abilityScores.length; i++) {
-        abilityScoreListener(abilityScores[i]);
+        addInputListener(abilityScores[i], function() {
+            updateAbilityModifier(abilityScores[i]);
+            updateSavingThrows();
+            updateSkillProficiencies();
+        });
     }
-    levelListener(document.querySelector('#level'));
+    const level = document.querySelector('#level');
+    addInputListener(level, function () {
+        updateProficiencyBonus(level);
+    });
 }
 
 // Disable all inputs if the user is signed out.
