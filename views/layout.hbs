@@ -2,6 +2,7 @@
 <head>
     <link type="text/css" rel="stylesheet" href="/css/base.css">
     <script src="https://www.gstatic.com/firebasejs/3.7.5/firebase.js"></script>
+    <script src="/javascript/firebase-scripts.js"></script>
     <script>
         // Initialize Firebase
         const config = {
@@ -17,11 +18,10 @@
     <script type="text/javascript">
         const firebaseUser = {
             hasCurrentUser: false,
-            currentUser: null,
-            //accessToken: null,
+            currentUserId: null
         };
         initApp = function () {
-            firebase.auth().onAuthStateChanged(function (user) {
+            onFirebaseSignIn(function (user) {
                 if (user) {
                     firebaseUser.hasCurrentUser = true;
                     firebaseUser.currentUser = user;
@@ -54,8 +54,6 @@
                     document.querySelector('#sheet-break').textContent = '';
                     document.querySelector('#my-sheets').textContent = '';
                 }
-            }, function (error) {
-                console.log(error);
             });
         };
 
