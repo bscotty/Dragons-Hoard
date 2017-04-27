@@ -1,19 +1,9 @@
-// Used to convert ability score number to their modifiers
-function convertScoreToMod(abilityScore) {
-    return Math.floor((abilityScore - 10) / 2);
-}
-
-// Used to convert the level to the proficiency bonus.
-function convertLevelToProficiencyBonus(level) {
-    return 1 + Math.ceil((level) / 4);
-}
-
 // Updates an ability modifier when an ability score changes.
 function updateAbilityModifier(abilityScore) {
     const score = abilityScore.value;
     if (!isNaN(score)) {
         const abilityMod = document.querySelector('#' + abilityScore.id + '-modifier');
-        const modifier = convertScoreToMod(score);
+        const modifier = Math.floor((score - 10) / 2);
         abilityMod.textContent = (modifier >= 0) ? '+' + modifier : '' + modifier;
     }
 }
@@ -53,7 +43,7 @@ function updateModifiers() {
 function updateProficiencyBonus(level) {
     const bonus = document.querySelector('#proficiency-bonus');
     if (!isNaN(level.value)) {
-        const proficiencyBonus = convertLevelToProficiencyBonus(level.value);
+        const proficiencyBonus = 1 + Math.ceil((level.value) / 4);
         if (bonus.textContent !== '+' + proficiencyBonus) {
             bonus.textContent = '+' + proficiencyBonus;
             updateSavingThrows(document.querySelector('#proficiency-bonus'));
@@ -189,11 +179,12 @@ function highlightBackgroundsOnChange(objectArray) {
 
 // Watch for changes made to inputs and respond accordingly.
 function watchForChanges() {
-    // Highlight Changes Made to any input
+    // Highlight Changes Made to any input or text area.
     const inputs = document.getElementsByTagName('input');
     highlightBackgroundsOnChange(inputs);
     const textAreas = document.getElementsByTagName('textarea');
     highlightBackgroundsOnChange(textAreas);
+
     // Update skill proficiencies and saving throws when a proficiency value is changed.
     const skillProficiencySelections = document.getElementsByClassName('proficiency-select');
     for (let i = 0; i < skillProficiencySelections.length; i++) {
