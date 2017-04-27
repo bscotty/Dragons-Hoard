@@ -29,6 +29,8 @@
 <canvas id="canvas1" width="400" height="400"></canvas>
 </body>
 
+<!-- The following code generates the D20 (icosahedron) on the home page.
+     I do not expect to be graded, and was just a bit of fun for me. !-->
 <script src="/javascript/M.js"></script>
 <script src="/javascript/lib2g.js"></script>
 <script src="/javascript/S.js"></script>
@@ -115,8 +117,7 @@ void main() {
         );
         const scene = new Scene();
 
-        const vertices = S.UnitIcosahedron();
-        //console.log(vertices);
+        const vertices = UnitIcosahedron();
 
         obj1 = new SceneObject();
         const obj1Vertices = [];
