@@ -1,3 +1,7 @@
+function addInputListener(DOMObject, fn) {
+    DOMObject.addEventListener('input', fn);
+}
+
 // Updates an ability modifier when an ability score changes.
 function updateAbilityModifier(abilityScore) {
     const score = abilityScore.value;
@@ -47,8 +51,8 @@ function updateProficiencyBonus() {
         const proficiencyBonus = 1 + Math.ceil((level.value) / 4);
         if (bonus.textContent !== '+' + proficiencyBonus) {
             bonus.textContent = '+' + proficiencyBonus;
-            updateSavingThrows(document.querySelector('#proficiency-bonus'));
-            updateSkillProficiencies(document.querySelector('#proficiency-bonus'));
+            updateSavingThrows();
+            updateSkillProficiencies();
         }
     }
 }
@@ -134,18 +138,18 @@ function updateSkillProficiencies() {
 }
 
 // Update the modifiers whenever the ability score changes.
-function abilityScoreListener(HTMLObject) {
-    HTMLObject.addEventListener('input', function () {
-        updateAbilityModifier(this);
-        updateSavingThrows(document.querySelector('#proficiency-bonus'));
-        updateSkillProficiencies(document.querySelector('#proficiency-bonus'));
+function abilityScoreListener(DOMObject) {
+    addInputListener(DOMObject, function() {
+        updateAbilityModifier(DOMObject);
+        updateSavingThrows();
+        updateSkillProficiencies();
     });
 }
 
 // Update proficiency bonus, saving throws, and skill proficiencies on level up.
-function levelListener(HTMLObject) {
-    HTMLObject.addEventListener('input', function () {
-        updateProficiencyBonus(this);
+function levelListener(DOMObject) {
+    addInputListener(DOMObject, function () {
+        updateProficiencyBonus(DOMObject);
     });
 }
 
@@ -173,8 +177,8 @@ function disableAllInputs() {
 function highlightBackgroundsOnChange(objectArray) {
     for (let i = 0; i < objectArray.length; i++) {
         if (objectArray[i].type !== 'submit') {
-            objectArray[i].addEventListener('input', function () {
-                this.style.backgroundColor = 'beige';
+            addInputListener(objectArray[i], function() {
+                objectArray[i].style.backgroundColor = 'beige';
             });
         }
     }
@@ -191,9 +195,9 @@ function watchForChanges() {
     // Update skill proficiencies and saving throws when a proficiency value is changed.
     const skillProficiencySelections = document.getElementsByClassName('proficiency-select');
     for (let i = 0; i < skillProficiencySelections.length; i++) {
-        skillProficiencySelections[i].addEventListener('input', function () {
-            updateSavingThrows(document.querySelector('#proficiency-bonus'));
-            updateSkillProficiencies(document.querySelector('#proficiency-bonus'));
+        addInputListener(skillProficiencySelections[i], () => {
+            updateSavingThrows();
+            updateSkillProficiencies();
         });
     }
     setupHelpers();
