@@ -1,43 +1,28 @@
-div#ability-scores {
+div#ability-scores,
+div#hp-equipment,
+div#features-traits,
+div#misc-proficiencies,
+div#skills,
+div.passive-perception {
     text-align: center;
     width: 100%;
+}
 
-    display: inline;
-    float: left;
-    border-radius: 8px;
+div#hp-equipment,
+div#features-traits,
+div#misc-proficiencies,
+div#skills,
+div.passive-perception {
+    border: solid dimgray 2px;
+    border-radius: 15px;
 }
 
 div#hp-equipment {
-    text-align: center;
-    width: 100%;
-
-    display: inline;
-    float: left;
     padding-bottom: 2px;
-
-    border: solid dimgray 2px;
-    border-radius: 15px;
-}
-
-div#features-traits {
-    text-align: center;
-    width: 100%;
-
-    display: inline;
-    float: left;
-
-    border: solid dimgray 2px;
-    border-radius: 15px;
 }
 
 div#misc-proficiencies {
-    text-align: center;
-    width: 100%;
-
     margin-top: 2px;
-
-    border: solid dimgray 2px;
-    border-radius: 15px;
 }
 
 div.page {
@@ -59,19 +44,11 @@ div.page {
 }
 
 div.passive-perception {
-    text-align: center;
-    width: 100%;
-
     font-size: 16px;
-
-    border: solid dimgray 2px;
-    border-radius: 15px;
 }
 
 div#proficiency {
     margin-top: 10px;
-
-    align-content: center;
     font-size: 14px;
 }
 
@@ -87,15 +64,7 @@ div#sheet-container {
 }
 
 div#skills {
-    width: 100%;
     padding-bottom: 3px;
-
-    float: left;
-
-    text-align: center;
-
-    border: solid dimgray 2px;
-    border-radius: 15px;
 }
 
 div#sheet-container {
