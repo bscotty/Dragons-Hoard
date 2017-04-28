@@ -36,39 +36,18 @@ An Example Character Sheet with Embedded Properties:
 
 ```javascript
 {
-    user: , // a reference to a User object, the owner of the sheet
+    user: “”, // a reference to a User, the owner of the sheet
+    slug: “”, // the sheet’s unique identifier within the database
     name: "Grungo the Hairy",
+    player: "Steven",
     class: "Barbarian",
     level: 6,
-    experience: 35000,
-    background: "Mercenary Veteran",
-    player: "Steven",
-    faction: "The High Rollers",
+    exp: 35000,
+
     race: "Goliath",
-    subrace: "",
+    subrace: “The Really Big Kind”
+    background: "Mercenary Veteran",
     alignment: "True Neutral",
-
-
-    traits: {
-        ideological: {
-            personality: "A very angry man!",
-            ideals: "Punching!",
-            bonds: "His fellow punchers!",
-            flaws: "Hurt his hand from punching too much!",
-            backstory: "He's a very strong boy who really got mad one day and hasn\'t stopped getting mad since."
-        },
-        personal {
-            gender: "male",
-            age: "40 years",
-            height: "8\' 6\"",
-            weight: "breaks the scale",
-            eyes: "brown",
-            skin: "gray",
-            hair: "brown",
-            image: "", // a url to an image of the character, optional
-
-        }
-    },
 
     abilityScores: {
         str: 20,
@@ -78,6 +57,7 @@ An Example Character Sheet with Embedded Properties:
         wis: 10,
         cha: 10
     },
+    inspiration: true,
     saves: {
        str: 'proficient',
        dex: 'none',
@@ -86,7 +66,7 @@ An Example Character Sheet with Embedded Properties:
        wis: 'none',
        cha: 'none',
     },
-    skills: [
+    skills: {
         acrobatics: 'expertise',
         animalHandling: 'proficient',
         arcana: 'none',
@@ -105,93 +85,65 @@ An Example Character Sheet with Embedded Properties:
         sleightOfHand: 'none',
         stealth: 'none',
         survival: 'proficient',
-    ],
-    hitpoints: 98,
-    currenthp: 85,
-    inspiration: 1,
+    },
+    armorClass: 10,
+    initiative: 5,
+    speed: 30,
+    hitPoints: 98,
+    currentHP: 85,
+    temporaryHP: 0,
+    hitDice: ‘6d12+30’
 
-    proficiencies: {
-        language: ["Common"],
-        weapon: ["Simple", "Martial"],
-        armor: ["Light", "Medium", "Heavy", "Shields"],
-        tool: ["Thieves Tools"],
+    deathSaves: {
+        successes: {
+            success1: true,
+            success2: true,
+            success3: true
+        },
+        failures: {
+            failure1: false
+            failure2: false
+            failure3: false
+        }
     },
 
-    feats: [
-        {name: "Two-Weapon Fighting", description: "Allows for the use of multiple weapons in a single attack"}
-        // and some more! Pretend with me.
-    ],
+    traits: {
+        ideological: {
+            personality: "A very angry man!",
+            ideals: "Punching!",
+            bonds: "His fellow punchers!",
+            flaws: "Hurt his hand from punching too much!",
+        },
+    },
+    proficiencies: {
+        language: "Common",
+        weapon: "Simple\r\nMartial",
+        armor: “Light, Medium, Heavy, Shields”,
+        misc: "Thieves Tools",
+    },
 
-    weapons: [
-        {   name: "Greatsword of Legend",
+    feats: "Two-Weapon Fighting: Allows for the use of multiple weapons in a single attack!”,
+    weapons: {
+        weapon1: {
+            name: “Greatsword of Legend”,
             bonus: 10,
-            damage: "2d6+8",
-            type: "Greatsword",
-            description: "a great sword"
+            damage: “2d6+8”
         },
-        {   name: "club",
+        weapon2: {
+            name: “club”,
             bonus: 7,
-            damage: "1d8+5",
-            type: "Club",
-            description: "just a club"
-        }
-    ],
-    armor: [
-        {   name: "aegis of parthlezul",
-            type: "Heavy",
-            stealthpenalty: -2,
-            baseac: 14,
-            dexteritybonus: 2,
-            magicalbonus: 2,
-            armorclass: 18,
-            description: "a very fancy vest"
-            equipped: true
+            damage: “1d8+5”,
         },
-        {   name: "leather armor",
-            type: "Light",
-            stealthpenalty: 0,
-            baseac: 12,
-            dexteritybonus: 2,
-            magicalbonus: 0,
-            armorclass: 14,
-            description: "a noticably less fancy vest"
-            equipped: false
-        }
-    ],
-    shields: [
-        {   name: "Iron Shield",
-            type: "Shield",
-            basebonus: 2,
-            magicalbonus: 0,
-            armorbonus: 2,
-            description: "might just be a pot lid?"
-            equipped: false
-        }
-    ],
-
-    inventory: ["Some bones", "A really big stick", "An unmailed love letter"],
-
-    magic: {
-        caster: false,
-        spellcastingability: "",
-        spellsavedc: 0,
-        spellattackbonus: 0,
-
-        spells: {
-            level0: {slots: 0, expended: 0, spells: []},
-            level1: {slots: 0, expended: 0, spells: []},
-            level2: {slots: 0, expended: 0, spells: []},
-            level3: {slots: 0, expended: 0, spells: []},
-            level4: {slots: 0, expended: 0, spells: []},
-            level5: {slots: 0, expended: 0, spells: []},
-            level6: {slots: 0, expended: 0, spells: []},
-            level7: {slots: 0, expended: 0, spells: []},
-            level8: {slots: 0, expended: 0, spells: []},
-            level9: {slots: 0, expended: 0, spells: []}
+        weapon3: {
+            name: “”,
+            bonus: 0,
+            damage: “”,
         },
-    }
+        spells: “”
+    },
+    inventory: "Some bones\r\nA really big stick\r\nAn unmailed love letter",
+}
 
-    createdAt: ""// timestamp
 }
 ```
 
