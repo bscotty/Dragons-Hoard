@@ -4,7 +4,6 @@ const path = require('path');
 const bp = require('body-parser');
 const mongoose = require('mongoose');
 const firebase = require('firebase');
-//const firebaseui = require('firebaseui');
 
 // Setup Firebase
 const config = {
@@ -16,7 +15,6 @@ const config = {
     messagingSenderId: "685172894729"
 };
 firebase.initializeApp(config);
-//const firebaseDatabase = firebase.database();
 
 // Ensure we get our schemas from db.js
 const db = require('./db.js');
