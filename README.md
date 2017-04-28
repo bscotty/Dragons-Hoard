@@ -212,3 +212,5 @@ official D&D Character Sheet, as published by Wizards of the Coast.
 ## Annotations / References Used
 1. [Firebase Database Web Tutorial](https://firebase.google.com/docs/database/)
 2. [FirebaseUI Authentication Tutorial](https://github.com/firebase/firebaseui-web)
+3. [Programmatically Generating an Icosahedron (a d20 for the home page) was loosely based on the code by **Superwillis** on GitHub found here.](https://github.com/superwills/gtp/blob/master/gtp/geometry/Icosahedron.cpp)
+4. [WebGL support/setup code provided by Ken Perlin](http://mrl.nyu.edu/~perlin/)
