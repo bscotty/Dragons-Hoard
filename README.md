@@ -122,24 +122,24 @@ An Example Character Sheet with Embedded Properties:
         misc: "Thieves Tools",
     },
 
-    feats: "Two-Weapon Fighting: Allows for the use of multiple weapons in a single attack!”,
+    feats: "Two-Weapon Fighting: Allows for the use of multiple weapons in a single attack!",
     weapons: {
         weapon1: {
-            name: “Greatsword of Legend”,
+            name: "Greatsword of Legend",
             bonus: 10,
-            damage: “2d6+8”
+            damage: "2d6+8"
         },
         weapon2: {
-            name: “club”,
+            name: "club",
             bonus: 7,
-            damage: “1d8+5”,
+            damage: "1d8+5",
         },
         weapon3: {
-            name: “”,
+            name: "",
             bonus: 0,
-            damage: “”,
+            damage: "",
         },
-        spells: “”
+        spells: ""
     },
     inventory: "Some bones\r\nA really big stick\r\nAn unmailed love letter",
 }
