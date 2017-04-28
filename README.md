@@ -92,7 +92,7 @@ An Example Character Sheet with Embedded Properties:
     hitPoints: 98,
     currentHP: 85,
     temporaryHP: 0,
-    hitDice: ‘6d12+30’
+    hitDice: '6d12+30'
 
     deathSaves: {
         successes: {
