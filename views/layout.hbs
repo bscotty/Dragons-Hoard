@@ -24,7 +24,7 @@
             onFirebaseSignIn(function (user) {
                 if (user) {
                     firebaseUser.hasCurrentUser = true;
-                    firebaseUser.currentUser = user;
+                    firebaseUser.currentUserId = user.uid;
                     // User is signed in.
                     const displayName = user.displayName;
                     const email = user.email;
@@ -45,7 +45,7 @@
                 } else {
                     // User is signed out.
                     firebaseUser.hasCurrentUser = false;
-                    firebaseUser.currentUser = null;
+                    firebaseUser.currentUserId = null;
                     const signIn = document.querySelector('#sign-in');
                     signIn.textContent = 'Sign in';
                     signIn.setAttribute('href', '/signin');

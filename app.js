@@ -3,18 +3,7 @@ const express = require('express');
 const path = require('path');
 const bp = require('body-parser');
 const mongoose = require('mongoose');
-const firebase = require('firebase');
-
-// Setup Firebase
-const config = {
-    apiKey: "AIzaSyA14Rj6hDSZ0PxJeFhTK_ZR5fo-NVKvCQ4",
-    authDomain: "dragons-hoard.firebaseapp.com",
-    databaseURL: "https://dragons-hoard.firebaseio.com",
-    projectId: "dragons-hoard",
-    storageBucket: "dragons-hoard.appspot.com",
-    messagingSenderId: "685172894729"
-};
-firebase.initializeApp(config);
+const s = require('./firebase-scripts.js');
 
 // Ensure we get our schemas from db.js
 const db = require('./db.js');
@@ -55,17 +44,15 @@ app.get('/sheets', function (req, res) {
 });
 
 app.post('/sheet/newSheet', function (req, res) {
-    // console.log('uid', req.body.huid);
-    // console.log('name', req.body.sheetName);
+    console.log('uid', req.body.huid);
+    console.log('name', req.body.sheetName);
 
     if (req.body.sheetName + '' === '') {
         res.render('sheets', {error: 'You must enter a sheet name.'});
         return;
     }
 
-    //firebase.auth().signInWithCustomToken(req.body.hact);
-
-    const key = firebase.database().ref().child('sheets').push().key;
+    const key = s.getKeyAtChild('sheets');
     const sheet = new Sheet();
     sheet.user = req.body.huid;
     sheet.name = req.body.sheetName;
@@ -89,6 +76,7 @@ app.post('/sheet/newSheet', function (req, res) {
 
     const updates = {};
     updates['/users/' + req.body.huid + '/' + key] = key;
+
     updates['/sheets/' + key] = {
         user: sheet.user,
         name: sheet.name,
@@ -110,7 +98,7 @@ app.post('/sheet/newSheet', function (req, res) {
             }
         }
     };
-    firebase.database().ref().update(updates).then(function () {
+    s.updateDatabase(updates).then(function() {
         res.render('sheet', {sheet: sheet});
     });
 });
@@ -123,7 +111,7 @@ app.get('/sheet/:slug', function (req, res) {
     const slug = req.params.slug;
 
     let sheet = new Sheet();
-    firebase.database().ref('/sheets/' + slug).once('value', function (snapshot) {
+    s.accessDatabase('/sheets/' + slug, function(snapshot) {
         const val = snapshot.val();
         sheet.user = val.user;
         sheet.slug = val.slug;
@@ -380,7 +368,7 @@ app.post('/sheet/:slug', function (req, res) {
     // console.log('update', update);
     // console.log('update ability scores', update['/sheets/' + slug].abilityScores);
 
-    firebase.database().ref().update(update).then(function () {
+    s.updateDatabase(update).then(function() {
         res.render('slug', {sheet: sheet});
     });
 });
@@ -388,13 +376,14 @@ app.post('/sheet/:slug', function (req, res) {
 app.post('/delete/:slug', function (req, res) {
     const slug = req.params.slug;
     // Delete the sheet reference from the user's listing in the database.
-    firebase.database().ref('/users/' + req.body.uid + '/' + slug).remove(function (err) {
+    s.removeFromDatabase('/users/' + req.body.uid + '/' + slug, function(err) {
         if (err) {
             console.log('Error deleting sheet reference ' + slug + ' for user', req.body.uid);
         }
     });
+
     // Also delete the sheet data itself.
-    firebase.database().ref('/sheets/' + slug).remove(function (err) {
+    s.removeFromDatabase('/sheets/' + slug, function(err) {
         if (err) {
             console.log('Error deleting sheet ' + slug, err);
         } else {
